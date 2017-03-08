@@ -1,0 +1,86 @@
+﻿ <!-- Unnamed (Image) -->
+      <div id="u8" class="ax_image">
+        <img id="u8_img" class="img " src="images/0首工位/u8.png"/>
+                <div style="position:absolute;z-index: 21;left: 36px;top: 109px;font-size:12pt;color: #29abe2;font-weight:bold;">$station</div>
+				<div style="position:absolute;z-index: 21;left: 86px;top: 107px;font-size:12pt;color: #29abe2;font-weight:bold;">$userName</div>
+				<div style="position:absolute;z-index: 21;left: 19px;top: 131px;font-size:10pt;color: #29abe2;font-weight:bold;">操作员&nbsp;&nbsp;&nbsp;|</div>
+				<a href="#"><div style="position:absolute;z-index: 21;left: 84px;top: 131px;font-size:10pt;color: #29abe2;font-weight:bold;"data-toggle="modal" data-target="#myModal">修改密码</div></a>
+      </div>
+      </div>
+	<div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form id="addStation0sForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="info-item-content">
+                    <table class="wide-table table">
+                        <tr>
+							<td style="border: none;">
+								原密码：
+								<div class="input-wrap">
+									<input type="password" id="oldPass" name="oldPass" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								新密码：
+								<div class="input-wrap">
+									<input type="password" id="newPass" name="newPass" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						 <tr>
+							<td style="border: none;">
+								确认密码：
+								<div class="input-wrap">
+									<input type="password" id="confirmPass" name="confirmPass" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span type="button" class="btn" id="savePass">确认</span>
+                <span type="button" class="btn"  data-dismiss="modal">取消</span>
+            </div>
+        </div>
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+	$("#savePass").click(function(){
+		if($("#oldPass").val()==""){
+			alert("请输入原密码");
+			return;
+		}
+		if($("#newPass").val()==""){
+			alert("请输入新密码");
+			return;
+				}
+		if($("#confirmPass").val()==""){
+			alert("请确认密码");
+			return;
+		}
+		if($("#newPass").val()!=$("#confirmPass").val()){
+			alert("两次输入不一致 请检查");
+			return;
+		}
+		var url = contextPath + "/login/changePass";
+		var params = $("#addStation0sForm").serialize();
+		Util.ajax.postJson(url, params, function(data,flag){
+				if(data.returnCode=="1"){
+					alert(data.returnMessage);
+					$("#myModal").modal('hide');
+				}else{
+					alert(data.returnMessage);
+				}
+		});
+		
+	})
+</script>

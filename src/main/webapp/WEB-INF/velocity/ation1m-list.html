@@ -1,0 +1,432 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <div class="container">
+        <h4 class="main-title">密封性检测工位管理</h4>
+        <div class="row query-box" style="margin-bottom: 20px;">
+            <div style="margin-top:-10px">
+                <span class="oper-bt-gray" data-toggle="modal" data-target="#myModal">新增</span>
+                <span class="oper-bt-gray" id="editStation1mBtn" data-toggle="modal" data-target="#myModal1">编辑</span>
+                <span class="oper-bt-gray" id="delStation1mBtn">删除</span>
+            </div>
+            <div id="demo"></div>
+            <div class="info-wrap">
+                <div style="margin-top: 10px;">
+                    <div class="info-item-box fl" style="width:100%;min-height: 515px;">
+                        <div class="info-item-title">
+                            密封性检测工位信息
+                        </div>
+                        <div class="info-item-content">
+                            <table id="station1mListTable" class="table border-table table-hover align-center-table" style="width:96%">
+                            <!-- 动态显示列表 -->
+                            </table>
+                            <div class="page-box" style="width: 97%;margin:0 auto" >
+                                <span style="float:left" class="pagination" id="totalNum" ></span>
+                                <ul style="float: right;" id="pagination"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form id="addStation1mForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加密封性检测工位</h4>
+            </div>
+            <div class="modal-body">
+                <div class="info-item-content">
+                    <table class="wide-table table">
+                        <tr>
+							<td style="border: none;">
+								外泄漏量：
+								<div class="input-wrap">
+									<input type="text" id="wxll" name="wxll" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								外漏泄漏标准/气压：
+								<div class="input-wrap">
+									<input type="text" id="wlzlbzhPressure" name="wlzlbzhPressure" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								外漏泄漏气压：
+								<div class="input-wrap">
+									<input type="text" id="wlxlPressure" name="wlxlPressure" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								内漏泄漏气压：
+								<div class="input-wrap">
+									<input type="text" id="nlxlPressure" name="nlxlPressure" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								内泄漏量：
+								<div class="input-wrap">
+									<input type="text" id="nxll" name="nxll" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								电机阀编号：
+								<div class="input-wrap">
+									<input type="text" id="machinenum" name="machinenum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								内漏泄漏标准/气压：
+								<div class="input-wrap">
+									<input type="text" id="nlxlbzhPressure" name="nlxlbzhPressure" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								出厂编号：
+								<div class="input-wrap">
+									<input type="text" id="factorynumber" name="factorynumber" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								电机阀型号：
+								<div class="input-wrap">
+									<input type="text" id="machinetype" name="machinetype" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								线别：
+								<div class="input-wrap">
+									<input type="text" id="linenum" name="linenum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								车间号：
+								<div class="input-wrap">
+									<input type="text" id="wpnum" name="wpnum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								检测时间：
+								<div class="input-wrap">
+									<input type="text" id="creattime" name="creattime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								批次号：
+								<div class="input-wrap">
+									<input type="text" id="batchnum" name="batchnum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								工位序号：
+								<div class="input-wrap">
+									<input type="text" id="stationnum" name="stationnum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								端口号：
+								<div class="input-wrap">
+									<input type="text" id="port" name="port" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								工位号：
+								<div class="input-wrap">
+									<input type="text" id="station" name="station" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								检测结果：
+								<div class="input-wrap">
+									<input type="text" id="result" name="result" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								阀门条码：
+								<div class="input-wrap">
+									<input type="text" id="barcode" name="barcode" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span type="button" class="btn" id="saveStation1mBtn">保存</span>
+                <span type="button" class="btn"  data-dismiss="modal">取消</span>
+            </div>
+        </div>
+    </div>
+  </form>
+</div>
+<div class="modal fade" id="myModal1"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form id="editStation1mForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">编辑密封性检测工位</h4>
+            </div>
+            <div class="modal-body">
+                <div class="info-item-content">
+                            <table class="wide-table table">
+                            	<tr>
+							<td style="border: none;">
+								外泄漏量：
+								<div class="input-wrap">
+									<input type="text" id="edit-wxll" name="wxll" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								外漏泄漏标准/气压：
+								<div class="input-wrap">
+									<input type="text" id="edit-wlzlbzhPressure" name="wlzlbzhPressure" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								外漏泄漏气压：
+								<div class="input-wrap">
+									<input type="text" id="edit-wlxlPressure" name="wlxlPressure" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								内漏泄漏气压：
+								<div class="input-wrap">
+									<input type="text" id="edit-nlxlPressure" name="nlxlPressure" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								内泄漏量：
+								<div class="input-wrap">
+									<input type="text" id="edit-nxll" name="nxll" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								电机阀编号：
+								<div class="input-wrap">
+									<input type="text" id="edit-machinenum" name="machinenum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								内漏泄漏标准/气压：
+								<div class="input-wrap">
+									<input type="text" id="edit-nlxlbzhPressure" name="nlxlbzhPressure" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								出厂编号：
+								<div class="input-wrap">
+									<input type="text" id="edit-factorynumber" name="factorynumber" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								电机阀型号：
+								<div class="input-wrap">
+									<input type="text" id="edit-machinetype" name="machinetype" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								线别：
+								<div class="input-wrap">
+									<input type="text" id="edit-linenum" name="linenum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								车间号：
+								<div class="input-wrap">
+									<input type="text" id="edit-wpnum" name="wpnum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<!-- 隐藏主键 -->
+						<input type="hidden" id="edit-id" name="id" value="" />
+						<tr>
+							<td style="border: none;">
+								检测时间：
+								<div class="input-wrap">
+									<input type="text" id="edit-creattime" name="creattime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								批次号：
+								<div class="input-wrap">
+									<input type="text" id="edit-batchnum" name="batchnum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								工位序号：
+								<div class="input-wrap">
+									<input type="text" id="edit-stationnum" name="stationnum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								端口号：
+								<div class="input-wrap">
+									<input type="text" id="edit-port" name="port" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								工位号：
+								<div class="input-wrap">
+									<input type="text" id="edit-station" name="station" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								检测结果：
+								<div class="input-wrap">
+									<input type="text" id="edit-result" name="result" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								阀门条码：
+								<div class="input-wrap">
+									<input type="text" id="edit-barcode" name="barcode" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						
+                            </table>
+                        </div>
+            </div>
+            <div class="modal-footer">
+                <span type="button" class="btn" id="edit-saveStation1mBtn">保存</span>
+                <span type="button" class="btn"  data-dismiss="modal">取消</span>
+            </div>
+        </div>
+    </div>
+  </form>
+</div>
+<!-- 公共提示弹窗 -->
+<div id="alert-info" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="alert-info-content" ></div>
+  </div>
+</div>
+
+<script id="station1m-list-template" type="text/x-handlebars-template">
+	<tbody>
+		<tr>
+			<th>序号</th>
+			<th>外泄漏量</th>
+			<th>外漏泄漏标准/气压</th>
+			<th>外漏泄漏气压</th>
+			<th>内漏泄漏气压</th>
+			<th>内泄漏量</th>
+			<th>电机阀编号</th>
+			<th>内漏泄漏标准/气压</th>
+			<th>出厂编号</th>
+			<th>电机阀型号</th>
+			<th>线别</th>
+			<th>车间号</th>
+			<th style="display:none">id</th>
+			<th>检测时间</th>
+			<th>批次号</th>
+			<th>工位序号</th>
+			<th>端口号</th>
+			<th>工位号</th>
+			<th>检测结果</th>
+			<th>阀门条码</th>
+			
+		</tr>
+	  {{#each this}}
+		<tr>
+        	<td>{{ORACLESTART}}</td>
+			<td>{{wxll}}</td>
+			<td>{{wlzlbzhPressure}}</td>
+			<td>{{wlxlPressure}}</td>
+			<td>{{nlxlPressure}}</td>
+			<td>{{nxll}}</td>
+			<td>{{machinenum}}</td>
+			<td>{{nlxlbzhPressure}}</td>
+			<td>{{factorynumber}}</td>
+			<td>{{machinetype}}</td>
+			<td>{{linenum}}</td>
+			<td>{{wpnum}}</td>
+			<td style="display:none">{{id}}</td>
+			<td>{{creattime}}</td>
+			<td>{{batchnum}}</td>
+			<td>{{stationnum}}</td>
+			<td>{{port}}</td>
+			<td>{{station}}</td>
+			<td>{{result}}</td>
+			<td>{{barcode}}</td>
+			
+    	</tr> 
+	  {{/each}}
+	</tbody>
+</script>
+<!-- /.content-wrapper -->
+<!-- 功能模块JS文件  -->
+<script src="${req.contextPath}/assets/js/weixin/ation1m-list.js"></script>
+

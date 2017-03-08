@@ -1,0 +1,306 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <div class="container">
+        <h4 class="main-title">检测流程管理</h4>
+        <div class="row query-box" style="margin-bottom: 20px;">
+            <div style="margin-top:-10px">
+                <span class="oper-bt-gray" data-toggle="modal" data-target="#myModal">新增</span>
+                <span class="oper-bt-gray" id="editProcedureBtn" data-toggle="modal" data-target="#myModal1">编辑</span>
+                <span class="oper-bt-gray" id="delProcedureBtn">删除</span>
+            </div>
+            <div id="demo"></div>
+            <div class="info-wrap">
+                <div style="margin-top: 10px;">
+                    <div class="info-item-box fl" style="width:100%;min-height: 515px;">
+                        <div class="info-item-title">
+                            检测流程信息
+                        </div>
+                        <div class="info-item-content">
+                            <table id="procedureListTable" class="table border-table table-hover align-center-table" style="width:96%">
+                            <!-- 动态显示列表 -->
+                            </table>
+                            <div class="page-box" style="width: 97%;margin:0 auto" >
+                                <span style="float:left" class="pagination" id="totalNum" ></span>
+                                <ul style="float: right;" id="pagination"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form id="addProcedureForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加检测流程</h4>
+            </div>
+            <div class="modal-body">
+                <div class="info-item-content">
+                    <table class="wide-table table">
+                        <tr>
+							<td style="border: none;">
+								批次号：
+								<div class="input-wrap">
+									<input type="text" id="batchnum" name="batchnum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								阀门条码：
+								<div class="input-wrap">
+									<input type="text" id="barcode" name="barcode" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								9尾工位检测：
+								<div class="input-wrap">
+									<input type="text" id="statioin9w" name="statioin9w" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								1密封性检测时间：
+								<div class="input-wrap">
+									<input type="text" id="station1mtime" name="station1mtime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								1密封性检测：
+								<div class="input-wrap">
+									<input type="text" id="station1m" name="station1m" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								0首工位检测时间：
+								<div class="input-wrap">
+									<input type="text" id="station0stime" name="station0stime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								0首工位检测：
+								<div class="input-wrap">
+									<input type="text" id="station0s" name="station0s" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								2电性能检测时间：
+								<div class="input-wrap">
+									<input type="text" id="station2dtime" name="station2dtime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								2电性能检测：
+								<div class="input-wrap">
+									<input type="text" id="station2d" name="station2d" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								9尾工位检测时间：
+								<div class="input-wrap">
+									<input type="text" id="station9wtime" name="station9wtime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								操作员：
+								<div class="input-wrap">
+									<input type="text" id="station" name="station" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span type="button" class="btn" id="saveProcedureBtn">保存</span>
+                <span type="button" class="btn"  data-dismiss="modal">取消</span>
+            </div>
+        </div>
+    </div>
+  </form>
+</div>
+<div class="modal fade" id="myModal1"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form id="editProcedureForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">编辑检测流程</h4>
+            </div>
+            <div class="modal-body">
+                <div class="info-item-content">
+                            <table class="wide-table table">
+                            	<tr>
+							<td style="border: none;">
+								批次号：
+								<div class="input-wrap">
+									<input type="text" id="edit-batchnum" name="batchnum" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								阀门条码：
+								<div class="input-wrap">
+									<input type="text" id="edit-barcode" name="barcode" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								9尾工位检测：
+								<div class="input-wrap">
+									<input type="text" id="edit-statioin9w" name="statioin9w" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<!-- 隐藏主键 -->
+						<input type="hidden" id="edit-id" name="id" value="" />
+						<tr>
+							<td style="border: none;">
+								1密封性检测时间：
+								<div class="input-wrap">
+									<input type="text" id="edit-station1mtime" name="station1mtime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								1密封性检测：
+								<div class="input-wrap">
+									<input type="text" id="edit-station1m" name="station1m" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								0首工位检测时间：
+								<div class="input-wrap">
+									<input type="text" id="edit-station0stime" name="station0stime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								0首工位检测：
+								<div class="input-wrap">
+									<input type="text" id="edit-station0s" name="station0s" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								2电性能检测时间：
+								<div class="input-wrap">
+									<input type="text" id="edit-station2dtime" name="station2dtime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								2电性能检测：
+								<div class="input-wrap">
+									<input type="text" id="edit-station2d" name="station2d" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								9尾工位检测时间：
+								<div class="input-wrap">
+									<input type="text" id="edit-station9wtime" name="station9wtime" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="border: none;">
+								操作员：
+								<div class="input-wrap">
+									<input type="text" id="edit-station" name="station" value="" class="fluid-input" />
+								</div>
+							</td>
+						</tr>
+						
+                            </table>
+                        </div>
+            </div>
+            <div class="modal-footer">
+                <span type="button" class="btn" id="edit-saveProcedureBtn">保存</span>
+                <span type="button" class="btn"  data-dismiss="modal">取消</span>
+            </div>
+        </div>
+    </div>
+  </form>
+</div>
+<!-- 公共提示弹窗 -->
+<div id="alert-info" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" id="alert-info-content" ></div>
+  </div>
+</div>
+
+<script id="procedure-list-template" type="text/x-handlebars-template">
+	<tbody>
+		<tr>
+			<th>序号</th>
+			<th>批次号</th>
+			<th>阀门条码</th>
+			<th>9尾工位检测</th>
+			<th style="display:none">id</th>
+			<th>1密封性检测时间</th>
+			<th>1密封性检测</th>
+			<th>0首工位检测时间</th>
+			<th>0首工位检测</th>
+			<th>2电性能检测时间</th>
+			<th>2电性能检测</th>
+			<th>9尾工位检测时间</th>
+			<th>操作员</th>
+			
+		</tr>
+	  {{#each this}}
+		<tr>
+        	<td>{{ORACLESTART}}</td>
+			<td>{{batchnum}}</td>
+			<td>{{barcode}}</td>
+			<td>{{statioin9w}}</td>
+			<td style="display:none">{{id}}</td>
+			<td>{{station1mtime}}</td>
+			<td>{{station1m}}</td>
+			<td>{{station0stime}}</td>
+			<td>{{station0s}}</td>
+			<td>{{station2dtime}}</td>
+			<td>{{station2d}}</td>
+			<td>{{station9wtime}}</td>
+			<td>{{station}}</td>
+			
+    	</tr> 
+	  {{/each}}
+	</tbody>
+</script>
+<!-- /.content-wrapper -->
+<!-- 功能模块JS文件  -->
+<script src="${req.contextPath}/assets/js/weixin/ocedure-list.js"></script>
+
