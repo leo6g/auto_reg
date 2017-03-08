@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.leo</groupId>
-  <artifactId>valve_datection</artifactId>
+  <artifactId>auto_reg</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -11,7 +11,7 @@
 		<shiro.version>1.2.4</shiro.version>
 	</properties>
   <build>
-		<finalName>valve_detection</finalName>
+		<finalName>auto_reg</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>
@@ -51,11 +51,11 @@
 				<version>6.0.0</version>
 				<configuration>
 					<reload>manual</reload>
-					<contextPath>/valve</contextPath>
+					<contextPath>/auto_reg</contextPath>
 					<scanIntervalSeconds>300</scanIntervalSeconds>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8091</port>
+							<port>8090</port>
 						</connector>
 					</connectors>
 				</configuration>
