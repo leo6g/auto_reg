@@ -24,7 +24,7 @@ public class ImageUtil {
 	    
 	    int[][][] findImgData;            //查找结果，目标图标位于屏幕截图上的坐标数据 
 	    boolean Finded;
-	    
+	    String keyImagePath;
 	    
 	    public ImageUtil(String keyImagePath) {
 	    	keyImagePath = getFile(keyImagePath);
@@ -44,7 +44,8 @@ public class ImageUtil {
 	    private String getFile(String fileName) {
 	        ClassLoader classLoader = getClass().getClassLoader();
 	        URL url = classLoader.getResource(fileName);
-	        return url.getFile();
+	        this.keyImagePath = url.getFile();
+	        return this.keyImagePath;
 	    }
 	    /**
 	     * 全屏截图
