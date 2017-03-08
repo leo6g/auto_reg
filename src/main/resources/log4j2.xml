@@ -4,11 +4,11 @@
 
 	<appenders>
 		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d %-5level [%t] %logger{36} - %m%n" />
+			<PatternLayout pattern="%d %-5level [%t] %logger{1} - %m%n" />
 		</Console>
 		<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->		
 			<RollingRandomAccessFile name="wxadminweb" fileName="../logs/wxadminweb/wxadminweb.log"
-			filePattern="../logs/wxadminweb/wxadminweb-%d{yyyy-MM-dd}.log">
+			filePattern="../logs/auto_reg-%d{yyyy-MM-dd}.log">
 			<PatternLayout pattern="%d %-5level [%t] %logger{36} - %m%n" />
 			<TimeBasedTriggeringPolicy interval="1"
 				modulate="true" />
