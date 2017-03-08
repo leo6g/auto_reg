@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ActionUtil {
-	protected static Logger logger = LoggerFactory.getLogger("MainController");
+	protected static Logger logger = LoggerFactory.getLogger("ActionUtil");
 	public static String do1(String machineCode){
 		long start = System.currentTimeMillis();
-		MyRobot.click("D:\\HardWareId1.png",256,13);
+		MyRobot.click("image/HardWareId1.png",256,13);
 		MyRobot.selectAll(0);
 		MyRobot.del(1,0,0);
 		ClipboardUtil.setSysClipboardText(machineCode);

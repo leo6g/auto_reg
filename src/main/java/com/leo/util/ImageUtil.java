@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 public class ImageUtil {
@@ -26,6 +27,7 @@ public class ImageUtil {
 	    
 	    
 	    public ImageUtil(String keyImagePath) {
+	    	keyImagePath = getFile(keyImagePath);
 	        screenShotImage = this.getFullScreenShot();
 	        keyImage = this.getBfImageFromPath(keyImagePath);
 	        screenShotImageRGBData = this.getImageGRB(screenShotImage);
@@ -39,7 +41,11 @@ public class ImageUtil {
 	        this.findImage();
 	        
 	    }
-	    
+	    private String getFile(String fileName) {
+	        ClassLoader classLoader = getClass().getClassLoader();
+	        URL url = classLoader.getResource(fileName);
+	        return url.getFile();
+	    }
 	    /**
 	     * 全屏截图
 	     * @return 返回BufferedImage

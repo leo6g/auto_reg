@@ -16,7 +16,7 @@ import com.leo.util.ClipboardUtil;
 import com.leo.util.MyRobot;
 
 @Controller
-@RequestMapping("/font")
+@RequestMapping("/front")
 public class MainController extends BaseController{
 	protected static Logger logger = LoggerFactory.getLogger("MainController");
 	@RequestMapping("/index")
@@ -30,9 +30,8 @@ public class MainController extends BaseController{
 	public OutputObject regMachine(HttpServletRequest request,HttpServletResponse response){
 		OutputObject out = new OutputObject();
 		String machineCode = request.getParameter("machineCode");
-		
-		out.setReturnCode("1");
 		String regCode = ActionUtil.do1(machineCode);
+		out.setReturnCode("1");
 		out.setReturnMessage(regCode);
 		return out;
 	}
