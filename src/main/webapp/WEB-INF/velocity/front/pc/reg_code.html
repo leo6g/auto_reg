@@ -3,13 +3,15 @@
 <html>
 <head>
 	#parse("common.html")
+	<link rel="stylesheet" type="text/css" href="${contextPath}/style/main.css">
 	<script type="text/javascript" src="${contextPath}/js/main.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>注册软件</title>
 </head>
 <body>
-<div align="center"style="margin-top: 5%">
-<input type="text" id="machineCode" style="width: 364px"/>
+<div class="plain_form" align="center">
+<span>券码</span><input type="text" id="ticket_code"/>
+<span>机器码</span><input type="text" id="machine_code"/>
     <button id="regBut" title="注册" style="width: 80px;height:22px;margin-left: 20px"><span style="color: blue">注册</span> </button>
 </div>
 </body>

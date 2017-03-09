@@ -1,0 +1,10 @@
+.plain_form{
+	margin-top: 20%;
+	display: block;
+}
+.plain_form span{
+	font-weight: bold;
+}
+.plain_form input{
+	width: 255px;
+}
