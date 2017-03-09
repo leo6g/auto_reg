@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RegRcordMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+  	<id column="id" property="id" jdbcType=""/>
+  	<result column="TICKET_CODE" property="ticketCode" jdbcType="VARCHAR"/>
+	<result column="CONSTOMER" property="constomer" jdbcType="VARCHAR"/>
+	<result column="ID" property="id" jdbcType="VARCHAR"/>
+	<result column="REG_ORIGIN" property="regOrigin" jdbcType="CHAR"/>
+	<result column="REG_STATUS" property="regStatus" jdbcType="CHAR"/>
+	<result column="REG_TIME" property="regTime" jdbcType="null"/>
+	<result column="MACHINE_CODE" property="machineCode" jdbcType="VARCHAR"/>
+	<result column="REG_CODE" property="regCode" jdbcType="VARCHAR"/>
+	<result column="TICKET_TYPE" property="ticketType" jdbcType="CHAR"/>
+	
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="ticketCode != null" >
+		 AND TICKET_CODE = #{ticketCode}
+	 </if>
+	<if test="constomer != null" >
+		 AND CONSTOMER = #{constomer}
+	 </if>
+	<if test="id != null" >
+		 AND ID = #{id}
+	 </if>
+	<if test="regOrigin != null" >
+		 AND REG_ORIGIN = #{regOrigin}
+	 </if>
+	<if test="regStatus != null" >
+		 AND REG_STATUS = #{regStatus}
+	 </if>
+	<if test="regTime != null" >
+		 AND REG_TIME = #{regTime}
+	 </if>
+	<if test="machineCode != null" >
+		 AND MACHINE_CODE = #{machineCode}
+	 </if>
+	<if test="regCode != null" >
+		 AND REG_CODE = #{regCode}
+	 </if>
+	<if test="ticketType != null" >
+		 AND TICKET_TYPE = #{ticketType}
+	 </if>
+	     
+    </trim>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+  	TICKET_CODE,CONSTOMER,ID,REG_ORIGIN,REG_STATUS,REG_TIME,MACHINE_CODE,REG_CODE,TICKET_TYPE
+  </sql>
+  
+  <!-- 分页查询注册流水信息 -->
+  
+  <select id="getList" resultMap="BaseResultMap" >
+  	<include refid="common.Oracle_Pagination_Head" />
+	    select 
+	    <include refid="Base_Column_List" />
+	    from T_REG_RECORD
+	<if test="_parameter != null" >
+     	<include refid="Example_Where_Clause" />
+   	</if>
+    <if test="orderByClause != null" >
+     	order by ${orderByClause}
+    </if>
+    <include refid="common.Oracle_Pagination_Tail" />
+  </select>
+  
+  <!-- 根据Id查询注册流水信息 -->
+  
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_REG_RECORD
+    where id = #{id,jdbcType=}
+  </select>
+  
+  <!-- 查询注册流水信息总数量 -->
+  
+  <select id="countAll" resultType="java.lang.Integer" >
+	    select count(1)
+	    from T_REG_RECORD
+	    <!-- 有DELETE_FLAG放开-->
+	   <!-- where DELETE_FLAG = 0 -->
+  </select>
+  
+  <!-- 查询所有注册流水信息 -->
+  
+  <select id="getAll" resultMap="BaseResultMap">
+    select 
+     <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_REG_RECORD 
+   <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!-- 根据注册流水信息编码,查询注册流水信息信息 有code验证时放开-->
+   <!-- <select id="getByCode" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_REG_RECORD
+    where REG_CODE = #{regCode,jdbcType=VARCHAR}
+    AND DELETE_FLAG = 0 
+    <if test="id != null" >
+    	and id != #{id,jdbcType=}
+    </if>
+  </select> -->
+  
+  <!-- 增加注册流水信息 -->
+  
+  <insert id="insert" parameterType="java.util.Map" >
+    insert into T_REG_RECORD
+    <selectKey resultType="java.lang.String" keyProperty="id"
+			order="BEFORE">
+			select sys_guid() from dual
+	</selectKey>
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       id,
+      <if test="ticketCode != null"> TICKET_CODE, </if>
+	<if test="constomer != null"> CONSTOMER, </if>
+	<if test="id != null"> ID, </if>
+	<if test="regOrigin != null"> REG_ORIGIN, </if>
+	<if test="regStatus != null"> REG_STATUS, </if>
+	<if test="regTime != null"> REG_TIME, </if>
+	<if test="machineCode != null"> MACHINE_CODE, </if>
+	<if test="regCode != null"> REG_CODE, </if>
+	<if test="ticketType != null"> TICKET_TYPE, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id},
+     <if test="ticketCode != null"> #{ticketCode}, </if>
+	<if test="constomer != null"> #{constomer}, </if>
+	<if test="id != null"> #{id}, </if>
+	<if test="regOrigin != null"> #{regOrigin}, </if>
+	<if test="regStatus != null"> #{regStatus}, </if>
+	<if test="regTime != null"> #{regTime}, </if>
+	<if test="machineCode != null"> #{machineCode}, </if>
+	<if test="regCode != null"> #{regCode}, </if>
+	<if test="ticketType != null"> #{ticketType}, </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新注册流水信息 -->
+    
+  <update id="update" parameterType="java.util.Map" >
+    update T_REG_RECORD
+     <set >
+      <if test="ticketCode != null">TICKET_CODE = #{ticketCode}, </if>
+	<if test="constomer != null">CONSTOMER = #{constomer}, </if>
+	<if test="id != null">ID = #{id}, </if>
+	<if test="regOrigin != null">REG_ORIGIN = #{regOrigin}, </if>
+	<if test="regStatus != null">REG_STATUS = #{regStatus}, </if>
+	<if test="regTime != null">REG_TIME = #{regTime}, </if>
+	<if test="machineCode != null">MACHINE_CODE = #{machineCode}, </if>
+	<if test="regCode != null">REG_CODE = #{regCode}, </if>
+	<if test="ticketType != null">TICKET_TYPE = #{ticketType}, </if>
+    </set>
+    where id = #{id,jdbcType=}
+  </update>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from T_REG_RECORD
+    where id = #{id,jdbcType=}
+  </delete>
+  <!-- 逻辑删除注册流水信息 -->
+  
+  <update id="logicDelete" parameterType="java.util.Map" >
+    update T_REG_RECORD
+    set DELETE_FLAG = -1
+    where id = #{id,jdbcType=}
+  </update>
+</mapper>

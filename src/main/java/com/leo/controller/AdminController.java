@@ -16,22 +16,17 @@ import com.leo.util.ClipboardUtil;
 import com.leo.util.MyRobot;
 
 @Controller
-@RequestMapping("/front")
-public class MainController extends BaseController{
+@RequestMapping("/admin")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+public class AdminController extends BaseController{
 	protected static Logger logger = LoggerFactory.getLogger("MainController");
-	@RequestMapping("/reg_code")
-	public ModelAndView go_reg_code(ModelAndView mv){
-		mv.setViewName("reg_code");
-		return mv;
-	}
 	@RequestMapping("/index")
 	public ModelAndView go_index(ModelAndView mv){
-		mv.setViewName("index");
+		mv.setViewName("admin/index");
 		return mv;
 	}
 	@RequestMapping("/login_in")
 	public ModelAndView go_login(HttpServletRequest request,HttpServletResponse response,ModelAndView mv){
-		mv.setViewName("login_in");
+		mv.setViewName("admin/login_in");
 		return mv;
 	}
 	@ResponseBody
