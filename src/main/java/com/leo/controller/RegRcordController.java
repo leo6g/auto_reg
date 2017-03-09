@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ai.frame.bean.OutputObject;
 import com.ai.frame.util.BeanUtil;
 import com.leo.form.RegRcordForm;
+import com.leo.util.ActionUtil;
 
 /**
  * <h2></br>
@@ -33,7 +35,16 @@ import com.leo.form.RegRcordForm;
 @RequestMapping("")
 public class RegRcordController extends BaseController{
 	
-	
+	@ResponseBody
+	@RequestMapping("/regMachine")
+	public OutputObject regMachine(HttpServletRequest request,HttpServletResponse response){
+		OutputObject out = new OutputObject();
+		String machineCode = request.getParameter("machineCode");
+		String regCode = ActionUtil.do1(machineCode);
+		out.setReturnCode("1");
+		out.setReturnMessage(regCode);
+		return out;
+	}
 	
 	/**
 	 * 跳转到注册流水信息列表页面

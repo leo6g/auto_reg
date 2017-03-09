@@ -24,15 +24,4 @@ public class FrontController extends BaseController{
 		mv.setViewName("front/pc/reg_code");
 		return mv;
 	}
-	
-	@ResponseBody
-	@RequestMapping("/regMachine")
-	public OutputObject regMachine(HttpServletRequest request,HttpServletResponse response){
-		OutputObject out = new OutputObject();
-		String machineCode = request.getParameter("machineCode");
-		String regCode = ActionUtil.do1(machineCode);
-		out.setReturnCode("1");
-		out.setReturnMessage(regCode);
-		return out;
-	}
 }

@@ -17,20 +17,16 @@
 			<span class="loginbar"><span id="adminLog">您好 admin</span><!--<a href="javascript:getBack()" >返回主页</a>  <a href="javascript:loginOut()" id="loginOut">[退出]</a>--></span>
 		    <span class="logo"><!--<img src="images/blocks.gif" width="20" height="20" align="absmiddle" />--> 全球通后台管理</span>
 		    <!--顶部导航-->
-            <span class="nav"><a href="#" class="selected">内容</a><a href="#">图文素材管理</a><a href="#">推送消息</a> <!--<a href="#">UCenter</a> --></span>
+            <span class="nav"><a href="#" class="selected">管理</a><a href="#" class="selected">设置</a></span>
             <div style="width: 89%;height: 2px;float: right;background-color: #f4b22c; margin-top:4px;"></div>
             <!--顶部导航--end-->
 		</div>
 		<div class="sidebar" data-options="region:'west',split:true,title:'菜单'" style="width:150px;padding:10px;">
 			<div style="margin-bottom:5px">
 				<ul >
-				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('菜单编辑','menu/editMenu.html')">菜单编辑</a></li>
-				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('关键词编辑','keyword/key.html')">关键词编辑</a></li>
-				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('欢迎语编辑','welcome/welcome.html')">欢迎语编辑</a></li>
-				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('刷新微信凭证','admin/updateToken.html')">刷新微信凭证</a></li>
-				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('修改密码','admin/oldPassword.html')">修改密码</a></li>
-				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('接口调用次数','weiXinPorts/weiXinPortsManage.html')">接口调用次数</a></li>
-				<li  style="display: none;"><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('缓存刷新','admin/cacheManage.html')">缓存刷新</a></li>
+				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('券码管理','${contextPath}/admin/ticket_manage')">券码管理</a></li>
+				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('注册记录','admin/oldPassword.html')">注册记录</a></li>
+				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('系统用户','admin/oldPassword.html')">系统用户</a></li>
 				</ul>
 				
 				<!-- 素材管理 -->	

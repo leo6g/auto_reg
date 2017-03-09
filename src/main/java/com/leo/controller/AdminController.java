@@ -24,8 +24,13 @@ public class AdminController extends BaseController{
 		mv.setViewName("admin/index");
 		return mv;
 	}
+	@RequestMapping("/ticket_manage")
+	public ModelAndView go_ticket_manage(ModelAndView mv){
+		mv.setViewName("admin/ticket_manage");
+		return mv;
+	}
 	@RequestMapping("/login_in")
-	public ModelAndView go_login(HttpServletRequest request,HttpServletResponse response,ModelAndView mv){
+	public ModelAndView go_login_in(ModelAndView mv){
 		mv.setViewName("admin/login_in");
 		return mv;
 	}
