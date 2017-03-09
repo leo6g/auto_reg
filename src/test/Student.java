@@ -1,5 +1,5 @@
 
-public class Student {
+public class Student extends RobotTest{
 	private String name;
 	public Student(){};
 	public Student(String name){

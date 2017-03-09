@@ -19,10 +19,19 @@ import com.leo.util.MyRobot;
 @RequestMapping("/front")
 public class MainController extends BaseController{
 	protected static Logger logger = LoggerFactory.getLogger("MainController");
-	@RequestMapping("/index")
-	public ModelAndView index(HttpServletRequest request,HttpServletResponse response,ModelAndView mv){
+	@RequestMapping("/reg_code")
+	public ModelAndView go_reg_code(ModelAndView mv){
 		mv.setViewName("reg_code");
-		logger.info("跳转");
+		return mv;
+	}
+	@RequestMapping("/index")
+	public ModelAndView go_index(ModelAndView mv){
+		mv.setViewName("index");
+		return mv;
+	}
+	@RequestMapping("/login_in")
+	public ModelAndView go_login(HttpServletRequest request,HttpServletResponse response,ModelAndView mv){
+		mv.setViewName("login_in");
 		return mv;
 	}
 	@ResponseBody

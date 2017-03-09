@@ -22,9 +22,11 @@
 	<mvc:default-servlet-handler />
 
 	<!-- 对静态资源文件的访问 restful -->
-	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/assets/**" location="/assets/" />
 	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/style/**" location="/style/" />
+	<mvc:resources mapping="/lib/**" location="/lib/" />
 	<!-- <mvc:resources mapping="/error/**" location="/error/" /> -->
 	<!-- 上传拦截，如最大上传值及最小上传值 -->
 	<bean id="multipartResolver"

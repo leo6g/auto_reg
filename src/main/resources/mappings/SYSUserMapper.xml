@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SYSUserMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+  	<id column="id" property="id" jdbcType="VARCHAR"/>
+  	<result column="AGE" property="age" jdbcType="NUMBER"/>
+	<result column="NAME" property="name" jdbcType="VARCHAR"/>
+	<result column="ID" property="id" jdbcType="VARCHAR"/>
+	<result column="LAST_LOGIN" property="lastLogin" jdbcType="DATE"/>
+	<result column="PASS" property="pass" jdbcType="VARCHAR"/>
+	<result column="TYPE" property="type" jdbcType="CHAR"/>
+	<result column="GENDER" property="gender" jdbcType="CHAR"/>
+	<result column="AUTHORITY" property="authority" jdbcType="VARCHAR"/>
+	<result column="STATUS" property="status" jdbcType="CHAR"/>
+	
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="age != null" >
+		 AND AGE = #{age}
+	 </if>
+	<if test="name != null" >
+		 AND NAME = #{name}
+	 </if>
+	<if test="id != null" >
+		 AND ID = #{id}
+	 </if>
+	<if test="lastLogin != null" >
+		 AND LAST_LOGIN = #{lastLogin}
+	 </if>
+	<if test="pass != null" >
+		 AND PASS = #{pass}
+	 </if>
+	<if test="type != null" >
+		 AND TYPE = #{type}
+	 </if>
+	<if test="gender != null" >
+		 AND GENDER = #{gender}
+	 </if>
+	<if test="authority != null" >
+		 AND AUTHORITY = #{authority}
+	 </if>
+	<if test="status != null" >
+		 AND STATUS = #{status}
+	 </if>
+	     
+    </trim>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+  	AGE,NAME,ID,LAST_LOGIN,PASS,TYPE,GENDER,AUTHORITY,STATUS
+  </sql>
+  
+  <!-- 分页查询系统用户 -->
+  
+  <select id="getList" resultMap="BaseResultMap" >
+  	<include refid="common.Oracle_Pagination_Head" />
+	    select 
+	    <include refid="Base_Column_List" />
+	    from T_SYS_USER
+	<if test="_parameter != null" >
+     	<include refid="Example_Where_Clause" />
+   	</if>
+    <if test="orderByClause != null" >
+     	order by ${orderByClause}
+    </if>
+    <include refid="common.Oracle_Pagination_Tail" />
+  </select>
+  
+  <!-- 根据Id查询系统用户 -->
+  
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SYS_USER
+    where id = #{id,jdbcType=}
+  </select>
+  
+  <!-- 查询系统用户总数量 -->
+  
+  <select id="countAll" resultType="java.lang.Integer" >
+	    select count(1)
+	    from T_SYS_USER
+	    <!-- 有DELETE_FLAG放开-->
+	   <!-- where DELETE_FLAG = 0 -->
+  </select>
+  
+  <!-- 查询所有系统用户 -->
+  
+  <select id="getAll" resultMap="BaseResultMap">
+    select 
+     <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_SYS_USER 
+   <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!-- 根据系统用户编码,查询系统用户信息 有code验证时放开-->
+   <!-- <select id="getByCode" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SYS_USER
+    where  = #{,jdbcType=}
+    AND DELETE_FLAG = 0 
+    <if test="id != null" >
+    	and id != #{id,jdbcType=}
+    </if>
+  </select> -->
+  
+  <!-- 增加系统用户 -->
+  
+  <insert id="insert" parameterType="java.util.Map" >
+    insert into T_SYS_USER
+    <selectKey resultType="java.lang.String" keyProperty="id"
+			order="BEFORE">
+			select sys_guid() from dual
+	</selectKey>
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       id,
+      <if test="age != null"> AGE, </if>
+	<if test="name != null"> NAME, </if>
+	<if test="id != null"> ID, </if>
+	<if test="lastLogin != null"> LAST_LOGIN, </if>
+	<if test="pass != null"> PASS, </if>
+	<if test="type != null"> TYPE, </if>
+	<if test="gender != null"> GENDER, </if>
+	<if test="authority != null"> AUTHORITY, </if>
+	<if test="status != null"> STATUS, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id},
+     <if test="age != null"> #{age}, </if>
+	<if test="name != null"> #{name}, </if>
+	<if test="id != null"> #{id}, </if>
+	<if test="lastLogin != null"> #{lastLogin}, </if>
+	<if test="pass != null"> #{pass}, </if>
+	<if test="type != null"> #{type}, </if>
+	<if test="gender != null"> #{gender}, </if>
+	<if test="authority != null"> #{authority}, </if>
+	<if test="status != null"> #{status}, </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新系统用户 -->
+    
+  <update id="update" parameterType="java.util.Map" >
+    update T_SYS_USER
+     <set >
+      <if test="age != null">AGE = #{age}, </if>
+	<if test="name != null">NAME = #{name}, </if>
+	<if test="id != null">ID = #{id}, </if>
+	<if test="lastLogin != null">LAST_LOGIN = #{lastLogin}, </if>
+	<if test="pass != null">PASS = #{pass}, </if>
+	<if test="type != null">TYPE = #{type}, </if>
+	<if test="gender != null">GENDER = #{gender}, </if>
+	<if test="authority != null">AUTHORITY = #{authority}, </if>
+	<if test="status != null">STATUS = #{status}, </if>
+    </set>
+    where id = #{id,jdbcType=}
+  </update>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from T_SYS_USER
+    where id = #{id,jdbcType=}
+  </delete>
+  <!-- 逻辑删除系统用户 -->
+  
+  <update id="logicDelete" parameterType="java.util.Map" >
+    update T_SYS_USER
+    set DELETE_FLAG = -1
+    where id = #{id,jdbcType=}
+  </update>
+</mapper>
