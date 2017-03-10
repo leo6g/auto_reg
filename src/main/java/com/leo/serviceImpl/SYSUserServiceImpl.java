@@ -14,6 +14,14 @@ import com.leo.util.DateUtil;
 
 public class SYSUserServiceImpl extends BaseServiceImpl implements ISYSUserService   {
 	protected static Logger logger = LoggerFactory.getLogger("SYSUserServiceImpl");
+	
+	@Override
+	public void checkUser(InputObject inputObject, OutputObject outputObject)
+			throws Exception {
+			Map<String,String> map = (Map<String,String> )getBaseDao().queryForObject("SYSUserMapper.checkUser", inputObject.getParams());
+			outputObject.setBean(map);
+			
+	}
 	@Override
 	public void getList(InputObject inputObject,
 			OutputObject outputObject) throws Exception {

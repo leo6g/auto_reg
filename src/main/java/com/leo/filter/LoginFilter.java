@@ -19,7 +19,6 @@ public class LoginFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		System.out.println("loginfilter-->init");
 	}
 
 	@Override
@@ -27,25 +26,17 @@ public class LoginFilter implements Filter {
 			throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		String userName = (String)session.getAttribute("userName");
-		String loginuri = ((HttpServletRequest)request).getRequestURI();
-		if(StringUtil.isEmpty(userName)&&!matchesUrl(loginuri)){
-			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login");
+		String uri = ((HttpServletRequest)request).getRequestURI();
+		String tab = ((HttpServletRequest)request).getParameter("tab");
+		if(!uri.endsWith(".do")&&StringUtil.isEmpty(userName)&&!"login_in".equals(tab)){
+			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/admin?tab=login_in");
 			return;
 		}
 		chain.doFilter(request, response);
 	}
-	public boolean matchesUrl(String url){
-		boolean flag = false;
-		for(String str:Constants.assetsUrl){
-			if(url.contains(str)){
-				flag = true;
-			}
-		}
-		return flag;
-	}
+
 	@Override
 	public void destroy() {
-		System.out.println("loginfilter-->destroy");
 	}
 
 }

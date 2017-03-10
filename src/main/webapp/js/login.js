@@ -1,10 +1,10 @@
 $(function(){
 	$("#loginUser").bind("click",function(){
-		var url = contextPath + "/login/checkUser";
+		var url = contextPath + "/admin/login.do";
 		var params = $("#loginForm").serialize();
 		Util.ajax.postJson(url, params, function(data,flag){
 				if(data.returnCode=="1"){
-					location.href = contextPath + "/station0s";
+					location.href = contextPath + "/admin?tab=index";
 				}else{
 					alert(data.returnMessage);
 				}

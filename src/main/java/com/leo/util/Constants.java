@@ -13,7 +13,7 @@ public class Constants {
 		assetsUrl.add("/images");
 		assetsUrl.add("/plugins");
 		assetsUrl.add("/resources");
-		assetsUrl.add("/login");
+		assetsUrl.add("/admin?page=login");
 	}
 	
 

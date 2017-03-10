@@ -5,5 +5,5 @@
   <bean id="baseService" class="com.leo.serviceImpl.BaseServiceImpl">
   	<property name="baseDao" ref="baseDao"></property>
   </bean>
-  <!-- 	<bean id="SYSUserServiceImpl" class="com.leo.serviceImpl.SYSUserServiceImpl" parent="baseService"></bean> -->
+  	<bean id="SYSUserServiceImpl" class="com.leo.serviceImpl.SYSUserServiceImpl" parent="baseService"></bean>
 </beans>

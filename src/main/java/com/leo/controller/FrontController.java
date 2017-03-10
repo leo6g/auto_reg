@@ -25,4 +25,6 @@ public class FrontController extends BaseController{
 		mv.setViewName("front/pc/"+page);
 		return mv;
 	}
+	
+	
 }

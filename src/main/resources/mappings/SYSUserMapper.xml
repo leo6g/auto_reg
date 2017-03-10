@@ -3,9 +3,8 @@
 <mapper namespace="SYSUserMapper" >
   <resultMap id="BaseResultMap" type="java.util.Map" >
   	<id column="id" property="id" jdbcType="VARCHAR"/>
-  	<result column="AGE" property="age" jdbcType="NUMBER"/>
+  	<result column="AGE" property="age" jdbcType="INTEGER"/>
 	<result column="NAME" property="name" jdbcType="VARCHAR"/>
-	<result column="ID" property="id" jdbcType="VARCHAR"/>
 	<result column="LAST_LOGIN" property="lastLogin" jdbcType="DATE"/>
 	<result column="PASS" property="pass" jdbcType="VARCHAR"/>
 	<result column="TYPE" property="type" jdbcType="CHAR"/>
@@ -47,15 +46,19 @@
 	     
     </trim>
   </sql>
-  
+   
   <sql id="Base_Column_List" >
   	AGE,NAME,ID,LAST_LOGIN,PASS,TYPE,GENDER,AUTHORITY,STATUS
   </sql>
-  
+  <select id="checkUser" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select NAME,TYPE,GENDER,AUTHORITY,STATUS
+   
+    from T_SYS_USER where name = #{name} and pass = #{pass}
+  </select>
   <!-- 分页查询系统用户 -->
   
   <select id="getList" resultMap="BaseResultMap" >
-  	<include refid="common.Oracle_Pagination_Head" />
+  	
 	    select 
 	    <include refid="Base_Column_List" />
 	    from T_SYS_USER
@@ -65,7 +68,7 @@
     <if test="orderByClause != null" >
      	order by ${orderByClause}
     </if>
-    <include refid="common.Oracle_Pagination_Tail" />
+    
   </select>
   
   <!-- 根据Id查询系统用户 -->
@@ -74,7 +77,7 @@
     select 
     <include refid="Base_Column_List" />
     from T_SYS_USER
-    where id = #{id,jdbcType=}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   
   <!-- 查询系统用户总数量 -->
@@ -110,7 +113,7 @@
     where  = #{,jdbcType=}
     AND DELETE_FLAG = 0 
     <if test="id != null" >
-    	and id != #{id,jdbcType=}
+    	and id != #{id,jdbcType=VARCHAR}
     </if>
   </select> -->
   
@@ -163,17 +166,17 @@
 	<if test="authority != null">AUTHORITY = #{authority}, </if>
 	<if test="status != null">STATUS = #{status}, </if>
     </set>
-    where id = #{id,jdbcType=}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <delete id="delete" parameterType="java.lang.String" >
     delete from T_SYS_USER
-    where id = #{id,jdbcType=}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <!-- 逻辑删除系统用户 -->
   
   <update id="logicDelete" parameterType="java.util.Map" >
     update T_SYS_USER
     set DELETE_FLAG = -1
-    where id = #{id,jdbcType=}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
