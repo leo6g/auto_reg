@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ai.frame.bean.OutputObject;
-import com.ai.frame.util.BeanUtil;
 import com.leo.form.RegRcordForm;
 import com.leo.util.ActionUtil;
+import com.lfc.core.bean.OutputObject;
+import com.lfc.core.util.BeanUtil;
 
 /**
  * <h2></br>
@@ -32,7 +32,7 @@ import com.leo.util.ActionUtil;
  *
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("/reg_record")
 public class RegRcordController extends BaseController{
 	
 	@ResponseBody
@@ -74,7 +74,7 @@ public class RegRcordController extends BaseController{
 			returnValidatorAjaxResult(result);
 		}
 		OutputObject outputObject = null;
-		Map<String, String> map = BeanUtil.convertBean2Map(regRcordForm);
+		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
 		outputObject = getOutputObject(map, "regRcordService", "getList");
 		return outputObject;
 	}
@@ -94,7 +94,7 @@ public class RegRcordController extends BaseController{
 		if (result.hasErrors()) {
 			returnValidatorAjaxResult(result);
 		}
-		Map<String, String> map = BeanUtil.convertBean2Map(regRcordForm);	
+		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);	
 		outputObject = getOutputObject(map,"regRcordService","getById");
 		return outputObject;
 	}
@@ -114,7 +114,7 @@ public class RegRcordController extends BaseController{
 		if (result.hasErrors()) {
 			returnValidatorAjaxResult(result);
 		}
-		Map<String, String> map = BeanUtil.convertBean2Map(regRcordForm);	
+		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);	
 		outputObject = getOutputObject(map,"regRcordService","getAll");
 		return outputObject;
 	}
@@ -134,7 +134,7 @@ public class RegRcordController extends BaseController{
 				return returnValidatorAjaxResult(result);
 			}
 			OutputObject outputObject = null;
-			Map<String, String> map = BeanUtil.convertBean2Map(regRcordForm);
+			Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
 			outputObject = getOutputObject(map, "regRcordService", "insertRegRcord");
 			if(outputObject.getReturnCode().equals("0")){
 				outputObject.setReturnMessage("注册流水信息添加成功!");
@@ -157,7 +157,7 @@ public class RegRcordController extends BaseController{
 			return returnValidatorAjaxResult(result);
 		}
 		OutputObject outputObject = null;
-		Map<String, String> map = BeanUtil.convertBean2Map(regRcordForm);
+		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
 		outputObject = getOutputObject(map, "regRcordService", "updateRegRcord");
 		if(outputObject.getReturnCode().equals("0")){
 			outputObject.setReturnMessage("注册流水信息编辑成功!");
@@ -182,7 +182,7 @@ public class RegRcordController extends BaseController{
 	public ModelAndView edit(Model model) {
 		ModelAndView mav=new ModelAndView();
 		OutputObject outputObject = null;
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		HttpServletRequest request = getRequest();
 		map.put("id", request.getParameter("id"));
 		outputObject = getOutputObject(map,"regRcordService","getById");
@@ -207,7 +207,7 @@ public class RegRcordController extends BaseController{
 			return returnValidatorAjaxResult(result);
 		}
 		OutputObject outputObject = null;
-		Map<String, String> map = BeanUtil.convertBean2Map(regRcordForm);
+		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
 		outputObject = getOutputObject(map, "regRcordService", "deleteRegRcord");
 		if(outputObject.getReturnCode().equals("0")){
 			outputObject.setReturnMessage("注册流水信息删除成功!");
@@ -231,7 +231,7 @@ public class RegRcordController extends BaseController{
 			return returnValidatorAjaxResult(result);
 		}
 		OutputObject outputObject = null;
-		Map<String, String> map = BeanUtil.convertBean2Map(regRcordForm);
+		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
 		outputObject = getOutputObject(map, "regRcordService", "logicDeleteRegRcord");
 		if(outputObject.getReturnCode().equals("0")){
 			outputObject.setReturnMessage("逻辑删除成功!");

@@ -18,8 +18,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ai.frame.bean.InputObject;
-import com.ai.frame.bean.OutputObject;
+import com.lfc.core.bean.InputObject;
+import com.lfc.core.bean.OutputObject;
 import com.lfc.core.util.ControlConstants;
 import com.lfc.core.util.JsonUtil;
 
@@ -35,7 +35,7 @@ public class BaseController {
 		HttpSession session = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession();
 		return session;
 	}
-	public OutputObject getOutputObject(Map<String, String> params,String service, String method){
+	public OutputObject getOutputObject(Map<String, Object> params,String service, String method){
 		OutputObject outObj =null;
 		if(StringUtils.isNotEmpty(method)&&StringUtils.isNotEmpty(service)){
 			InputObject inputObject = new InputObject();

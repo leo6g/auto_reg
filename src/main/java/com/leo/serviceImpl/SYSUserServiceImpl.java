@@ -7,10 +7,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ai.frame.bean.InputObject;
-import com.ai.frame.bean.OutputObject;
 import com.leo.service.ISYSUserService ;
 import com.leo.util.DateUtil;
+import com.lfc.core.bean.InputObject;
+import com.lfc.core.bean.OutputObject;
 
 public class SYSUserServiceImpl extends BaseServiceImpl implements ISYSUserService   {
 	protected static Logger logger = LoggerFactory.getLogger("SYSUserServiceImpl");
@@ -18,14 +18,14 @@ public class SYSUserServiceImpl extends BaseServiceImpl implements ISYSUserServi
 	@Override
 	public void checkUser(InputObject inputObject, OutputObject outputObject)
 			throws Exception {
-			Map<String,String> map = (Map<String,String> )getBaseDao().queryForObject("SYSUserMapper.checkUser", inputObject.getParams());
+			Map<String, Object> map = (Map<String, Object> )getBaseDao().queryForObject("SYSUserMapper.checkUser", inputObject.getParams());
 			outputObject.setBean(map);
 			
 	}
 	@Override
 	public void getList(InputObject inputObject,
 			OutputObject outputObject) throws Exception {
-		List<Map<String, String>> list= getBaseDao().queryForList("SYSUserMapper.getList", inputObject.getParams());
+		List<Map<String, Object>> list= getBaseDao().queryForList("SYSUserMapper.getList", inputObject.getParams());
 		outputObject.setBeans(list);
 		int totalcount = getBaseDao().getTotalCount("SYSUserMapper.queryUserCount", inputObject.getParams());
 		outputObject.setObject(totalcount);
@@ -42,7 +42,7 @@ public class SYSUserServiceImpl extends BaseServiceImpl implements ISYSUserServi
 	public void getAll(InputObject inputObject,
 			OutputObject outputObject) throws Exception {
 		inputObject.getParams().put("deleteFlag","0");
-		List<Map<String,String>> list = getBaseDao().queryForList("SYSUserMapper.getAll", inputObject.getParams());
+		List<Map<String, Object>> list = getBaseDao().queryForList("SYSUserMapper.getAll", inputObject.getParams());
 		outputObject.setBeans(list);
 	
 	}

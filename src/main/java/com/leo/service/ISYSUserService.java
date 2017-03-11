@@ -1,7 +1,7 @@
 package com.leo.service;
 
-import com.ai.frame.bean.InputObject;
-import com.ai.frame.bean.OutputObject;
+import com.lfc.core.bean.InputObject;
+import com.lfc.core.bean.OutputObject;
 
 public interface ISYSUserService {
 	

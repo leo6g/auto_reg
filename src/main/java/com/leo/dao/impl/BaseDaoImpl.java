@@ -60,7 +60,7 @@ public class BaseDaoImpl implements IBaseDao {
 	 *            参数
 	 * @return
 	 */
-	public Object queryForObject(String sqlId, Map<String, String> params) {
+	public Object queryForObject(String sqlId, Map<String, Object> params) {
 		return getSqlSession().selectOne(sqlId, params);
 	}
 
@@ -76,7 +76,7 @@ public class BaseDaoImpl implements IBaseDao {
 	 * @return cls对应的类
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T queryForObject(String sqlId, Map<String, String> params,
+	public <T> T queryForObject(String sqlId, Map<String, Object> params,
 			Class<T> cls) {
 		return (T) getSqlSession().selectOne(sqlId, params);
 	}
@@ -90,7 +90,7 @@ public class BaseDaoImpl implements IBaseDao {
 	 *            参数
 	 * @return 条数
 	 */
-	public int getTotalCount(String sqlId, Map<String, String> params) {
+	public int getTotalCount(String sqlId, Map<String, Object> params) {
 		return (Integer) getSqlSession().selectOne(sqlId, params);
 	}
 
@@ -105,7 +105,7 @@ public class BaseDaoImpl implements IBaseDao {
 	 *            返回的对象Class
 	 * @return 列表<cls对应的类>
 	 */
-	public <T> List<T> queryForList(String sqlId, Map<String, String> params,
+	public <T> List<T> queryForList(String sqlId, Map<String, Object> params,
 			Class<T> cls) {
 		return getSqlSession().selectList(sqlId, params);
 	}
@@ -119,11 +119,10 @@ public class BaseDaoImpl implements IBaseDao {
 	 *            参数
 	 * @return 列表
 	 */
-	public List<Map<String, String>> queryForList(String sqlId,
-			Map<String, String> param) {
+	public List<Map<String, Object>> queryForList(String sqlId,
+			Map<String, Object> param) {
 		List<Map<String, Object>> list = getSqlSession().selectList(sqlId, param);
-		List<Map<String, String>> beans = ConvertUtil.convertSqlMap2JavaMap(list);
-		return beans;
+		return list;
 	}
 	/**
 	 * 修改数据
@@ -173,7 +172,7 @@ public class BaseDaoImpl implements IBaseDao {
 	 *            待删除的对象
 	 * @return 主键
 	 */
-	public int delete(String sqlId, Map<String, String> map) {
+	public int delete(String sqlId, Map<String, Object> map) {
 		return getSqlSession().delete(sqlId, map);
 	}
 	

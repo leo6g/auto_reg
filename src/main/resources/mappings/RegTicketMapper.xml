@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RegTicketMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+  	<id column="id" property="id" jdbcType="VARCHAR"/>
+  	<result column="TICKET_CODE" property="ticketCode" jdbcType="VARCHAR"/>
+	<result column="TICKET_TYPE" property="ticketType" jdbcType="VARCHAR"/>
+	<result column="ID" property="id" jdbcType="VARCHAR"/>
+	<result column="PRICE_VALUE" property="priceValue" jdbcType="FLOAT"/>
+	<result column="CONSUME_TIME" property="consumeTime" jdbcType="TIMESTAMP"/>
+	<result column="USED_TIME" property="usedTime" jdbcType="TIMESTAMP"/>
+	<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+	<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR"/>
+	<result column="AVAILABLE" property="available" jdbcType="VARCHAR"/>
+	
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="ticketCode != null" >
+		 AND TICKET_CODE = #{ticketCode}
+	 </if>
+	<if test="ticketType != null" >
+		 AND TICKET_TYPE = #{ticketType}
+	 </if>
+	<if test="id != null" >
+		 AND ID = #{id}
+	 </if>
+	<if test="priceValue != null" >
+		 AND PRICE_VALUE = #{priceValue}
+	 </if>
+	<if test="consumeTime != null" >
+		 AND CONSUME_TIME = #{consumeTime}
+	 </if>
+	<if test="usedTime != null" >
+		 AND USED_TIME = #{usedTime}
+	 </if>
+	<if test="createTime != null" >
+		 AND CREATE_TIME = #{createTime}
+	 </if>
+	<if test="createUser != null" >
+		 AND CREATE_USER = #{createUser}
+	 </if>
+	 <if test="available != null" >
+		 AND AVAILABLE = #{available}
+	 </if>
+	     
+    </trim>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+  	TICKET_CODE,TICKET_TYPE,ID,PRICE_VALUE,CONSUME_TIME,USED_TIME,CREATE_TIME,CREATE_USER,AVAILABLE
+  </sql>
+  
+  <!-- 分页查询券码 -->
+  
+  <select id="getList" resultMap="BaseResultMap" >
+  	
+	    select 
+	    <include refid="Base_Column_List" />
+	    from T_REG_TICKET
+	<if test="_parameter != null" >
+     	<include refid="Example_Where_Clause" />
+   	</if>
+    <if test="orderByClause != null" >
+     	order by ${orderByClause}
+    </if>
+    
+  </select>
+  
+  <!-- 根据Id查询券码 -->
+  
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_REG_TICKET
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询券码总数量 -->
+  
+  <select id="countAll" resultType="java.lang.Integer" >
+	    select count(1)
+	    from T_REG_TICKET
+	    <!-- 有DELETE_FLAG放开-->
+	   <!-- where DELETE_FLAG = 0 -->
+  </select>
+  
+  <!-- 查询所有券码 -->
+  
+  <select id="getAll" resultMap="BaseResultMap">
+    select 
+     <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_REG_TICKET 
+   <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!-- 根据券码编码,查询券码信息 有code验证时放开-->
+   <!-- <select id="getByCode" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_REG_TICKET
+    where TICKET_CODE = #{ticketCode,jdbcType=VARCHAR}
+    AND DELETE_FLAG = 0 
+    <if test="id != null" >
+    	and id != #{id,jdbcType=VARCHAR}
+    </if>
+  </select> -->
+  
+  <!-- 增加券码 -->
+  
+  <insert id="insert" parameterType="java.util.Map" >
+    insert into T_REG_TICKET
+    <selectKey resultType="java.lang.String" keyProperty="id"
+			order="BEFORE">
+			select sys_guid() from dual
+	</selectKey>
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       id,
+      <if test="ticketCode != null"> TICKET_CODE, </if>
+	<if test="ticketType != null"> TICKET_TYPE, </if>
+	<if test="id != null"> ID, </if>
+	<if test="priceValue != null"> PRICE_VALUE, </if>
+	<if test="consumeTime != null"> CONSUME_TIME, </if>
+	<if test="usedTime != null"> USED_TIME, </if>
+	<if test="createTime != null"> CREATE_TIME, </if>
+	<if test="createUser != null"> CREATE_USER, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id},
+     <if test="ticketCode != null"> #{ticketCode}, </if>
+	<if test="ticketType != null"> #{ticketType}, </if>
+	<if test="id != null"> #{id}, </if>
+	<if test="priceValue != null"> #{priceValue}, </if>
+	<if test="consumeTime != null"> #{consumeTime}, </if>
+	<if test="usedTime != null"> #{usedTime}, </if>
+	<if test="createTime != null"> #{createTime}, </if>
+	<if test="createUser != null"> #{createUser}, </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新券码 -->
+    
+  <update id="update" parameterType="java.util.Map" >
+    update T_REG_TICKET
+     <set >
+      <if test="ticketCode != null">TICKET_CODE = #{ticketCode}, </if>
+	<if test="ticketType != null">TICKET_TYPE = #{ticketType}, </if>
+	<if test="id != null">ID = #{id}, </if>
+	<if test="priceValue != null">PRICE_VALUE = #{priceValue}, </if>
+	<if test="consumeTime != null">CONSUME_TIME = #{consumeTime}, </if>
+	<if test="usedTime != null">USED_TIME = #{usedTime}, </if>
+	<if test="createTime != null">CREATE_TIME = #{createTime}, </if>
+	<if test="createUser != null">CREATE_USER = #{createUser}, </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from T_REG_TICKET
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <!-- 逻辑删除券码 -->
+  
+  <update id="logicDelete" parameterType="java.util.Map" >
+    update T_REG_TICKET
+    set DELETE_FLAG = -1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

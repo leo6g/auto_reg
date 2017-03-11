@@ -12,3 +12,10 @@ h2 {font-size:18px;font-weight:bold;margin:0;margin-bottom:15px;}
 .sidebar ul li a{width: 120px;margin-left: -50px;text-align: left;padding-left: 15px;}
 .subject .datagrid-cell a{white-space: normal;}
 .message .datagrid-cell img{width: 100%;}
+
+.loginbar span{
+	margin: 20px;
+}
+.loginbar a{
+	text-decoration:none;
+}

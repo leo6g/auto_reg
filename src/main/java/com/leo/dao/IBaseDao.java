@@ -40,7 +40,7 @@ public interface IBaseDao {
 	 *            参数
 	 * @return
 	 */
-	public Object queryForObject(String sqlId, Map<String, String> params);
+	public Object queryForObject(String sqlId, Map<String, Object> params);
 
 	/**
 	 * 根据条件获取对象
@@ -53,7 +53,7 @@ public interface IBaseDao {
 	 *            返回的对象Class
 	 * @return cls对应的类
 	 */
-	public <T> T queryForObject(String sqlId, Map<String, String> params,
+	public <T> T queryForObject(String sqlId, Map<String, Object> params,
 			Class<T> cls);
 
 	/**
@@ -65,7 +65,7 @@ public interface IBaseDao {
 	 *            参数
 	 * @return 条数
 	 */
-	public int getTotalCount(String sqlId, Map<String, String> params);
+	public int getTotalCount(String sqlId, Map<String, Object> params);
 
 	/**
 	 * 查询列表
@@ -78,7 +78,7 @@ public interface IBaseDao {
 	 *            返回的对象Class
 	 * @return 列表<cls对应的类>
 	 */
-	public <T> List<T> queryForList(String sqlId, Map<String, String> params,
+	public <T> List<T> queryForList(String sqlId, Map<String, Object> params,
 			Class<T> cls);
 
 	/**
@@ -90,8 +90,8 @@ public interface IBaseDao {
 	 *            参数
 	 * @return 列表
 	 */
-	public List<Map<String, String>> queryForList(String sqlId,
-			Map<String, String> param);
+	public List<Map<String, Object>> queryForList(String sqlId,
+			Map<String, Object> param);
 
 	/**
 	 * 修改数据
@@ -135,6 +135,6 @@ public interface IBaseDao {
 	 *            待删除的对象
 	 * @return 主键
 	 */
-	public int delete(String sqlId, Map<String, String> map);
+	public int delete(String sqlId, Map<String, Object> map);
 
 }

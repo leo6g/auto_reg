@@ -44,6 +44,8 @@
 	<mappers>
 		<!-- <mapper resource="mappings/Station0sMapper.xml" /> -->
 		<mapper resource="mappings/SYSUserMapper.xml" />
+		<mapper resource="mappings/RegRcordMapper.xml" />
+		<mapper resource="mappings/RegTicketMapper.xml" />
 	</mappers>
 
 </configuration>

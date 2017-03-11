@@ -7,17 +7,17 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ai.frame.bean.InputObject;
-import com.ai.frame.bean.OutputObject;
 import com.leo.service.IRegRcordService ;
 import com.leo.util.DateUtil;
+import com.lfc.core.bean.InputObject;
+import com.lfc.core.bean.OutputObject;
 
 public class RegRcordServiceImpl extends BaseServiceImpl implements IRegRcordService   {
 	protected static Logger logger = LoggerFactory.getLogger("RegRcordServiceImpl");
 	@Override
 	public void getList(InputObject inputObject,           
 			OutputObject outputObject) throws Exception {
-		List<Map<String, String>> list= getBaseDao().queryForList("RegRcordMapper.getList", inputObject.getParams());
+		List<Map<String, Object>> list= getBaseDao().queryForList("RegRcordMapper.getList", inputObject.getParams());
 		outputObject.setBeans(list);
 		int totalcount = getBaseDao().getTotalCount("RegRcordMapper.queryUserCount", inputObject.getParams());
 		outputObject.setObject(totalcount);
@@ -34,7 +34,7 @@ public class RegRcordServiceImpl extends BaseServiceImpl implements IRegRcordSer
 	public void getAll(InputObject inputObject,
 			OutputObject outputObject) throws Exception {
 		inputObject.getParams().put("deleteFlag","0");
-		List<Map<String,String>> list = getBaseDao().queryForList("RegRcordMapper.getAll", inputObject.getParams());
+		List<Map<String, Object>> list = getBaseDao().queryForList("RegRcordMapper.getAll", inputObject.getParams());
 		outputObject.setBeans(list);
 	
 	}

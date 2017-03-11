@@ -14,7 +14,7 @@
 
 	<body class="easyui-layout">
 		<div class="header" data-options="region:'north',border:false" style="height:60px;/*background:#B3DFDA;*/padding:0px">
-			<span class="loginbar"><span id="adminLog">您好 admin</span><!--<a href="javascript:getBack()" >返回主页</a>  <a href="javascript:loginOut()" id="loginOut">[退出]</a>--></span>
+			<span class="loginbar"><span id="adminLog">您好 $adminUser</span><a href="javascript:loginOut()">[退出]</a></span>
 		    <span class="logo"><!--<img src="images/blocks.gif" width="20" height="20" align="absmiddle" />--> 全球通后台管理</span>
 		    <!--顶部导航-->
             <span class="nav"><a href="#" class="selected">管理</a><a href="#">设置</a></span>
@@ -26,12 +26,12 @@
 				<ul >
 				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('券码管理','${contextPath}/admin?tab=ticket_manage')">券码管理</a></li>
 				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('注册记录','admin/oldPassword.html')">注册记录</a></li>
-				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('系统用户','${contextPath}/admin?tab=sys_user_manage')">系统用户</a></li>
+				<li><a href="#" class="easyui-linkbutton" style="display: none;" plain="true" onclick="addTab('系统用户','${contextPath}/admin?tab=sys_user_manage')">系统用户</a></li>
 				</ul>
 				
 				<!-- 素材管理 -->	
 				<ul style="display: none;">
-					<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('图文素材管理','imgTxt/sourceManage.html')">图文素材管理</a></li>
+					<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('系统设置','imgTxt/sourceManage.html')">系统设置</a></li>
 				</ul>
 				<!-- 消息推送 -->
 				<ul style="display: none;">	
@@ -39,11 +39,7 @@
 					<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('消息推送状态管理','imgTxt/messPushStateManage.html')">消息推送状态管理</a></li>
 					<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('推送状态返回码说明','imgTxt/returnCode.html')">推送状态返回码说明</a></li>
 				</ul>
-				
-				
-				
 			</div>
-
 		</div>
 			<div region="center" id="tt" class="easyui-tabs" style="height:100%;scrolling:auto">
 				<div title="Home">欢迎访问！
@@ -51,6 +47,7 @@
 			</div>
 	</body>
 	<script type="text/javascript">
+		
 		function addTab(title, url){
 			if ($('#tt').tabs('exists', title)){
 				$('#tt').tabs('select', title);
@@ -64,6 +61,7 @@
 			}
 		}
 		$(function(){
+			
 			$('.nav>a').click(function(){
 				$('.nav>a').removeClass('selected');
 				$(this).addClass('selected');
@@ -72,6 +70,17 @@
                 $('.sidebar ul').eq(index).show();
 			});
 		});
+		function loginOut(){
+			var url = contextPath + "/admin/loginOut.do";
+			var params;
+			Util.ajax.postJson(url, params, function(data,flag){
+					if(data.returnCode=="1"){
+						location.href = contextPath + "/admin?tab=login_in";
+					}else{
+						alert(data.returnMessage);
+					}
+			});
+	}
 		function getBack(){
 		   	 window.location.href = "admin/button.html";
 		    }

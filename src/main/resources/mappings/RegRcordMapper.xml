@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="RegRcordMapper" >
   <resultMap id="BaseResultMap" type="java.util.Map" >
-  	<id column="id" property="id" jdbcType=""/>
+  	<id column="id" property="id" jdbcType="VARCHAR"/>
   	<result column="TICKET_CODE" property="ticketCode" jdbcType="VARCHAR"/>
 	<result column="CONSTOMER" property="constomer" jdbcType="VARCHAR"/>
 	<result column="ID" property="id" jdbcType="VARCHAR"/>
 	<result column="REG_ORIGIN" property="regOrigin" jdbcType="CHAR"/>
 	<result column="REG_STATUS" property="regStatus" jdbcType="CHAR"/>
-	<result column="REG_TIME" property="regTime" jdbcType="null"/>
+	<result column="REG_TIME" property="regTime" jdbcType="TIMESTAMP"/>
 	<result column="MACHINE_CODE" property="machineCode" jdbcType="VARCHAR"/>
 	<result column="REG_CODE" property="regCode" jdbcType="VARCHAR"/>
 	<result column="TICKET_TYPE" property="ticketType" jdbcType="CHAR"/>
@@ -55,7 +55,7 @@
   <!-- 分页查询注册流水信息 -->
   
   <select id="getList" resultMap="BaseResultMap" >
-  	<include refid="common.Oracle_Pagination_Head" />
+  	
 	    select 
 	    <include refid="Base_Column_List" />
 	    from T_REG_RECORD
@@ -65,7 +65,7 @@
     <if test="orderByClause != null" >
      	order by ${orderByClause}
     </if>
-    <include refid="common.Oracle_Pagination_Tail" />
+    
   </select>
   
   <!-- 根据Id查询注册流水信息 -->
@@ -74,7 +74,7 @@
     select 
     <include refid="Base_Column_List" />
     from T_REG_RECORD
-    where id = #{id,jdbcType=}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   
   <!-- 查询注册流水信息总数量 -->
@@ -110,7 +110,7 @@
     where REG_CODE = #{regCode,jdbcType=VARCHAR}
     AND DELETE_FLAG = 0 
     <if test="id != null" >
-    	and id != #{id,jdbcType=}
+    	and id != #{id,jdbcType=VARCHAR}
     </if>
   </select> -->
   
@@ -163,17 +163,17 @@
 	<if test="regCode != null">REG_CODE = #{regCode}, </if>
 	<if test="ticketType != null">TICKET_TYPE = #{ticketType}, </if>
     </set>
-    where id = #{id,jdbcType=}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <delete id="delete" parameterType="java.lang.String" >
     delete from T_REG_RECORD
-    where id = #{id,jdbcType=}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <!-- 逻辑删除注册流水信息 -->
   
   <update id="logicDelete" parameterType="java.util.Map" >
     update T_REG_RECORD
     set DELETE_FLAG = -1
-    where id = #{id,jdbcType=}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
