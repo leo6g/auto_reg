@@ -42,7 +42,7 @@ public class RegRcordForm extends BaseForm{
 	/*
 	字段注释：注册码
 	列名称:REG_CODE
-	字段类型:varchar*/
+	字段类型:varchr*/
 	private String regCode;
 	/*
 	字段注释：券类型
