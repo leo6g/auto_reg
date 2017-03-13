@@ -7,4 +7,5 @@
   </bean>
   	<bean id="sYSUserService" class="com.leo.serviceImpl.SYSUserServiceImpl" parent="baseService"></bean>
   	<bean id="regTicketService" class="com.leo.serviceImpl.RegTicketServiceImpl" parent="baseService"></bean>
+  	<bean id="regRcordService" class="com.leo.serviceImpl.RegRcordServiceImpl" parent="baseService"></bean>
 </beans>

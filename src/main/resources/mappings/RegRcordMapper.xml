@@ -65,6 +65,7 @@
     <if test="orderByClause != null" >
      	order by ${orderByClause}
     </if>
+    limit #{start},#{limit}
     
   </select>
   
@@ -76,7 +77,6 @@
     from T_REG_RECORD
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  
   <!-- 查询注册流水信息总数量 -->
   
   <select id="countAll" resultType="java.lang.Integer" >
@@ -118,15 +118,10 @@
   
   <insert id="insert" parameterType="java.util.Map" >
     insert into T_REG_RECORD
-    <selectKey resultType="java.lang.String" keyProperty="id"
-			order="BEFORE">
-			select sys_guid() from dual
-	</selectKey>
     <trim prefix="(" suffix=")" suffixOverrides="," >
        id,
       <if test="ticketCode != null"> TICKET_CODE, </if>
 	<if test="constomer != null"> CONSTOMER, </if>
-	<if test="id != null"> ID, </if>
 	<if test="regOrigin != null"> REG_ORIGIN, </if>
 	<if test="regStatus != null"> REG_STATUS, </if>
 	<if test="regTime != null"> REG_TIME, </if>
@@ -138,7 +133,6 @@
       #{id},
      <if test="ticketCode != null"> #{ticketCode}, </if>
 	<if test="constomer != null"> #{constomer}, </if>
-	<if test="id != null"> #{id}, </if>
 	<if test="regOrigin != null"> #{regOrigin}, </if>
 	<if test="regStatus != null"> #{regStatus}, </if>
 	<if test="regTime != null"> #{regTime}, </if>

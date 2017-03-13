@@ -1,6 +1,7 @@
 package com.leo.controller;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.leo.form.RegRcordForm;
 import com.leo.util.ActionUtil;
+import com.leo.util.StringUtil;
+import com.leo.util.UUIDGenerator;
 import com.lfc.core.bean.OutputObject;
 import com.lfc.core.util.BeanUtil;
 
@@ -34,16 +39,62 @@ import com.lfc.core.util.BeanUtil;
 @Controller
 @RequestMapping("/reg_record")
 public class RegRcordController extends BaseController{
-	
+	protected static Logger logger = LoggerFactory.getLogger("RegRcordController");
 	@ResponseBody
 	@RequestMapping("/regMachine")
 	public OutputObject regMachine(HttpServletRequest request,HttpServletResponse response){
-		OutputObject out = new OutputObject();
 		String machineCode = request.getParameter("machineCode");
-		String regCode = ActionUtil.do1(machineCode);
-		out.setReturnCode("1");
-		out.setReturnMessage(regCode);
-		return out;
+		String ticketCode = request.getParameter("ticketCode");
+		String regOrigin = request.getParameter("regOrigin");
+		OutputObject outputObject = new OutputObject();
+		if(StringUtil.isEmpty(ticketCode)||StringUtil.isEmpty(machineCode)){
+			return null;
+		}
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("ticketCode", ticketCode);
+		//检验券码
+		outputObject = getOutputObject(map, "regTicketService", "getByTicket");
+		Map<String,Object> resultMap = (Map<String,Object>)outputObject.getObject();
+		if(resultMap!=null){
+			if("1".equals((String)resultMap.get("available"))){
+				try {
+					Date currentDate = new Date();
+					outputObject.setObject(null);
+					//控制注册
+					String regCode = ActionUtil.do2(machineCode);
+					outputObject.setReturnCode("1");
+					outputObject.setReturnMessage(regCode);
+					outputObject.setOption("机器码填写：888");
+					//失效券码
+					map.clear();
+					map.put("available", "0");
+					map.put("consumeTime", currentDate);
+					map.put("id", resultMap.get("id"));
+					getOutputObject(map, "regTicketService", "updateRegTicket");
+					RegRcordForm regRcordForm = new RegRcordForm();
+					regRcordForm.setId(UUIDGenerator.getJavaUUID());
+					regRcordForm.setMachineCode(machineCode);
+					regRcordForm.setRegOrigin(regOrigin);
+					regRcordForm.setRegStatus("1");
+					regRcordForm.setRegTime(currentDate);
+					regRcordForm.setTicketCode(ticketCode);
+					regRcordForm.setTicketType((String)resultMap.get("ticketType"));
+					regRcordForm.setRegCode(regCode);
+					insertRegRcord(regRcordForm);
+				} catch (Exception e) {
+					outputObject.setReturnCode("0");
+					outputObject.setReturnMessage("注册失败请联系QQ:2388937779");
+					logger.error("注册时出现严重错误",e);
+				}
+			}else{
+				outputObject.setReturnCode("0");
+				outputObject.setReturnMessage("券码已使用");
+			}
+		}else{
+			outputObject.setReturnCode("0");
+			outputObject.setReturnMessage("无效的券码");
+		}
+		return outputObject;
 	}
 	
 	/**
@@ -68,15 +119,18 @@ public class RegRcordController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getList")
-	public OutputObject getList(@ModelAttribute("regRcordForm") RegRcordForm regRcordForm,
-			BindingResult result,  Model model, ModelMap mm) {
-		if (result.hasErrors()) {
-			returnValidatorAjaxResult(result);
-		}
+	public Object getList(@ModelAttribute("regRcordForm") RegRcordForm regRcordForm,HttpServletRequest request) {
 		OutputObject outputObject = null;
+		String limit = request.getParameter("rows");
+		String pageNo = request.getParameter("page");
 		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
+		map.put("limit", Integer.parseInt(limit));
+		map.put("start", (Integer.parseInt(pageNo)-1)*Integer.parseInt(limit));
 		outputObject = getOutputObject(map, "regRcordService", "getList");
-		return outputObject;
+		map.clear();
+		map.put("total", outputObject.getObject());
+		map.put("rows", outputObject.getBeans());
+		return map;
 	}
 	/**
 	 *根据ID查询注册流水信息
@@ -127,19 +181,13 @@ public class RegRcordController extends BaseController{
 	 * @param mm
 	 * @return
 	 */
-	@ResponseBody
-	@RequestMapping(value = "insertRegRcord")
-	public OutputObject insertRegRcord(@ModelAttribute("RegRcordForm") @Valid RegRcordForm regRcordForm,BindingResult result, Model model,ModelMap mm) {
-		if (result.hasErrors()) {
-				return returnValidatorAjaxResult(result);
-			}
+	public void insertRegRcord(RegRcordForm regRcordForm) {
 			OutputObject outputObject = null;
 			Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
 			outputObject = getOutputObject(map, "regRcordService", "insertRegRcord");
-			if(outputObject.getReturnCode().equals("0")){
-				outputObject.setReturnMessage("注册流水信息添加成功!");
+			if(outputObject.getReturnCode().equals("1")){
+				logger.info("注册流水信息添加成功!");
 			}
-			return outputObject;
 	}
 	/**
 	 * 编辑注册流水信息

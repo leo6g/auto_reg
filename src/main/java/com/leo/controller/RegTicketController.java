@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -35,6 +37,7 @@ import com.lfc.core.util.BeanUtil;
 @Controller
 @RequestMapping("/reg_ticket")
 public class RegTicketController extends BaseController{
+	protected static Logger logger = LoggerFactory.getLogger("RegTicketController");
 	/**
 	 * 分页查询券码列表
 	 * @param RegTicketForm
@@ -46,15 +49,18 @@ public class RegTicketController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getList")
-	public List<Map<String, Object>> getList(@ModelAttribute("regTicketForm") RegTicketForm regTicketForm,
-			BindingResult result,  Model model, ModelMap mm) {
-		if (result.hasErrors()) {
-			returnValidatorAjaxResult(result);
-		}
+	public Object getList(@ModelAttribute("regTicketForm") RegTicketForm regTicketForm,HttpServletRequest request) {
 		OutputObject outputObject = null;
+		String limit = request.getParameter("rows");
+		String pageNo = request.getParameter("page");
 		Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
+		map.put("limit", Integer.parseInt(limit));
+		map.put("start", (Integer.parseInt(pageNo)-1)*Integer.parseInt(limit));
 		outputObject = getOutputObject(map, "regTicketService", "getList");
-		return outputObject.getBeans();
+		map.clear();
+		map.put("total", outputObject.getObject());
+		map.put("rows", outputObject.getBeans());
+		return map;
 	}
 	/**
 	 *根据ID查询券码

@@ -32,7 +32,7 @@ public interface IRegRcordService {
 	 * @param outputObject
 	 * @throws Exception
 	 */
-	public int insertRegRcord(InputObject inputObject, OutputObject outputObject) throws Exception;
+	public void insertRegRcord(InputObject inputObject, OutputObject outputObject) throws Exception;
 	/**
 	 * 更新注册流水信息
 	 * @param inputObject

@@ -1,5 +1,5 @@
 .plain_form{
-	margin-top: 20%;
+	margin-top: 15%;
 	display: block;
 }
 .plain_form span{
@@ -9,5 +9,11 @@
 	width: 255px;
 }
 .form div{
+	margin: 10px;
+}
+#resultDiv div{
+	margin: 10px;
+}
+#resultDiv1 div{
 	margin: 10px;
 }

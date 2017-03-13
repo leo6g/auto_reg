@@ -31,7 +31,7 @@
 								align : 'center',
 								width : 50,
 								formatter : function(value, rows, index) {
-									if(rows.ticketType =='0'){
+									if(rows.ticketType =='1'){
 										return '普通';
 									}else{
 										return '现金';

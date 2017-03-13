@@ -65,7 +65,7 @@
     <if test="orderByClause != null" >
      	order by ${orderByClause}
     </if>
-    
+    limit #{start},#{limit}
   </select>
   
   <!-- 根据Id查询券码 -->
@@ -76,7 +76,14 @@
     from T_REG_TICKET
     where id = #{id,jdbcType=VARCHAR}
   </select>
+   <!-- 根据Id查询注册流水信息 -->
   
+  <select id="getByTicket" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_REG_TICKET
+    where TICKET_CODE = #{ticketCode,jdbcType=VARCHAR}
+  </select>
   <!-- 查询券码总数量 -->
   
   <select id="countAll" resultType="java.lang.Integer" >

@@ -10,9 +10,19 @@
 </head>
 <body>
 <div class="plain_form" align="center">
-<span>券码</span><input type="text" id="ticket_code"/>
+<span>券码</span><input type="text" id="ticket_code"/><input type="hidden" id="origin_type" value="1"/>
 <span>机器码</span><input type="text" id="machine_code"/>
     <button id="regBut" title="注册" style="width: 80px;height:22px;margin-left: 20px"><span style="color: blue">注册</span> </button>
+</div>
+<div></div>
+<div id="resultDiv" align="center">
+	<div><span style="color:green;">恭喜，注册成功</span></div>
+	<div><span id="machine" ></span></div>
+	<div><textarea rows="3" cols="32" id="reg"></textarea></div>
+</div>
+<div id="resultDiv1" align="center">
+	<div><span style="color:red;">亲，注册失败</span></div>
+	<div><span id="mess" ></span></div>
 </div>
 </body>
 </html>

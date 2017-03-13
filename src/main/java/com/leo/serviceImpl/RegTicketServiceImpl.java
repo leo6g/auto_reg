@@ -18,6 +18,8 @@ public class RegTicketServiceImpl extends BaseServiceImpl implements IRegTicketS
 	public void getList(InputObject inputObject,
 			OutputObject outputObject) throws Exception {
 		List<Map<String, Object>> list= getBaseDao().queryForList("RegTicketMapper.getList", inputObject.getParams());
+		int totalcount = getBaseDao().getTotalCount("RegTicketMapper.countAll", inputObject.getParams());
+		outputObject.setObject(totalcount);
 		outputObject.setBeans(list);
 		 logger.info("getList success");
 	}
@@ -27,6 +29,12 @@ public class RegTicketServiceImpl extends BaseServiceImpl implements IRegTicketS
 		Object object=getBaseDao().queryForObject("RegTicketMapper.getById", inputObject.getParams());
 		outputObject.setObject(object);
 
+	}
+	@Override
+	public void getByTicket(InputObject inputObject,
+			OutputObject outputObject) throws Exception {
+		Object object=getBaseDao().queryForObject("RegTicketMapper.getByTicket", inputObject.getParams());
+		outputObject.setObject(object);
 	}
 	@Override
 	public void getAll(InputObject inputObject,

@@ -68,6 +68,6 @@
     <location>/WEB-INF/velocity/error/404.html</location>
   </error-page>
   <welcome-file-list>
-    <welcome-file>/index</welcome-file>
+    <welcome-file>/reg_record/regMachine</welcome-file>
   </welcome-file-list>
 </web-app>

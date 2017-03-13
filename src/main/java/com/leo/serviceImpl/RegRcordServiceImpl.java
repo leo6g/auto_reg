@@ -19,7 +19,7 @@ public class RegRcordServiceImpl extends BaseServiceImpl implements IRegRcordSer
 			OutputObject outputObject) throws Exception {
 		List<Map<String, Object>> list= getBaseDao().queryForList("RegRcordMapper.getList", inputObject.getParams());
 		outputObject.setBeans(list);
-		int totalcount = getBaseDao().getTotalCount("RegRcordMapper.queryUserCount", inputObject.getParams());
+		int totalcount = getBaseDao().getTotalCount("RegRcordMapper.countAll", inputObject.getParams());
 		outputObject.setObject(totalcount);
 		 logger.info("getList success");
 	}
@@ -39,20 +39,10 @@ public class RegRcordServiceImpl extends BaseServiceImpl implements IRegRcordSer
 	
 	}
 	@Override
-	public int insertRegRcord(InputObject inputObject,
+	public void insertRegRcord(InputObject inputObject,
 			OutputObject outputObject) throws Exception {
-		String createTime = DateUtil.date2String(new Date(),DateUtil.DATE_PATTERN.YYYY_MM_DD_HH_MM_SS);
-		//查询注册流水信息是否已经存在 有code验证时放开
-		//Object object = getBaseDao().queryForObject("RegRcordMapper.getByCode", inputObject.getParams());
-	//	if(object==null){
-			inputObject.getParams().put("deleteFlag", "0");
-			inputObject.getParams().put("createTime", createTime);
-			return getBaseDao().insert("RegRcordMapper.insert", inputObject.getParams());
-	//	}else{
-	//		outputObject.setReturnCode("-1");
-	//		outputObject.setReturnMessage("注册流水信息已经存在，请修改!");
-	//		return -1;
-	//	}
+			getBaseDao().insert("RegRcordMapper.insert", inputObject.getParams());
+			outputObject.setReturnCode("1");
 	}
 
 	@Override

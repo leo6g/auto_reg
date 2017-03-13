@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+#parse("common.html")
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit" >
+<title>注册记录</title>	
+<link rel="stylesheet" type="text/css" href="${contextPath}/lib/jquery-easyui-1.4.3/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/lib/jquery-easyui-1.4.3/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/style/main.css">
+<script type="text/javascript" src="${contextPath}/lib/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${contextPath}/lib/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${contextPath}/js/common/common.js"></script>
+<style type="text/css">	
+	#pushScope+.textbox .textbox-text{
+		padding-top:46px;
+		padding-bottom:46px;
+		word-break: break-word;
+		font-size: 13px;
+	}
+</style>
+</head>
+<body>
+	<div id="tb" style="padding: 5px;  height: auto">
+		<div style="color:red;">注意：<span class="sendAllPorts_useNum"></span>
+		<span class="mbPreviewPorts_useNum"></span></div><br>
+		<form id="search_form" class="form"> 
+		<label for="ticketType">券码:</label>
+			<input class="easyui-textbox" id="ticketCode" name="ticketCode" style="width:300px"> 
+			<label for="machineCode">机器码:</label>
+			<input class="easyui-textbox" id="machineCode" name="machineCode" style="width:300px"> 
+			 <select id="regOrigin" class="easyui-combobox" name="regOrigin" style="width:80px;"> 
+			 			<option value="">--请选择--</option> 
+					    <option value="1">PC</option> 
+					    <option value="2">Mobile</option>
+			</select> 
+			<select id="regStatus" class="easyui-combobox" name="regStatus" style="width:80px;"> 
+						<option value="">--请选择--</option> 
+					    <option value="1">成功</option> 
+					    <option value="0">失败</option>
+			</select>    
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="search_data()">搜索</a>
+		</form>
+	</div>	
+	<table id="record_tb" toolbar="#tb" fit=true>
+	</table>
+</body>
+<script type="text/javascript" src="${contextPath}/js/record_manage.js"></script>
+</html>
