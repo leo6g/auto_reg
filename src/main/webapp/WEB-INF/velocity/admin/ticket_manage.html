@@ -8,6 +8,7 @@
 <title>券码管理</title>	
 <link rel="stylesheet" type="text/css" href="${contextPath}/lib/jquery-easyui-1.4.3/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/lib/jquery-easyui-1.4.3/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/style/main.css">
 <script type="text/javascript" src="${contextPath}/lib/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${contextPath}/lib/jquery-easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${contextPath}/js/common/common.js"></script>
@@ -21,171 +22,56 @@
 </style>
 </head>
 <body>
-
 	<div id="tb" style="padding: 5px;  height: auto">
 		<div style="color:red;">注意：<span class="sendAllPorts_useNum"></span>
 		<span class="mbPreviewPorts_useNum"></span></div><br>
-		<input class="easyui-textbox" data-options="iconCls:'icon-search'" style="width:300px"> 
-		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="showAddDialog()">搜索</a>
-		<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="showAddDialog()">新增</a>
+		<form id="search_form" class="form"> 
+		<label for="ticketType">券码:</label>
+			<input class="easyui-textbox" id="ticketCode" name="ticketCode" style="width:300px"> 
+			 <select id="ticketType" class="easyui-combobox" name="ticketType" style="width:80px;"> 
+			 			<option value="">--请选择--</option> 
+					    <option value="1">普通</option> 
+					    <option value="2">现金</option>
+			</select> 
+			<select id="available" class="easyui-combobox" name="available" style="width:80px;"> 
+						<option value="">--请选择--</option> 
+					    <option value="1">有效</option> 
+					    <option value="0">无效</option>
+			</select>    
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="search_data()">搜索</a>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="javascript:$('#add_dlg').dialog('open');">新增</a>
+		</form>
 	</div>	
-	<table id="pushMess" toolbar="#tb" fit=true>
+	<table id="ticket_tb" toolbar="#tb" fit=true>
 	</table>
-	<script type="text/javascript">
-	 $(function(){
-		var params = {};
-		$("#pushMess").datagrid(
-				{
-					idField : "id",
-					pagination : true,
-					singleSelect : true,
-					rownumbers : true,
-					checkOnSelect: true,
-					selectOnCheck: true,
-					url : "${contextPath}/reg_ticket/getList",
-					queryParams: params,
-					title : "券码列表",
-					columns : [[
-							{
-								field : 'id',
-								align : 'center',
-								checkbox:true,
-								width : 50
-							},
-							{
-								field : 'ticketCode',
-								title : '券码',
-								align : 'center',
-								width : 300
-							},
-							{
-								field : 'ticketType',
-								title : '券种',
-								align : 'center',
-								width : 180,
-								formatter : function(value, rows, index) {
-									if(rows.ticketType =='0'){
-										return '普通';
-									}else{
-										return '现金';
-									}
-								}
-							},
-							{
-								field : 'priceValue',
-								title : '价值',
-								align : 'center',
-								width : 100,
-								formatter : function(value, rows, index) {
-									if(rows.priceValue =='0'){
-										return '--';
-									}else{
-										return rows.priceValue;
-									}
-								}
-							},
-							{
-								field : 'consumeTime',
-								title : '消费时间',
-								align : 'center',
-								width : 100,
-								formatter : function(value, rows, index) {
-									if(!rows.consumeTime){
-										return rows.consumeTime;
-									}else{
-										return '--';
-									}
-								}
-							},
-							{
-								field : 'usedTime',
-								title : '售出时间',
-								align : 'center',
-								width : 180,
-								formatter:function(value,rows,index){
-									if(!rows.usedTime){
-										return rows.usedTime;
-									}else{
-										return '--';
-									}
-								}
-							},
-							{
-								field : 'createTime',
-								title : '售出时间',
-								align : 'center',
-								width : 180,
-								formatter:function(value,rows,index){
-									if(!rows.createTime){
-										return rows.createTime;
-									}else{
-										return '--';
-									}
-								}
-							},
-							{
-								field : 'createUser',
-								title : '创建人',
-								align : 'center',
-								width : 100
-							},
-							{
-								field : 'available',
-								title : '是否有效',
-								align : 'center',
-								width : 180,
-								formatter:function(value,rows,index){
-									if(!rows.available=='1'){
-										return '是';
-									}else{
-										return '否';
-									}
-								}
-							},
-							{
-								field : 'adc',
-								title : '操作',
-								align : 'center',
-								width : 200,
-								formatter : function(value, rows, index) {
-									return "<a style='text-decoration:none;' href='javascript:disableIt()'>失效||</a>"+
-									"<a style='text-decoration:none;' href='javascript:disableIt()'>激活</a>";
-								}
-							}]]
-				});
-	 });
-	</script>
-	<!-- 消息群发对象 -->
-	<div id="dlg" class="easyui-dialog"
-		style="width: 300px; height: 400px; padding: 10px 20px;" closed="true"
-		buttons="#dlg-buttons"  modal="true" >
-		
-			<div style="float:left;">
-			<!-- 是否发送全部：<input style="height:20px;width:100px;" type="checkbox" name="" value="0"
-						id="isToAll"  onclick="isChecked()"/></br> -->
-			发送对象：</br>
-			<select class='easyui-combogrid' id='pushScope' style="width:240px;height:140px;" data-options="prompt:'--请选择--'" >
-					
-				</select></br>
-				<span class="objspan_tip" style="color:red;display:none;">请选择发送对象</span>
-			</div>
-	</div>
-	<div id="dlg-buttons">
-		<a href="javascript:void(0)" class="easyui-linkbutton"
-			onclick="pushMess()" id="pushMessButton" iconcls="icon-save">发送</a> <a
-			href="javascript:void(0)" class="easyui-linkbutton"
-			onclick="javascript:$('#dlg').dialog('close')" iconcls="icon-cancel">取消</a>
-	</div>
-	<!-- 查看图文消息 -->
-	<div id="lookdlg" class="easyui-dialog"
-		style="width:850px; height: 400px;" closed="true"
-		buttons="#dlg-buttons"  modal="true" >
-		<table  id="pushImgMess"  fit=true>	
-		</table>		
+	<!-- 券码新增dialog -->
+	<div id="add_dlg" class="easyui-dialog"
+		style="width:350px; height: 300px;" closed="true"
+		buttons="#dlg-buttons"  modal="true" title="加券码" >
+		<form id="add_form" method="post" class="form">   
+		    <div>   
+		        <label for="howMany">生成数:</label> 
+		        <input class="easyui-validatebox" type="text" name="howMany" data-options="required:true" />   
+		    </div>
+		    <div>   
+		        <label for="ticketType">券种:</label>
+		        <select id="ticketType" class="easyui-combobox" name="ticketType" style="width:200px;"> 
+				    <option value="1">普通</option> 
+				    <option value="2">现金</option>    
+				</select>    
+		    </div>
+		    <div>   
+		        <label for="priceValue">价值:</label>
+		        <input class="easyui-validatebox" type="text" name="priceValue" data-options="required:true" />   
+		    </div>
+		</form>  	
 	</div>
 	<div id="dlg-buttons">
 		 <a href="javascript:void(0)" class="easyui-linkbutton"
-			onclick="javascript:$('#lookdlg').dialog('close')" iconcls="icon-cancel">关闭</a>
+			onclick="add_ticket()" iconcls="icon-cancel">提交</a>
+		 <a href="javascript:void(0)" class="easyui-linkbutton"
+		onclick="javascript:$('#add_dlg').dialog('close')" iconcls="icon-cancel">关闭</a>
 	</div>
 </body>
+<script type="text/javascript" src="${contextPath}/js/ticket_manage.js"></script>
 </html>

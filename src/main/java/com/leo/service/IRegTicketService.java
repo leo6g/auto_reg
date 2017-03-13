@@ -32,14 +32,14 @@ public interface IRegTicketService {
 	 * @param outputObject
 	 * @throws Exception
 	 */
-	public int insertRegTicket(InputObject inputObject, OutputObject outputObject) throws Exception;
+	public void insertRegTicket(InputObject inputObject, OutputObject outputObject) throws Exception;
 	/**
 	 * 更新券码
 	 * @param inputObject
 	 * @param outputObject
 	 * @throws Exception
 	 */
-	public int updateRegTicket(InputObject inputObject, OutputObject outputObject) throws Exception;
+	public void updateRegTicket(InputObject inputObject, OutputObject outputObject) throws Exception;
 	/**
 	 * 删除券码(预留)
 	 * @param inputObject

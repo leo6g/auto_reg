@@ -155,7 +155,6 @@
      <set >
       <if test="ticketCode != null">TICKET_CODE = #{ticketCode}, </if>
 	<if test="constomer != null">CONSTOMER = #{constomer}, </if>
-	<if test="id != null">ID = #{id}, </if>
 	<if test="regOrigin != null">REG_ORIGIN = #{regOrigin}, </if>
 	<if test="regStatus != null">REG_STATUS = #{regStatus}, </if>
 	<if test="regTime != null">REG_TIME = #{regTime}, </if>

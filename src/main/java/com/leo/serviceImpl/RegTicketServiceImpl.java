@@ -37,37 +37,17 @@ public class RegTicketServiceImpl extends BaseServiceImpl implements IRegTicketS
 	
 	}
 	@Override
-	public int insertRegTicket(InputObject inputObject,
+	public void insertRegTicket(InputObject inputObject,
 			OutputObject outputObject) throws Exception {
-		String createTime = DateUtil.date2String(new Date(),DateUtil.DATE_PATTERN.YYYY_MM_DD_HH_MM_SS);
-		//查询券码是否已经存在 有code验证时放开
-		//Object object = getBaseDao().queryForObject("RegTicketMapper.getByCode", inputObject.getParams());
-	//	if(object==null){
-			inputObject.getParams().put("deleteFlag", "0");
-			inputObject.getParams().put("createTime", createTime);
-			return getBaseDao().insert("RegTicketMapper.insert", inputObject.getParams());
-	//	}else{
-	//		outputObject.setReturnCode("-1");
-	//		outputObject.setReturnMessage("券码已经存在，请修改!");
-	//		return -1;
-	//	}
+			int count =getBaseDao().insert("RegTicketMapper.insert", inputObject.getParams());
+			outputObject.setReturnCode("0");
 	}
 
 	@Override
-	public int updateRegTicket(InputObject inputObject,
+	public void updateRegTicket(InputObject inputObject,
 			OutputObject outputObject) throws Exception {
-		String updateTime = DateUtil.date2String(new Date(),DateUtil.DATE_PATTERN.YYYY_MM_DD_HH_MM_SS);
-		//查询券码是否存在 有code验证时放开
-		//Object object = getBaseDao().queryForObject("RegTicketMapper.getByCode", inputObject.getParams());
-		//if(object==null){
-			inputObject.getParams().put("updateTime", updateTime);
-			return getBaseDao().update("RegTicketMapper.update", inputObject.getParams());
-		//}else{
-		//	outputObject.setReturnCode("-1");
-		//	outputObject.setReturnMessage("券码已经存在，请修改!");
-		//	return -1;
-		//}
-
+			getBaseDao().update("RegTicketMapper.update", inputObject.getParams());
+			outputObject.setReturnCode("0");
 	}
 	@Override
 	public int deleteRegTicket(InputObject inputObject, OutputObject outputObject)

@@ -118,31 +118,27 @@
   
   <insert id="insert" parameterType="java.util.Map" >
     insert into T_REG_TICKET
-    <selectKey resultType="java.lang.String" keyProperty="id"
-			order="BEFORE">
-			select sys_guid() from dual
-	</selectKey>
     <trim prefix="(" suffix=")" suffixOverrides="," >
        id,
       <if test="ticketCode != null"> TICKET_CODE, </if>
 	<if test="ticketType != null"> TICKET_TYPE, </if>
-	<if test="id != null"> ID, </if>
 	<if test="priceValue != null"> PRICE_VALUE, </if>
 	<if test="consumeTime != null"> CONSUME_TIME, </if>
 	<if test="usedTime != null"> USED_TIME, </if>
 	<if test="createTime != null"> CREATE_TIME, </if>
 	<if test="createUser != null"> CREATE_USER, </if>
+	<if test="available != null"> AVAILABLE, </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       #{id},
      <if test="ticketCode != null"> #{ticketCode}, </if>
 	<if test="ticketType != null"> #{ticketType}, </if>
-	<if test="id != null"> #{id}, </if>
 	<if test="priceValue != null"> #{priceValue}, </if>
 	<if test="consumeTime != null"> #{consumeTime}, </if>
 	<if test="usedTime != null"> #{usedTime}, </if>
 	<if test="createTime != null"> #{createTime}, </if>
 	<if test="createUser != null"> #{createUser}, </if>
+	<if test="available != null"> #{available}, </if>
     </trim>
   </insert>
   
@@ -159,9 +155,11 @@
 	<if test="usedTime != null">USED_TIME = #{usedTime}, </if>
 	<if test="createTime != null">CREATE_TIME = #{createTime}, </if>
 	<if test="createUser != null">CREATE_USER = #{createUser}, </if>
+	<if test="available != null">AVAILABLE = #{available}, </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
   <delete id="delete" parameterType="java.lang.String" >
     delete from T_REG_TICKET
     where id = #{id,jdbcType=VARCHAR}

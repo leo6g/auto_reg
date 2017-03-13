@@ -8,3 +8,6 @@
 .plain_form input{
 	width: 255px;
 }
+.form div{
+	margin: 10px;
+}

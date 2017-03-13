@@ -1,6 +1,7 @@
 package com.leo.controller;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.leo.form.RegTicketForm;
+import com.leo.util.UUIDGenerator;
 import com.lfc.core.bean.OutputObject;
 import com.lfc.core.util.BeanUtil;
 
@@ -104,14 +107,18 @@ public class RegTicketController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "insertRegTicket")
-	public OutputObject insertRegTicket(@ModelAttribute("RegTicketForm") @Valid RegTicketForm regTicketForm,BindingResult result, Model model,ModelMap mm) {
-		if (result.hasErrors()) {
-				return returnValidatorAjaxResult(result);
-			}
-			OutputObject outputObject = null;
+	public OutputObject insertRegTicket(@ModelAttribute("RegTicketForm") @Valid RegTicketForm regTicketForm,HttpServletRequest request) {
+		OutputObject outputObject = null;
+			String howMany = request.getParameter("howMany");
 			Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
+			map.put("createTime", new Date());
+			map.put("available", "1");
 			map.put("createUser", (String)getSession().getAttribute("adminUser"));
-			outputObject = getOutputObject(map, "regTicketService", "insertRegTicket");
+			for(int i =0;i<Integer.parseInt(howMany);i++){
+				map.put("id", UUIDGenerator.getJavaUUID());
+				map.put("ticketCode", UUIDGenerator.getTicket());
+				outputObject = getOutputObject(map, "regTicketService", "insertRegTicket");
+			}
 			if(outputObject.getReturnCode().equals("0")){
 				outputObject.setReturnMessage("券码添加成功!");
 			}
@@ -128,15 +135,16 @@ public class RegTicketController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "updateRegTicket")
-	public OutputObject updateRegTicket(@ModelAttribute("RegTicketForm") @Valid RegTicketForm regTicketForm,BindingResult result, Model model,ModelMap mm) {
-		if (result.hasErrors()) {
-			return returnValidatorAjaxResult(result);
-		}
+	public OutputObject updateRegTicket(@ModelAttribute("RegTicketForm") @Valid RegTicketForm regTicketForm) {
+		String abc = regTicketForm.getAvailable();
 		OutputObject outputObject = null;
 		Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
 		outputObject = getOutputObject(map, "regTicketService", "updateRegTicket");
 		if(outputObject.getReturnCode().equals("0")){
-			outputObject.setReturnMessage("券码编辑成功!");
+			outputObject.setReturnMessage("成功激活");
+			if("0".equals(abc)){
+				outputObject.setReturnMessage("成功失效");
+			}
 		}
 		return outputObject;
 	}
