@@ -119,6 +119,7 @@ public class RegTicketController extends BaseController{
 			Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
 			map.put("createTime", new Date());
 			map.put("available", "1");
+			map.put("isSold", "0");
 			map.put("createUser", (String)getSession().getAttribute("adminUser"));
 			for(int i =0;i<Integer.parseInt(howMany);i++){
 				map.put("id", UUIDGenerator.getJavaUUID());
@@ -147,9 +148,12 @@ public class RegTicketController extends BaseController{
 		Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
 		outputObject = getOutputObject(map, "regTicketService", "updateRegTicket");
 		if(outputObject.getReturnCode().equals("0")){
-			outputObject.setReturnMessage("成功激活");
 			if("0".equals(abc)){
 				outputObject.setReturnMessage("成功失效");
+			}else if("1".equals(abc)){
+				outputObject.setReturnMessage("成功激活");
+			}else{
+				outputObject.setReturnMessage("成功出售");
 			}
 		}
 		return outputObject;

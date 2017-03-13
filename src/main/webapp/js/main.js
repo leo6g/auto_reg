@@ -11,6 +11,7 @@ $(function(){
 				if(data.returnCode=="1"){
 					$("#machine").html(data.option);
 					$("#reg").html(data.returnMessage);
+					$("#resultDiv1").hide();
 					$("#resultDiv").show();
 				}else{
 					$("#mess").html(data.returnMessage);

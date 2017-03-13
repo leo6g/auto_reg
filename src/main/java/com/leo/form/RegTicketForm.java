@@ -45,7 +45,16 @@ public class RegTicketForm extends BaseForm{
 	字段类型:varchar*/
 	private String createUser;
 	private String available;
+	private String isSold;
 	
+	public String getIsSold() {
+		return isSold;
+	}
+
+	public void setIsSold(String isSold) {
+		this.isSold = isSold;
+	}
+
 	public String getAvailable() {
 		return available;
 	}

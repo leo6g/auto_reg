@@ -12,6 +12,7 @@
 	<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
 	<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR"/>
 	<result column="AVAILABLE" property="available" jdbcType="VARCHAR"/>
+	<result column="ISSOLD" property="isSold" jdbcType="VARCHAR"/>
 	
   </resultMap>
   
@@ -44,12 +45,15 @@
 	 <if test="available != null" >
 		 AND AVAILABLE = #{available}
 	 </if>
+	 <if test="isSold != null" >
+		 AND ISSOLD = #{isSold}
+	 </if>
 	     
     </trim>
   </sql>
   
   <sql id="Base_Column_List" >
-  	TICKET_CODE,TICKET_TYPE,ID,PRICE_VALUE,CONSUME_TIME,USED_TIME,CREATE_TIME,CREATE_USER,AVAILABLE
+  	TICKET_CODE,TICKET_TYPE,ID,PRICE_VALUE,CONSUME_TIME,USED_TIME,CREATE_TIME,CREATE_USER,AVAILABLE,ISSOLD
   </sql>
   
   <!-- 分页查询券码 -->
@@ -135,6 +139,7 @@
 	<if test="createTime != null"> CREATE_TIME, </if>
 	<if test="createUser != null"> CREATE_USER, </if>
 	<if test="available != null"> AVAILABLE, </if>
+	<if test="isSold != null"> ISSOLD, </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       #{id},
@@ -146,6 +151,7 @@
 	<if test="createTime != null"> #{createTime}, </if>
 	<if test="createUser != null"> #{createUser}, </if>
 	<if test="available != null"> #{available}, </if>
+	<if test="isSold != null"> #{isSold}, </if>
     </trim>
   </insert>
   
@@ -163,6 +169,7 @@
 	<if test="createTime != null">CREATE_TIME = #{createTime}, </if>
 	<if test="createUser != null">CREATE_USER = #{createUser}, </if>
 	<if test="available != null">AVAILABLE = #{available}, </if>
+	<if test="isSold != null">ISSOLD = #{isSold}, </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>

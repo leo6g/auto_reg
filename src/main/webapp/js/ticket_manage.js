@@ -29,7 +29,6 @@
 								field : 'ticketType',
 								title : '券种',
 								align : 'center',
-								width : 50,
 								formatter : function(value, rows, index) {
 									if(rows.ticketType =='1'){
 										return '普通';
@@ -42,7 +41,6 @@
 								field : 'priceValue',
 								title : '价值',
 								align : 'center',
-								width : 50,
 								formatter : function(value, rows, index) {
 									if(rows.priceValue =='0'){
 										return '--';
@@ -52,18 +50,23 @@
 								}
 							},
 							{
-								field : 'createUser',
-								title : '创建人',
-								align : 'center',
-								width : 80
-							},
-							{
 								field : 'available',
 								title : '是否有效',
 								align : 'center',
-								width : 80,
 								formatter:function(value,rows,index){
 									if(rows.available=='1'){
+										return '是';
+									}else{
+										return '否';
+									}
+								}
+							},
+							{
+								field : 'isSold',
+								title : '是否出售',
+								align : 'center',
+								formatter:function(value,rows,index){
+									if(rows.isSold=='1'){
 										return '是';
 									}else{
 										return '否';
@@ -110,13 +113,18 @@
 								}
 							},
 							{
+								field : 'createUser',
+								title : '创建人',
+								align : 'center',
+							},
+							{
 								field : 'adc',
 								title : '操作',
 								align : 'center',
-								width : 100,
 								formatter : function(value, rows, index) {
 									return "<a style='text-decoration:none;' href=\"javascript:active(\'"+rows.id+"\',\'0\');$(\'#ticket_tb\').datagrid(\'reload\');\">失效||</a>"+
-									"<a style='text-decoration:none;' href=\"javascript:active(\'"+rows.id+"\',\'1\');$(\'#ticket_tb\').datagrid(\'reload\');\">激活</a>";
+									"<a style='text-decoration:none;' href=\"javascript:active(\'"+rows.id+"\',\'1\');$(\'#ticket_tb\').datagrid(\'reload\');\">激活||</a>"+
+									"<a style='text-decoration:none;' href=\"javascript:sold(\'"+rows.id+"\',\'1\');$(\'#ticket_tb\').datagrid(\'reload\');\">出售</a>";
 								}
 							}]]
 				});
@@ -127,8 +135,16 @@
 		 var ticketCode = $("#ticketCode").val()==''?undefined:$("#ticketCode").val();
 		 var ticketType = $('#ticketType').combobox('getValue')==''?undefined:$('#ticketType').combobox('getValue');
 		 var available = $('#available').combobox('getValue')==''?undefined:$('#available').combobox('getValue');
-		 var params ={"ticketCode":ticketCode,"ticketType":ticketType,"available":available};
+		 var isSold = $('#isSold').combobox('getValue')==''?undefined:$('#isSold').combobox('getValue');
+		 var params ={"ticketCode":ticketCode,"ticketType":ticketType,"available":available,"isSold":isSold};
 		 $("#ticket_tb").datagrid("reload",params);
+	 }
+	 function sold(id,status){
+		 var params ={"id":id,"isSold":status};
+		 var url = contextPath+"/reg_ticket/updateRegTicket";
+			Util.ajax.postJson(url, params, function(data, flag){
+					Util.dialog.tips(data.returnMessage);
+			});
 	 }
 	 function active(id,status){
 		 var params ={"id":id,"available":status};
