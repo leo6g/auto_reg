@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public class ActionUtil {
 	protected static Logger logger = LoggerFactory.getLogger("ActionUtil");
-	public static String do1(String machineCode){
+	public static synchronized String do1(String machineCode){
 		String regCode = "";
 		try {
 			long start = System.currentTimeMillis();
@@ -29,7 +29,7 @@ public class ActionUtil {
 		return regCode;
 		
 	}
-	public static String do2(String machineCode){
+	public static synchronized String do2(String machineCode){
 		String regCode = "";
 		try {
 			long start = System.currentTimeMillis();
