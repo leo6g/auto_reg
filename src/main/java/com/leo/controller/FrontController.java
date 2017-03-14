@@ -19,10 +19,16 @@ import com.leo.util.MyRobot;
 @RequestMapping("/front")
 public class FrontController extends BaseController{
 	protected static Logger logger = LoggerFactory.getLogger("FrontController");
-	@RequestMapping("/business")
+	@RequestMapping("/pc/business")
 	public ModelAndView go_reg_code(HttpServletRequest request,ModelAndView mv){
 		String page = request.getParameter("page");
 		mv.setViewName("front/pc/"+page);
+		return mv;
+	}
+	@RequestMapping("/mobile/business")
+	public ModelAndView gm_reg_code(HttpServletRequest request,ModelAndView mv){
+		String page = request.getParameter("page");
+		mv.setViewName("front/mobile/"+page);
 		return mv;
 	}
 	

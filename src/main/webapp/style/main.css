@@ -3,7 +3,7 @@
 	display: block;
 }
 .plain_form span{
-	font-weight: bold;
+	margin: 5px;
 }
 .plain_form input{
 	width: 255px;

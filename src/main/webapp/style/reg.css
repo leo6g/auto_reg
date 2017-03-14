@@ -1,0 +1,196 @@
+@CHARSET "UTF-8";
+*{
+	font-family:Microsoft YaHei;
+}
+.title-item {
+	text-align: center;
+	background-color: #4C4C4C;
+	color: #FFF;
+	height: 46px;
+}
+
+.title-item .title {
+	font-size: 18px;
+	font-weight: normal;
+	padding: 10px 0;
+}
+
+.wp {
+	margin-top: 46px;
+}
+
+.inputbg {
+	padding-bottom: 15px;
+	width: 100%;
+}
+
+.inputbg.inputcode {
+	display: -webkit-box !important;
+	display: box !important;
+}
+
+.inputbg .labelbox {
+	background: #fff;
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	-webkit-box-flex: 1;
+	box-flex: 1;
+}
+
+.inputbg .labelbox input {
+	height: 30px;
+	line-height: normal;
+	box-sizing: border-box;
+	width: 100%;
+	font-size: 100%;
+	background: #fff;
+	border: 1px solid #ECECEC;
+	box-shadow: none;
+	display: block;
+	padding: 0 5px;
+}
+
+.inputbg .phonecode {
+	font-size: 14px;
+	width: 115px;
+	height: 30px;
+	border: none;
+	background-color: #F5B22D;
+	cursor: pointer;
+	color: #FFF;
+}
+
+.inputbg .phonecode2 {
+	font-size: 14px;
+	width: 135px;
+	height: 30px;
+	border: none;
+	background-color: #DADADA;
+	cursor: pointer;
+	color: #FFF;
+}
+
+/* .inputbg .labelbox #phone {
+	background: url(mobilenum.png) no-repeat;
+	background-size: 5%;
+	background-position: 3px 4px;
+} */
+.inputbg .labelbox .name {
+	background: url(username.png) no-repeat;
+	background-size: 5%;
+	background-position: 3px 12px;
+}
+
+/* .inputbg .labelbox ._code {
+	width: 90%;
+} */
+
+.fixed_bot {
+	padding-bottom: 10px;
+}
+
+.fixed_bot .submit-step {
+	font-size: 14px;
+	background-color: #F5B22D;
+	color: #fff !important;
+	height: 30px;
+	width: 100%;
+	/*margin-top: 15px;*/
+	text-align: center;
+	border: none;
+	box-shadow: inset 0 1px 1px #FADC0E;
+}
+
+.fixed_bot .msg {
+	margin-top: 10px;
+	color: #666;
+}
+
+.fixed_bot .msg a {
+	color: #f4b22c;
+	font-weight: bold;
+}
+
+.err_tip {
+	margin-top: -23px;
+	margin-bottom: 5px;
+	line-height: 20px;
+	color: #ff6f3d;
+	display:  ;
+	position: absolute;
+}
+
+.err_tip .dis_box {
+	-webkit-box-align: center;
+	box-align: center;
+	display: -webkit-box !important;
+	display: box !important;
+}
+
+.err_tip .dis_box .icon_error {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	width: 14px;
+	height: 14px;
+	vertical-align: middle;
+	margin-right: 6px;
+	background: url(errpic.png) no-repeat;
+	background-size:100%;
+}
+
+.err_tip .dis_box span {
+	-webkit-box-flex: 1;
+	box-flex: 1;
+}
+
+.agreementbox .setagreement {
+	width: 15px;
+	height: 15px;
+	background-size: 100%;
+	margin-right: 5px;
+	margin-top: -2px
+	
+}
+.agreementbox .setagreement{
+	-webkit-appearance:checkbox;
+}
+.agreementbox span {
+	line-height: 20px;
+}
+
+.agreementbox span a {
+	color: #F5B22D;
+}
+
+.newerr_tip {
+	display: ;
+	height: 20px;
+	margin-top: -10px;
+	margin-bottom: 7px;
+}
+
+.newerr_tip span {
+	color: #EA1E57;
+	padding-left: 20px;
+	background: url(errpic.png) no-repeat;
+	background-size: 13%;
+}
+.popup{
+width: 200px;
+margin:-25px;
+z-index: 10000;
+height: auto;
+background-color: #fff;
+border:2px solid #f4b22c;
+padding: 10px;
+border-radius: 5px;}
+.popup .imgs{ display:block; width:20%; margin: 20px auto;}
+.popup .cc{ font-family: "Microsoft YaHei"; font-size: 16px; color:#5c5c5c; text-align: center;}
+.popup .buts{ width:90%; height: 30px; margin: 20px auto; margin-bottom:10px;}
+.popup .but1,.popup .but2,.popup .but3{ width:35%; height: 30px; line-height: 30px; text-align: center; border-radius: 3px;}
+.popup .but1{ color:#5c5c5c; border:1px solid #8b8b8b; float:left;}
+.popup .but2{ color:#ffffff; background-color:#f4b22c; float:right;}
+.popup .but3{ color:#ffffff; background-color:#f4b22c; float:left;}
+.popup .autoclose{ width:60%; line-height: 30px; color: #f4b22c; text-align: right; float:right;}

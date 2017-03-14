@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		#parse("common.html")
+		<link rel="shortcut icon" href="${contextPath}/images/favicon.ico" type="images/x-icon">
+		<title>软件注册</title>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+		<link rel="stylesheet" href="${contextPath}/style/common.css">
+		<link rel="stylesheet" type="text/css" href="${contextPath}/style/reg.css"/>
+		<script type="text/javascript">
+			$(function () {
+				//判断浏览器是否支持placeholder属性，不支持则扩展
+				 if (!('placeholder' in document.createElement('input'))) {
+					  $(':text').placeholder();
+					  $(':password').placeholder({"top":-9});
+				 }
+			});
+		</script>
+		<script type="text/javascript">
+			function agreementMethod(){
+				window.location.href="../mobile/pass/login/userAgreement.html";
+			}
+		</script>
+		<title></title>
+	</head>
+	<body>
+		<!-- <div class="title-item" >
+				<h4 class="title"></h4>
+			</div> -->
+		<div class="wp" style="margin-top:40px;">
+			<form id="regForm">
+			<input type="hidden" id="origin_type" value="2"/>
+				<div class="inputbg">
+					<label class="labelbox" for="">
+						<input type="text" name="ticketCode" id="ticket_code" data-type="PH" placeholder="券码">
+					</label>
+				</div>
+				<div class="err_tip"  id="errTip1" style="display: none">
+					<div class="dis_box"><em class="icon_error"></em><span></span></div>
+				</div>
+				<div class="inputbg">
+					<label class="labelbox" for="">
+						<input type="text" name="machineCode" id="machine_code" data-type="PH" placeholder="机器码">
+					</label>
+				</div>
+				<div class="err_tip" id="errTip2" style="display: none">
+					<div class="dis_box"><em class="icon_error"></em><span></span></div>
+				</div>
+				<div class="fixed_bot">
+					<input class="submit-step" type="button" id="regBut" value="立即注册"/>
+				</div>
+			</form>
+		</div>
+		<div id="resultDiv" align="center" style="display: none">
+			<div><span style="color:green;">恭喜，注册成功</span></div>
+			<div><span id="machine" ></span></div>
+			<div><textarea rows="3" cols="32" id="reg"></textarea></div>
+		</div>
+		<div id="resultDiv1" align="center" style="display: none">
+			<div><span style="color:red;">亲，注册失败</span></div>
+			<div><span id="mess" ></span></div>
+		</div>
+		<div id="cover" style="display:none;position: fixed;top: 0;bottom: 0;left: 0;right: 0;background: #000;z-index: 20;filter: alpha(Opacity=70);opacity: 0.7"></div>
+		<div style="position: absolute;bottom: 100px;width: 100%;">
+			<img style="display: block;position: relative; margin: 0 auto;" src="${contextPath}/images/bottom_pic.png"/>
+		</div>
+	</body>
+	<script type="text/javascript" src="${contextPath}/js/mobile_reg.js"></script>
+</html>
