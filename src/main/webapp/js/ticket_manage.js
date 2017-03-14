@@ -63,13 +63,13 @@
 							},
 							{
 								field : 'isSold',
-								title : '是否出售',
+								title : '是否未售',
 								align : 'center',
 								formatter:function(value,rows,index){
 									if(rows.isSold=='1'){
-										return '是';
-									}else{
 										return '否';
+									}else{
+										return '是';
 									}
 								}
 							},
