@@ -1,6 +1,11 @@
 .plain_form{
-	margin-top: 15%;
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	margin-left: -;
 	display: block;
+	margin-left: -360px;
+	margin-top: -11px;
 }
 .plain_form span{
 	margin: 5px;
@@ -11,9 +16,28 @@
 .form div{
 	margin: 10px;
 }
-#resultDiv div{
-	margin: 10px;
+#resultDiv{
+	position: absolute;
+	left: 50%;
+	top: 49%;
+	margin-left: -123px;
+}
+#resultDiv1{
+	position: absolute;
+	left: 50%;
+	top: 73%;
+	margin-left: -100px;
 }
 #resultDiv1 div{
 	margin: 10px;
+}
+#resultDiv div{
+	margin: 10px;
+}
+.logo img{
+	position:absolute;
+	top: 10%;
+	left:50%;
+	margin-left:-135px;
+	display: block;
 }

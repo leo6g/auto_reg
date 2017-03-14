@@ -3,6 +3,7 @@
 <html>
 <head>
 	#parse("common.html")
+	<script type="text/javascript" src="${contextPath}/js/common/url_jump.js"></script>
 	<link rel="shortcut icon" href="${contextPath}/images/favicon.ico" type="images/x-icon">
 	<link rel="stylesheet" type="text/css" href="${contextPath}/style/main.css">
 	<script type="text/javascript" src="${contextPath}/js/reg.js"></script>
@@ -10,6 +11,9 @@
     <title>注册软件</title>
 </head>
 <body>
+<div class="logo">
+	<img alt="logo" src="${contextPath}/images/logo.png">
+</div>
 <div class="plain_form" align="center">
 <span>券码:</span><input type="text" id="ticket_code" placeholder="券码"/>
 <input type="hidden" id="origin_type" value="1"/>
@@ -20,11 +24,10 @@
 <div id="resultDiv" align="center" style="display: none">
 	<div><span style="color:green;">恭喜，注册成功</span></div>
 	<div><span id="machine" ></span></div>
-	<div><textarea rows="3" cols="32" id="reg"></textarea></div>
+	<div><span style="font-size: 12px;position: relative;bottom: 39px;right: 6px;">注册码:</span><textarea rows="3" cols="32" id="reg"></textarea></div>
 </div>
 <div id="resultDiv1" align="center" style="display: none">
-	<div><span style="color:red;">亲，注册失败</span></div>
-	<div><span id="mess" ></span></div>
+	<div><span style="color:red;">注册失败-原因：</span><span id="mess" ></span></div>
 </div>
 </body>
 </html>
