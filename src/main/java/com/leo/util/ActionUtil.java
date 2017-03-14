@@ -9,13 +9,13 @@ public class ActionUtil {
 		String regCode = "";
 		try {
 			long start = System.currentTimeMillis();
-			MyRobot.click("image/HardWareId1.png",256,13);
+			MyRobot.click("image/xp/HardWareId.png",256,13);
 			MyRobot.selectAll(1000);
 			MyRobot.del(1,1000,0);
 			ClipboardUtil.setSysClipboardText(machineCode);
 			MyRobot.paste(0);
-			MyRobot.click("image/Generate.png",108,182);
-			MyRobot.click("image/copy.png");
+			MyRobot.click("image/xp/Generate.png",108,182);
+			MyRobot.click("image/xp/copy.png");
 			MyRobot.move(0, 0);
 			regCode=ClipboardUtil.getSysClipboardText();
 			if(machineCode.equals(regCode)){
@@ -33,13 +33,13 @@ public class ActionUtil {
 		String regCode = "";
 		try {
 			long start = System.currentTimeMillis();
-			MyRobot.click("image1/HardWareId.png",256,13);
+			MyRobot.click("image/win7/HardWareId.png",256,13);
 			MyRobot.selectAll(0);
 			MyRobot.del(1,0,0);
 			ClipboardUtil.setSysClipboardText(machineCode);
 			MyRobot.paste(0);
-			MyRobot.click("image1/Generate.png",108,182);
-			MyRobot.click("image1/copy.png");
+			MyRobot.click("image/win7/Generate.png",108,182);
+			MyRobot.click("image/win7/copy.png");
 			MyRobot.move(0, 0);
 			regCode=ClipboardUtil.getSysClipboardText();
 			if(machineCode.equals(regCode)){

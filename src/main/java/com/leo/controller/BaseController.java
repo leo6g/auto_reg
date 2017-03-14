@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -22,7 +23,6 @@ import com.lfc.core.bean.InputObject;
 import com.lfc.core.bean.OutputObject;
 import com.lfc.core.util.ControlConstants;
 import com.lfc.core.util.JsonUtil;
-
 public class BaseController {
 	@Autowired
 	BeanFactory beanFactory;
