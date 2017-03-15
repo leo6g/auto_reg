@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="WeixinUserMapper" >
+  <resultMap id="BaseResultMap" type="java.util.Map" >
+  	<id column="id" property="id" jdbcType="VARCHAR"/>
+  	<result column="WALLET" property="wallet" jdbcType="INTEGER"/>
+	<result column="OPENID" property="openid" jdbcType="VARCHAR"/>
+	<result column="ID" property="id" jdbcType="VARCHAR"/>
+	<result column="SIGN_DATE" property="signDate" jdbcType="DATE"/>
+	<result column="UNFOLLOW_DATE" property="unfollowDate" jdbcType="TIMESTAMP"/>
+	<result column="FOLLOW_DATE" property="followDate" jdbcType="TIMESTAMP"/>
+	<result column="FOLLOW_STATUS" property="followStatus" jdbcType="CHAR"/>
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="wallet != null" >
+		 AND WALLET = #{wallet}
+	 </if>
+	<if test="openid != null" >
+		 AND OPENID = #{openid}
+	 </if>
+	<if test="id != null" >
+		 AND ID = #{id}
+	 </if>
+	<if test="signDate != null" >
+		 AND SIGN_DATE = #{signDate}
+	 </if>
+	<if test="unfollowDate != null" >
+		 AND UNFOLLOW_DATE = #{unfollowDate}
+	 </if>
+	<if test="followDate != null" >
+		 AND FOLLOW_DATE = #{followDate}
+	 </if>
+	<if test="followStatus != null" >
+		 AND FOLLOW_STATUS = #{followStatus}
+	 </if>
+	     
+    </trim>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+  	WALLET,OPENID,ID,SIGN_DATE,UNFOLLOW_DATE,FOLLOW_DATE,FOLLOW_STATUS
+  </sql>
+  
+  <!-- 分页查询微信用户 -->
+  
+  <select id="getList" resultMap="BaseResultMap" >
+  	
+	    select 
+	    <include refid="Base_Column_List" />
+	    from T_WEIXIN_USER
+	<if test="_parameter != null" >
+     	<include refid="Example_Where_Clause" />
+   	</if>
+    <if test="orderByClause != null" >
+     	order by ${orderByClause}
+    </if>
+    
+  </select>
+  
+  <!-- 根据Id查询微信用户 -->
+  
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_WEIXIN_USER
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+   <!-- 根据openid查询微信用户 -->
+  
+  <select id="getByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_WEIXIN_USER
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询微信用户总数量 -->
+  
+  <select id="countAll" resultType="java.lang.Integer" >
+	    select count(1)
+	    from T_WEIXIN_USER
+	    <!-- 有DELETE_FLAG放开-->
+	   <!-- where DELETE_FLAG = 0 -->
+  </select>
+  
+  <!-- 查询所有微信用户 -->
+  
+  <select id="getAll" resultMap="BaseResultMap">
+    select 
+     <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_WEIXIN_USER 
+   <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!-- 根据微信用户编码,查询微信用户信息 有code验证时放开-->
+   <!-- <select id="getByCode" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_WEIXIN_USER
+    where  = #{,jdbcType=}
+    AND DELETE_FLAG = 0 
+    <if test="id != null" >
+    	and id != #{id,jdbcType=VARCHAR}
+    </if>
+  </select> -->
+  
+  <!-- 增加微信用户 -->
+  
+  <insert id="insert" parameterType="java.util.Map" >
+    insert into T_WEIXIN_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       id,
+      <if test="wallet != null"> WALLET, </if>
+	<if test="openid != null"> OPENID, </if>
+	<if test="signDate != null"> SIGN_DATE, </if>
+	<if test="unfollowDate != null"> UNFOLLOW_DATE, </if>
+	<if test="followDate != null"> FOLLOW_DATE, </if>
+	<if test="followStatus != null"> FOLLOW_STATUS, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id},
+     <if test="wallet != null"> #{wallet}, </if>
+	<if test="openid != null"> #{openid}, </if>
+	<if test="signDate != null"> #{signDate}, </if>
+	<if test="unfollowDate != null"> #{unfollowDate}, </if>
+	<if test="followDate != null"> #{followDate}, </if>
+	<if test="followStatus != null"> #{followStatus}, </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新微信用户 -->
+    
+  <update id="update" parameterType="java.util.Map" >
+    update T_WEIXIN_USER
+     <set >
+      <if test="wallet != null">WALLET = #{wallet}, </if>
+	<if test="openid != null">OPENID = #{openid}, </if>
+	<if test="signDate != null">SIGN_DATE = #{signDate}, </if>
+	<if test="unfollowDate != null">UNFOLLOW_DATE = #{unfollowDate}, </if>
+	<if test="followDate != null">FOLLOW_DATE = #{followDate}, </if>
+	<if test="followStatus != null">FOLLOW_STATUS = #{followStatus}, </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from T_WEIXIN_USER
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <!-- 逻辑删除微信用户 -->
+  
+  <update id="logicDelete" parameterType="java.util.Map" >
+    update T_WEIXIN_USER
+    set DELETE_FLAG = -1
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

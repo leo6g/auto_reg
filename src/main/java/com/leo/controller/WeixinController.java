@@ -1,7 +1,7 @@
 package com.leo.controller;
 
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,18 +22,18 @@ import com.github.sd4324530.fastweixin.message.req.TextReqMsg;
 import com.github.sd4324530.fastweixin.message.req.VoiceReqMsg;
 import com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;
 import com.leo.util.PropertiesUtil;
-import com.lfc.core.bean.InputObject;
-import com.lfc.core.bean.OutputObject;
+import com.leo.util.StringUtil;
+import com.leo.util.UUIDGenerator;
 
 @Controller
 @RequestMapping(value = "weixin")
 public class WeixinController extends WeixinControllerSupport{
-
+	protected static Logger logger = LoggerFactory.getLogger("WeixinController");
 	private String appToken;
 	private String appId;
 	private String appSecret;
 	@Autowired
-	private HttpServletRequest request;
+	private WeixinUserController weixinUserController;
 	public  WeixinController(){
 		this.appToken=PropertiesUtil.getString("appToken");
 		this.appId=PropertiesUtil.getString("appId");
@@ -44,38 +44,29 @@ public class WeixinController extends WeixinControllerSupport{
 	 */
 	@Override
 	protected BaseMsg handleTextMsg(TextReqMsg msg) {
-		String msgContent = msg.getContent();
+		String msgContent = msg.getContent().trim();
 		// 微信用户openId
 		String openId = msg.getFromUserName();
-		//保存用户回复信息
-		System.out.println(openId);
-		if(!"".equals(msgContent.trim())){
-			Map<String, Object> map = new HashMap<String, Object>();
-			//根据openId查询用户信息
-			map.put("wxUserId", openId);
-			map.put("msg", msgContent);
-			
-			
-			//保存用户回复信息时用多线程来缓解服务器压力 beg
-//			inputObject.setParams(map);
-//			inputObject.setService("userMessageService");
-//			inputObject.setMethod("insertUserMessage");
-//			HandleTextMsgThread thread = new HandleTextMsgThread(inputObject);
-//			thread.setControlService(controlService);
-//			thread.start();
-			//保存用户回复信息时用多线程来缓解服务器压力 end
-			
-			
-			
-		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("keyWord", msgContent.trim());
+		String replyMes = "";
 		
-		return new TextMsg("你好");
+		//保存用户回复信息
+			if("签到".equals(msgContent)){
+				int charge = 2;
+				int money = weixinUserController.signIn(openId,charge);
+				if(money==-999){
+					replyMes = "今天已签到，明天再来吧";
+				}else{
+					replyMes = "恭喜，签到成功\n充值: "+charge+" 元\n余额："+money+"元";
+				}
+			}else if(msgContent.endsWith("@DH")){
+				replyMes = "暂不支持兑换";
+			}else if(msgContent.endsWith("@CZ")){
+				replyMes = "暂不支持充值";
+			}else{
+				replyMes = "菜单：\n\n<a href=\"http://www.baidu.com\">注册/微笑</a>\n\ntips:每天签到可充值 2 元，余额可用来注册软件\n回复'签到'，可签到--支持语音说签到哦";
+			}
+		return new TextMsg(replyMes);
 	}
-
-	protected Logger logger = LoggerFactory.getLogger(getClass());
-
 
 	 @Override
 	protected BaseMsg handleMenuClickEvent(MenuEvent event) {
@@ -96,7 +87,21 @@ public class WeixinController extends WeixinControllerSupport{
 	 */
 	@Override
 	protected BaseMsg handleVoiceMsg(VoiceReqMsg msg) {
-		return new TextMsg("您说的是：" + msg.getRecognition());
+		String replyMes = "";
+		String content = msg.getRecognition();
+		if(StringUtil.isNotEmpty(content)&&content.contains("签到")){
+			String openId = msg.getFromUserName();
+			int charge = 2;
+			int money = weixinUserController.signIn(openId,charge);
+			if(money==-999){
+				replyMes = "今天已签到，明天再来吧";
+			}else{
+				replyMes = "恭喜，签到成功\n充值: "+charge+" 元\n余额："+money+"元";
+			}
+		}else{
+			replyMes = "小咖不懂，说点别的吧，如\"我要签到\"";
+		}
+		return new TextMsg(replyMes);
 	}
 
 	/**
@@ -118,12 +123,18 @@ public class WeixinController extends WeixinControllerSupport{
 	 *            添加关注事件对象
 	 * @return 响应消息对象
 	 */
-	protected BaseMsg handleSubscribe(BaseEvent event,String eventKey) {
-		logger.info("----------------关注事件----------------");
+	protected BaseMsg handleSubscribe(BaseEvent event) {
 		// 添加关注用户到数据库
-		String opendId = event.getFromUserName();
-
-		return new TextMsg("欢迎关注");
+		String openId = event.getFromUserName();
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("id", UUIDGenerator.getJavaUUID());
+		map.put("openid", openId);
+		map.put("followDate", new Date());
+		map.put("followStatus", "1");
+		map.put("wallet", 0);
+		weixinUserController.insertWeixinUser(map);
+		String menu = "感谢关注/微笑\n\n";
+		return new TextMsg("感谢关注/微笑\n");
 		// 文本消息回复语
 
 	}

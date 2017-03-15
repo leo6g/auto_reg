@@ -124,8 +124,8 @@ public class RegRcordController extends BaseController{
 		String limit = request.getParameter("rows");
 		String pageNo = request.getParameter("page");
 		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
-		map.put("limit", Integer.parseInt(limit));
-		map.put("start", (Integer.parseInt(pageNo)-1)*Integer.parseInt(limit));
+//		map.put("limit", Integer.parseInt(limit));
+//		map.put("start", (Integer.parseInt(pageNo)-1)*Integer.parseInt(limit));
 		outputObject = getOutputObject(map, "regRcordService", "getList");
 		map.clear();
 		map.put("total", outputObject.getObject());

@@ -46,6 +46,7 @@
 		<mapper resource="mappings/SYSUserMapper.xml" />
 		<mapper resource="mappings/RegRcordMapper.xml" />
 		<mapper resource="mappings/RegTicketMapper.xml" />
+		<mapper resource="mappings/WeixinUserMapper.xml" />
 	</mappers>
 
 </configuration>

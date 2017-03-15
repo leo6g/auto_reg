@@ -8,4 +8,5 @@
   	<bean id="sYSUserService" class="com.leo.serviceImpl.SYSUserServiceImpl" parent="baseService"></bean>
   	<bean id="regTicketService" class="com.leo.serviceImpl.RegTicketServiceImpl" parent="baseService"></bean>
   	<bean id="regRcordService" class="com.leo.serviceImpl.RegRcordServiceImpl" parent="baseService"></bean>
+  	<bean id="weixinUserService" class="com.leo.serviceImpl.WeixinUserServiceImpl" parent="baseService"></bean>
 </beans>
