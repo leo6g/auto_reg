@@ -63,7 +63,7 @@ public class WeixinController extends WeixinControllerSupport{
 			}else if(msgContent.endsWith("@CZ")){
 				replyMes = "暂不支持充值";
 			}else{
-				replyMes = "菜单：\n\n<a href=\"http://www.baidu.com\">注册/微笑</a>\n\ntips:每天签到可充值 2 元，余额可用来注册软件\n回复'签到'，可签到--支持语音说签到哦";
+				replyMes = "菜单：\n\n<a href=\"http://5be84764.ittun.com/auto_reg/front/business?page=reg_code\">注册/微笑</a>\n\ntips:每天签到可充值 2 元，余额可用来注册软件\n回复'签到'，可签到--支持语音说签到哦";
 			}
 		return new TextMsg(replyMes);
 	}
@@ -99,7 +99,7 @@ public class WeixinController extends WeixinControllerSupport{
 				replyMes = "恭喜，签到成功\n充值: "+charge+" 元\n余额："+money+"元";
 			}
 		}else{
-			replyMes = "小咖不懂，说点别的吧，如\"我要签到\"";
+			replyMes = "小咖不懂，说点别的吧，如\"签到\"";
 		}
 		return new TextMsg(replyMes);
 	}
@@ -133,7 +133,7 @@ public class WeixinController extends WeixinControllerSupport{
 		map.put("followStatus", "1");
 		map.put("wallet", 0);
 		weixinUserController.insertWeixinUser(map);
-		String menu = "感谢关注/微笑\n\n";
+		logger.info("关注成功--openid:"+openId);
 		return new TextMsg("感谢关注/微笑\n");
 		// 文本消息回复语
 
