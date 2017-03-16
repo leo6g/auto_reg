@@ -211,7 +211,6 @@ public class WeixinController extends WeixinControllerSupport{
 		logger.info("关注成功--openid="+openId);
 		return new TextMsg(this.subscribe);
 		// 文本消息回复语
-
 	}
 
 	/**
