@@ -165,13 +165,32 @@ public class WeixinUserController extends BaseController{
 		}
 		return outputObject;
 	}
-	
+	//后台充值
 	@ResponseBody
 	@RequestMapping(value = "userCharge")
 	public OutputObject userCharge(@ModelAttribute("WeixinUserForm") @Valid WeixinUserForm weixinUserForm,HttpServletRequest request) {
 		OutputObject outputObject = null;
 		Map<String, Object> paramsMap = BeanUtil.convertBean2Map(weixinUserForm);
 		int chargeMoney = Integer.parseInt(request.getParameter("money"));
+		outputObject = getOutputObject(paramsMap,"weixinUserService","getById");
+		if("0".equals(outputObject.getReturnCode())){
+			//原有金额
+			int money = (int)((Map<String,Object>)outputObject.getObject()).get("wallet");
+			String openid = (String)((Map<String,Object>)outputObject.getObject()).get("openid");
+			chargeMoney = money+chargeMoney;
+			//修改金额
+			paramsMap.put("wallet", chargeMoney);
+			outputObject = getOutputObject(paramsMap, "weixinUserService", "updateWeixinUser");
+			outputObject.setReturnMessage("充值成功");
+			logger.info("充值成功--openid="+openid+"充值金额："+chargeMoney+"余额："+chargeMoney);
+		}
+		return outputObject;
+	}
+	//微信命令充值
+	public OutputObject userCharge2(String id,int chargeMoney) {
+		OutputObject outputObject = null;
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
+		paramsMap.put("id", id);
 		outputObject = getOutputObject(paramsMap,"weixinUserService","getById");
 		if("0".equals(outputObject.getReturnCode())){
 			//原有金额

@@ -27,11 +27,20 @@ public class UUIDGenerator {
 		String uuid = UUID.randomUUID().toString();
 		return uuid;
 	}
-	public static String getTicket() {
+	public static String getCommonTicket() {
 		try {
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.substring(uuid.lastIndexOf("-")+1);
 			return Base64Utils.encode(uuid.getBytes());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	public static String getMoneyTicket(int price) {
+		try {
+			String uuid = UUID.randomUUID().toString();
+			uuid = uuid.substring(uuid.lastIndexOf("-")+1);
+			return uuid+price;
 		} catch (Exception e) {
 			return null;
 		}

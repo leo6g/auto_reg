@@ -9,11 +9,15 @@ import com.leo.util.UUIDGenerator;
 public class RobotTest {
 
 	public static void main(String[] args) {
-		
-		int i = 1;
+		for(int i =0;i<100;i++){
+			String uuid = UUID.randomUUID().toString();
+			uuid = uuid.substring(uuid.lastIndexOf("-")+1);
+			System.out.println(uuid);
+		}
+	/*	int i = 1;
 		int s = 3;
 		i += s;
-		System.out.println(i);
+		System.out.println(i);*/
 	/*	Map<String,String> map = new HashMap<String,String>();
 		map.put(null, null);
 		map.put("ds", null);

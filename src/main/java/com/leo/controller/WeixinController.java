@@ -22,6 +22,7 @@ import com.github.sd4324530.fastweixin.message.req.MenuEvent;
 import com.github.sd4324530.fastweixin.message.req.TextReqMsg;
 import com.github.sd4324530.fastweixin.message.req.VoiceReqMsg;
 import com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;
+import com.leo.form.RegTicketForm;
 import com.leo.util.ConfigHelper;
 import com.leo.util.StringUtil;
 import com.leo.util.UUIDGenerator;
@@ -66,9 +67,9 @@ public class WeixinController extends WeixinControllerSupport{
 		this.not_enough_money=ConfigHelper.getValue("not_enough_money");
 		this.query_money_sucss=ConfigHelper.getValue("query_money_sucss");
 		this.query_moeny_fail=ConfigHelper.getValue("query_moeny_fail");
-		this.subscribe=ConfigHelper.getValue("subscribe");
 		this.cz_reply=ConfigHelper.getValue("cz_reply");
 		this.sign_charge=Integer.parseInt(ConfigHelper.getValue("sign_charge"));
+		this.subscribe=ConfigHelper.getValue("subscribe").replace("[sign_charge]", String.valueOf(this.sign_charge));;
 		this.menu=ConfigHelper.getValue("menu").replace("[sign_charge]", String.valueOf(this.sign_charge));
 	}
 	/**
@@ -86,7 +87,7 @@ public class WeixinController extends WeixinControllerSupport{
 				replyMes = sign(msg);
 			}else if(msgContent.endsWith("@购买")){
 				//购买券码
-				OutputObject out = regTicketController.getOne(null);
+				OutputObject out = regTicketController.getTicket(null,"1");
 				if("0".equals(out.getReturnCode())){
 					Map<String,Object> outMap = (Map<String,Object>)out.getObject();
 					String ticketCode =(String)(outMap.get("ticketCode"));
@@ -124,6 +125,40 @@ public class WeixinController extends WeixinControllerSupport{
 					replyMes=this.query_money_sucss.replace("[money]", String.valueOf(money));
 				}else{
 					replyMes=this.query_moeny_fail;
+				}
+			}else if(msgContent.endsWith("@充值")){
+				String chargeCode = msgContent.split("@")[0];
+				if(StringUtil.isEmpty(chargeCode)){
+					replyMes ="需要充值码请联系我QQ2388937779";
+				}else{
+					Map<String, Object> map = new HashMap<String,Object>();
+					map.put("available", '1');
+					map.put("ticketCode", chargeCode);
+					map.put("ticketType", "2");
+					OutputObject out = regTicketController.getOne(map);
+					Object obj = out.getObject();
+					if(obj!=null){
+						//验证成功 开始充值
+						int chargeMoney = (int)((Map<String, Object>)obj).get("priceValue");
+						String id = (String)((Map<String, Object>)obj).get("id");
+						weixinUserController.userCharge2(id, chargeMoney);
+						//失效现金券
+						RegTicketForm  regTicketForm = new RegTicketForm();
+						regTicketForm.setId(id);
+						regTicketForm.setAvailable("0");
+						regTicketForm.setUsedTime(new Date());
+						regTicketController.updateRegTicket(regTicketForm);
+					}
+				}
+			}else if(msgContent.endsWith("@supperBuy")){
+				//购买券码
+				OutputObject out = regTicketController.getTicket(null,"1");
+				if("0".equals(out.getReturnCode())){
+					Map<String,Object> outMap = (Map<String,Object>)out.getObject();
+					String ticketCode =(String)(outMap.get("ticketCode"));
+					replyMes = "爸爸 现金卷是："+ticketCode;
+				}else{
+					replyMes = "爸爸 对不起,获取现金卷时 失败了";
 				}
 			}else{
 				replyMes = this.menu;

@@ -78,13 +78,21 @@ public class RegTicketController extends BaseController{
 		outputObject = getOutputObject(map,"regTicketService","getById");
 		return outputObject;
 	}
+	public OutputObject getOne(Map<String, Object> map) {
+		OutputObject outputObject = getOutputObject(map,"regTicketService","getOne");
+		if("0".equals(outputObject.getReturnCode())){
+			logger.info("现金券验证成功 code="+(String)map.get("ticketCode"));
+		}
+		return outputObject;
+	}
 	//获取一张有效的券码
-	public OutputObject getOne(Float price) {
+	public OutputObject getTicket(Integer price,String type) {
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("priceValue", price);
 		map.put("available", '1');
 		map.put("isSold", '0');
-		OutputObject outputObject = getOutputObject(map,"regTicketService","getOne");
+		map.put("ticketType", type);
+		OutputObject outputObject = getOutputObject(map,"regTicketService","getCommonTicket");
 		//修改出售状态
 		RegTicketForm rtf = new RegTicketForm();
 		rtf.setId((String)((Map<String,Object>)outputObject.getObject()).get("id"));
@@ -132,10 +140,22 @@ public class RegTicketController extends BaseController{
 			map.put("available", '1');
 			map.put("isSold", '0');
 			map.put("createUser", (String)getSession().getAttribute("adminUser"));
-			for(int i =0;i<Integer.parseInt(howMany);i++){
-				map.put("id", UUIDGenerator.getJavaUUID());
-				map.put("ticketCode", UUIDGenerator.getTicket());
-				outputObject = getOutputObject(map, "regTicketService", "insertRegTicket");
+			String type = regTicketForm.getTicketType();
+			int price = regTicketForm.getPriceValue();
+			//普通卷
+			if("1".equals(type)){
+				for(int i =0;i<Integer.parseInt(howMany);i++){
+					map.put("id", UUIDGenerator.getJavaUUID());
+					map.put("ticketCode", UUIDGenerator.getCommonTicket());
+					outputObject = getOutputObject(map, "regTicketService", "insertRegTicket");
+				}
+				//现金卷
+			}else if("2".equals(type)){
+				for(int i =0;i<Integer.parseInt(howMany);i++){
+					map.put("id", UUIDGenerator.getJavaUUID());
+					map.put("ticketCode", UUIDGenerator.getMoneyTicket(price));
+					outputObject = getOutputObject(map, "regTicketService", "insertRegTicket");
+				}
 			}
 			if(outputObject.getReturnCode().equals("0")){
 				outputObject.setReturnMessage("券码添加成功!");
