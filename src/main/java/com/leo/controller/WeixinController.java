@@ -155,8 +155,7 @@ public class WeixinController extends WeixinControllerSupport{
 						regTicketForm.setAvailable("0");
 						regTicketForm.setUsedTime(new Date());
 						regTicketController.updateRegTicket(regTicketForm);
-						this.charge_success = this.charge_success.replace("[chargeMoney]", String.valueOf(chargeMoney)).replace("[money]", tempOut.getReturnMessage());
-						replyMes=this.charge_success;
+						replyMes = this.charge_success.replace("[chargeMoney]", String.valueOf(chargeMoney)).replace("[money]", tempOut.getReturnMessage());
 					}else{
 						replyMes=this.charge_failed;
 					}
@@ -198,8 +197,7 @@ public class WeixinController extends WeixinControllerSupport{
 		if(money==-999){
 			replyMes = this.sign_yet;
 		}else{
-			this.sign_success=this.sign_success.replace("[charge]", String.valueOf(sign_charge)).replace("[money]", String.valueOf(money));
-			replyMes=this.sign_success.replace("[money]", String.valueOf(money));
+			replyMes=this.sign_success.replace("[charge]", String.valueOf(sign_charge)).replace("[money]", String.valueOf(money));
 			logger.info("openId="+openId+replyMes);
 		}
 		return replyMes;
