@@ -152,13 +152,18 @@ public class WeixinController extends WeixinControllerSupport{
 				}
 			}else if(msgContent.endsWith("@supperBuy")){
 				//购买券码
-				OutputObject out = regTicketController.getTicket(null,"1");
-				if("0".equals(out.getReturnCode())){
-					Map<String,Object> outMap = (Map<String,Object>)out.getObject();
-					String ticketCode =(String)(outMap.get("ticketCode"));
-					replyMes = "爸爸 现金卷是："+ticketCode;
+				String price = msgContent.split("@")[0];
+				if(!StringUtil.isEmpty(price)){
+					OutputObject out = regTicketController.getTicket(Integer.parseInt(price),"1");
+					if("0".equals(out.getReturnCode())){
+						Map<String,Object> outMap = (Map<String,Object>)out.getObject();
+						String ticketCode =(String)(outMap.get("ticketCode"));
+						replyMes = "爸爸 现金卷是："+ticketCode;
+					}else{
+						replyMes = "爸爸 对不起,获取现金卷时 失败了";
+					}
 				}else{
-					replyMes = "爸爸 对不起,获取现金卷时 失败了";
+					replyMes = "爸爸,说下价格";
 				}
 			}else{
 				replyMes = this.menu;
