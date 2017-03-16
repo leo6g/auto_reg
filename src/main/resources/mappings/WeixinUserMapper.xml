@@ -46,9 +46,8 @@
   <!-- 分页查询微信用户 -->
   
   <select id="getList" resultMap="BaseResultMap" >
-  	
-	    select 
-	    <include refid="Base_Column_List" />
+	 select 
+	<include refid="Base_Column_List" />
 	    from T_WEIXIN_USER
 	<if test="_parameter != null" >
      	<include refid="Example_Where_Clause" />
@@ -56,6 +55,7 @@
     <if test="orderByClause != null" >
      	order by ${orderByClause}
     </if>
+    limit #{start},#{limit}
     
   </select>
   
@@ -150,6 +150,18 @@
 	<if test="followStatus != null">FOLLOW_STATUS = #{followStatus}, </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <!-- 取关微信用户 -->
+  <update id="updateByOpenid" parameterType="java.util.Map" >
+    update T_WEIXIN_USER
+     <set >
+      <if test="wallet != null">WALLET = #{wallet}, </if>
+	<if test="signDate != null">SIGN_DATE = #{signDate}, </if>
+	<if test="unfollowDate != null">UNFOLLOW_DATE = #{unfollowDate}, </if>
+	<if test="followDate != null">FOLLOW_DATE = #{followDate}, </if>
+	<if test="followStatus != null">FOLLOW_STATUS = #{followStatus}, </if>
+    </set>
+    where openid = #{openid,jdbcType=VARCHAR}
   </update>
   <delete id="delete" parameterType="java.lang.String" >
     delete from T_WEIXIN_USER

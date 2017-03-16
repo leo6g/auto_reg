@@ -7,7 +7,7 @@ public class WeixinUserForm extends BaseForm{
 	字段注释：余额
 	列名称:WALLET
 	字段类型:int*/
-	private int wallet;
+	private Integer wallet;
 	/*
 	字段注释：openid
 	列名称:OPENID

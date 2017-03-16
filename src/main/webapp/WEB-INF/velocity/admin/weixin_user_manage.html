@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="renderer" content="webkit" >
-<title>注册记录</title>	
+<title>微用户管理</title>	
 <link rel="stylesheet" type="text/css" href="${contextPath}/lib/jquery-easyui-1.4.3/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/lib/jquery-easyui-1.4.3/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/style/main.css">
@@ -26,24 +26,34 @@
 		<div style="color:red;">注意：<span class="sendAllPorts_useNum"></span>
 		<span class="mbPreviewPorts_useNum"></span></div><br>
 		<form id="search_form" class="form"> 
-			<input class="easyui-textbox" id="ticketCode" name="ticketCode" style="width:300px" data-options="prompt:'券码'"> 
-			<label for="machineCode">机器码:</label>
-			<input class="easyui-textbox" id="machineCode" name="machineCode" style="width:300px" data-options="prompt:'机器码'"> 
-			 <select id="regOrigin" class="easyui-combobox" name="regOrigin" style="width:80px;"> 
-			 			<option value="">--渠道--</option> 
-					    <option value="1">PC</option> 
-					    <option value="2">Mobile</option>
+			<input class="easyui-textbox" id="openid" name="openid" style="width:300px" data-options="prompt:'openid'"> 
+			 <select id="followStatus" class="easyui-combobox" name="followStatus" style="width:100px;"> 
+			 			<option value="">--关注状态--</option> 
+					    <option value="0">取关</option> 
+					    <option value="1">关注</option>
 			</select> 
-			<select id="regStatus" class="easyui-combobox" name="regStatus" style="width:80px;"> 
-						<option value="">--状态--</option> 
-					    <option value="1">成功</option> 
-					    <option value="0">失败</option>
-			</select>    
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="search_data()">搜索</a>
 		</form>
 	</div>	
-	<table id="record_tb" toolbar="#tb" fit=true>
+	<table id="weiuser_tb" toolbar="#tb" fit=true>
 	</table>
-</body>
-<script type="text/javascript" src="${contextPath}/js/record_manage.js"></script>
+	<!-- 充值dialog -->
+	<div id="charge_dlg" class="easyui-dialog"
+		style="width:350px; height: 300px;" closed="true"
+		buttons="#dlg-buttons"  modal="true" title="充值" >
+		<form id="charge_form" method="post" class="form">   
+		    <div>   
+		        <label for="howMany">充值金额:</label> 
+		        <input class="easyui-validatebox" type="text" id="id" name="id" style="display:none" data-options="required:true" />
+		        <input class="easyui-validatebox" type="text" id="money" name="money" data-options="required:true" />   
+		    </div>
+		</form>  	
+	</div>
+	<div id="dlg-buttons">
+		 <a href="javascript:void(0)" class="easyui-linkbutton"
+			onclick="charge();" iconcls="icon-cancel">充</a>
+		 <a href="javascript:void(0)" class="easyui-linkbutton"
+		onclick="javascript:$('#charge_dlg').dialog('close')" iconcls="icon-cancel">取消</a>
+	</div>
+<script type="text/javascript" src="${contextPath}/js/weixin_user_manage.js"></script>
 </html>

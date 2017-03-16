@@ -37,7 +37,7 @@ import com.lfc.core.util.BeanUtil;
  *
  */
 @Controller
-@RequestMapping("/reg_record")
+@RequestMapping("/admin/reg_record")
 public class RegRcordController extends BaseController{
 	protected static Logger logger = LoggerFactory.getLogger("RegRcordController");
 	@ResponseBody
@@ -67,7 +67,7 @@ public class RegRcordController extends BaseController{
 					outputObject.setOption("机器码填写：888");
 					//失效券码
 					map.clear();
-					map.put("available", "0");
+					map.put("available", '0');
 					map.put("consumeTime", currentDate);
 					map.put("id", resultMap.get("id"));
 					getOutputObject(map, "regTicketService", "updateRegTicket");
@@ -121,11 +121,7 @@ public class RegRcordController extends BaseController{
 	@RequestMapping(value = "getList")
 	public Object getList(@ModelAttribute("regRcordForm") RegRcordForm regRcordForm,HttpServletRequest request) {
 		OutputObject outputObject = null;
-		String limit = request.getParameter("rows");
-		String pageNo = request.getParameter("page");
 		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
-//		map.put("limit", Integer.parseInt(limit));
-//		map.put("start", (Integer.parseInt(pageNo)-1)*Integer.parseInt(limit));
 		outputObject = getOutputObject(map, "regRcordService", "getList");
 		map.clear();
 		map.put("total", outputObject.getObject());

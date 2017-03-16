@@ -55,4 +55,5 @@ public interface IRegTicketService {
 	 */
 	public int logicDeleteRegTicket(InputObject inputObject, OutputObject outputObject) throws Exception;
 	public void getByTicket(InputObject inputObject, OutputObject outputObject) throws Exception;
+	public void getOne(InputObject inputObject, OutputObject outputObject) throws Exception;
 }

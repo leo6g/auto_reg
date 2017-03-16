@@ -10,7 +10,7 @@
 					fitColumns:true,
 					selectOnCheck: false,
 					queryParams: params,
-					url : contextPath+"/reg_ticket/getList",
+					url : contextPath+"/admin/reg_ticket/getList",
 					title : "券码列表",
 					columns : [[
 							{
@@ -141,21 +141,21 @@
 	 }
 	 function sold(id,status){
 		 var params ={"id":id,"isSold":status};
-		 var url = contextPath+"/reg_ticket/updateRegTicket";
+		 var url = contextPath+"/admin/reg_ticket/updateRegTicket";
 			Util.ajax.postJson(url, params, function(data, flag){
 					Util.dialog.tips(data.returnMessage);
 			});
 	 }
 	 function active(id,status){
 		 var params ={"id":id,"available":status};
-		 var url = contextPath+"/reg_ticket/updateRegTicket";
+		 var url = contextPath+"/admin/reg_ticket/updateRegTicket";
 			Util.ajax.postJson(url, params, function(data, flag){
 					Util.dialog.tips(data.returnMessage);
 			});
 	 }
 	 function add_ticket(){
 		 $('#add_form').form('submit', {    
-			    url:contextPath+"/reg_ticket/insertRegTicket",    
+			    url:contextPath+"/admin/reg_ticket/insertRegTicket",    
 			    success:function(data){    
 			        var obj = $.parseJSON(data);
 			        Util.dialog.tips(obj.returnMessage);

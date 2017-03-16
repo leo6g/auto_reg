@@ -34,7 +34,7 @@ import com.lfc.core.util.BeanUtil;
  *
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("/admin/wei_user")
 public class WeixinUserController extends BaseController{
 	protected static Logger logger = LoggerFactory.getLogger("WeixinUserController");
 	
@@ -61,15 +61,14 @@ public class WeixinUserController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getList")
-	public OutputObject getList(@ModelAttribute("weixinUserForm") WeixinUserForm weixinUserForm,
-			BindingResult result,  Model model, ModelMap mm) {
-		if (result.hasErrors()) {
-			returnValidatorAjaxResult(result);
-		}
+	public Object getList(@ModelAttribute("weixinUserForm") WeixinUserForm weixinUserForm) {
 		OutputObject outputObject = null;
 		Map<String, Object> map = BeanUtil.convertBean2Map(weixinUserForm);
 		outputObject = getOutputObject(map, "weixinUserService", "getList");
-		return outputObject;
+		map.clear();
+		map.put("total", outputObject.getObject());
+		map.put("rows", outputObject.getBeans());
+		return map;
 	}
 	/**
 	 *根据ID查询微信用户
@@ -89,6 +88,15 @@ public class WeixinUserController extends BaseController{
 		}
 		Map<String, Object> map = BeanUtil.convertBean2Map(weixinUserForm);	
 		outputObject = getOutputObject(map,"weixinUserService","getById");
+		return outputObject;
+	}
+	@ResponseBody
+	@RequestMapping(value = "getByOpenId")
+	public OutputObject getByOpenId(String openId) {
+		OutputObject outputObject = null;
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("openid", openId);
+		outputObject = getOutputObject(map,"weixinUserService","getByOpenId");
 		return outputObject;
 	}
 	/**
@@ -120,15 +128,20 @@ public class WeixinUserController extends BaseController{
 	 * @param mm
 	 * @return
 	 */
-	@ResponseBody
-	@RequestMapping(value = "insertWeixinUser")
 	public OutputObject insertWeixinUser(Map<String, Object> map) {
 			OutputObject outputObject = getOutputObject(map, "weixinUserService", "insertWeixinUser");
-			if(outputObject.getReturnCode().equals("0")){
+			if("0".equals(outputObject.getReturnCode())){
 				outputObject.setReturnMessage("微信用户添加成功!");
 			}
 			return outputObject;
 	}
+	public OutputObject updateByOpenid(Map<String, Object> map) {
+		OutputObject outputObject = getOutputObject(map, "weixinUserService", "updateByOpenid");
+		if("0".equals(outputObject.getReturnCode())){
+			outputObject.setReturnMessage("微信用户修改成功!");
+		}
+		return outputObject;
+}
 	/**
 	 * 编辑微信用户
 	 * @param WeixinUserForm
@@ -149,6 +162,27 @@ public class WeixinUserController extends BaseController{
 		outputObject = getOutputObject(map, "weixinUserService", "updateWeixinUser");
 		if(outputObject.getReturnCode().equals("0")){
 			outputObject.setReturnMessage("微信用户编辑成功!");
+		}
+		return outputObject;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "userCharge")
+	public OutputObject userCharge(@ModelAttribute("WeixinUserForm") @Valid WeixinUserForm weixinUserForm,HttpServletRequest request) {
+		OutputObject outputObject = null;
+		Map<String, Object> paramsMap = BeanUtil.convertBean2Map(weixinUserForm);
+		int chargeMoney = Integer.parseInt(request.getParameter("money"));
+		outputObject = getOutputObject(paramsMap,"weixinUserService","getById");
+		if("0".equals(outputObject.getReturnCode())){
+			//原有金额
+			int money = (int)((Map<String,Object>)outputObject.getObject()).get("wallet");
+			String openid = (String)((Map<String,Object>)outputObject.getObject()).get("openid");
+			chargeMoney = money+chargeMoney;
+			//修改金额
+			paramsMap.put("wallet", chargeMoney);
+			outputObject = getOutputObject(paramsMap, "weixinUserService", "updateWeixinUser");
+			outputObject.setReturnMessage("充值成功");
+			logger.info("充值成功--openid="+openid+"充值金额："+chargeMoney+"余额："+chargeMoney);
 		}
 		return outputObject;
 	}

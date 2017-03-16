@@ -23,14 +23,14 @@ public class RegTicketForm extends BaseForm{
 	字段注释：价值
 	列名称:PRICE_VALUE
 	字段类型:float*/
-	private Double priceValue;
+	private Float priceValue;
 	/*
 	字段注释：消费时间-消费后券不可用
 	列名称:CONSUME_TIME
 	字段类型:timestamp*/
 	private Date consumeTime;
 	/*
-	字段注释：使用时间
+	字段注释：售出时间
 	列名称:USED_TIME
 	字段类型:timestamp*/
 	private Date usedTime;
@@ -87,11 +87,11 @@ public class RegTicketForm extends BaseForm{
 		return id;
 	}
 
-	public void setPriceValue(Double priceValue){
+	public void setPriceValue(Float priceValue){
 		this.priceValue = priceValue;
 	}
 
-	public Double getPriceValue(){
+	public Float getPriceValue(){
 		return priceValue;
 	}
 

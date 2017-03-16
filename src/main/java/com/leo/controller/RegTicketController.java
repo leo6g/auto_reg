@@ -35,7 +35,7 @@ import com.lfc.core.util.BeanUtil;
  *
  */
 @Controller
-@RequestMapping("/reg_ticket")
+@RequestMapping("/admin/reg_ticket")
 public class RegTicketController extends BaseController{
 	protected static Logger logger = LoggerFactory.getLogger("RegTicketController");
 	/**
@@ -51,11 +51,7 @@ public class RegTicketController extends BaseController{
 	@RequestMapping(value = "getList")
 	public Object getList(@ModelAttribute("regTicketForm") RegTicketForm regTicketForm,HttpServletRequest request) {
 		OutputObject outputObject = null;
-		String limit = request.getParameter("rows");
-		String pageNo = request.getParameter("page");
 		Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
-		/*map.put("limit", Integer.parseInt(limit));
-		map.put("start", (Integer.parseInt(pageNo)-1)*Integer.parseInt(limit));*/
 		outputObject = getOutputObject(map, "regTicketService", "getList");
 		map.clear();
 		map.put("total", outputObject.getObject());
@@ -80,6 +76,21 @@ public class RegTicketController extends BaseController{
 		}
 		Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);	
 		outputObject = getOutputObject(map,"regTicketService","getById");
+		return outputObject;
+	}
+	//获取一张有效的券码
+	public OutputObject getOne(Float price) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("priceValue", price);
+		map.put("available", '1');
+		map.put("isSold", '0');
+		OutputObject outputObject = getOutputObject(map,"regTicketService","getOne");
+		//修改出售状态
+		RegTicketForm rtf = new RegTicketForm();
+		rtf.setId((String)((Map<String,Object>)outputObject.getObject()).get("id"));
+		rtf.setUsedTime(new Date());
+		rtf.setIsSold("1");
+		updateRegTicket(rtf);
 		return outputObject;
 	}
 	/**
@@ -118,8 +129,8 @@ public class RegTicketController extends BaseController{
 			String howMany = request.getParameter("howMany");
 			Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
 			map.put("createTime", new Date());
-			map.put("available", "1");
-			map.put("isSold", "0");
+			map.put("available", '1');
+			map.put("isSold", '0');
 			map.put("createUser", (String)getSession().getAttribute("adminUser"));
 			for(int i =0;i<Integer.parseInt(howMany);i++){
 				map.put("id", UUIDGenerator.getJavaUUID());
@@ -148,6 +159,7 @@ public class RegTicketController extends BaseController{
 		Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
 		outputObject = getOutputObject(map, "regTicketService", "updateRegTicket");
 		if(outputObject.getReturnCode().equals("0")){
+			//根据available判断是失效、激活、出售
 			if("0".equals(abc)){
 				outputObject.setReturnMessage("成功失效");
 			}else if("1".equals(abc)){

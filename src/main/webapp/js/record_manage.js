@@ -10,7 +10,7 @@
 					fitColumns:true,
 					selectOnCheck: false,
 					queryParams: params,
-					url : contextPath+"/reg_record/getList",
+					url : contextPath+"/admin/reg_record/getList",
 					title : "记录列表",
 					columns : [[
 							{

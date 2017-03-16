@@ -55,4 +55,5 @@ public interface IWeixinUserService {
 	 */
 	public int logicDeleteWeixinUser(InputObject inputObject, OutputObject outputObject) throws Exception;
 	public void getByOpenId(InputObject inputObject, OutputObject outputObject) throws Exception;
+	public void updateByOpenid(InputObject inputObject, OutputObject outputObject) throws Exception;
 }

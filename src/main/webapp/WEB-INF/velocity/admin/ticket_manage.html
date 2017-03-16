@@ -26,20 +26,19 @@
 		<div style="color:red;">注意：<span class="sendAllPorts_useNum"></span>
 		<span class="mbPreviewPorts_useNum"></span></div><br>
 		<form id="search_form" class="form"> 
-		<label for="ticketType">券码:</label>
-			<input class="easyui-textbox" id="ticketCode" name="ticketCode" style="width:300px"> 
+			<input class="easyui-textbox" id="ticketCode" name="ticketCode" style="width:300px" data-options="prompt:'券码'"> 
 			 <select id="ticketType" class="easyui-combobox" name="ticketType" style="width:80px;"> 
-			 			<option value="">--请选择--</option> 
+			 			<option value="">--券种--</option> 
 					    <option value="1">普通</option> 
 					    <option value="2">现金</option>
 			</select> 
 			<select id="available" class="easyui-combobox" name="available" style="width:80px;"> 
-						<option value="">--请选择--</option> 
+						<option value="">--状态--</option> 
 					    <option value="1">有效</option> 
 					    <option value="0">无效</option>
 			</select>
-			<select id="isSold" class="easyui-combobox" name="isSold" style="width:80px;"> 
-						<option value="">--请选择--</option> 
+			<select id="isSold" class="easyui-combobox" name="isSold" style="width:100px;"> 
+						<option value="">--出售状态--</option> 
 					    <option value="1">已售</option> 
 					    <option value="0">未售</option>
 			</select>    

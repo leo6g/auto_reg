@@ -15,7 +15,7 @@
 	<body class="easyui-layout">
 		<div class="header" data-options="region:'north',border:false" style="height:60px;/*background:#B3DFDA;*/padding:0px">
 			<span class="loginbar"><span id="adminLog">您好 $adminUser</span><a href="javascript:loginOut()">[退出]</a></span>
-		    <span class="logo"><!--<img src="images/blocks.gif" width="20" height="20" align="absmiddle" />--> 全球通后台管理</span>
+		    <span class="logo"><!--<img src="images/blocks.gif" width="20" height="20" align="absmiddle" />--> 管理后台</span>
 		    <!--顶部导航-->
             <span class="nav"><a href="#" class="selected">管理</a><a href="#">设置</a></span>
             <div style="width: 89%;height: 2px;float: right;background-color: #f4b22c; margin-top:4px;"></div>
@@ -26,9 +26,9 @@
 				<ul >
 				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('券码管理','${contextPath}/admin?tab=ticket_manage')">券码管理</a></li>
 				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('注册记录','${contextPath}/admin?tab=record_manage')">注册记录</a></li>
+				<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('微用户','${contextPath}/admin?tab=weixin_user_manage')">微用户</a></li>
 				<li><a href="#" class="easyui-linkbutton" style="display: none;" plain="true" onclick="addTab('系统用户','${contextPath}/admin?tab=sys_user_manage')">系统用户</a></li>
 				</ul>
-				
 				<!-- 素材管理 -->	
 				<ul style="display: none;">
 					<li><a href="#" class="easyui-linkbutton" plain="true" onclick="addTab('系统设置','imgTxt/sourceManage.html')">系统设置</a></li>

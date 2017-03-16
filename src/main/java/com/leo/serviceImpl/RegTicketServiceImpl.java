@@ -31,6 +31,14 @@ public class RegTicketServiceImpl extends BaseServiceImpl implements IRegTicketS
 
 	}
 	@Override
+	public void getOne(InputObject inputObject,
+			OutputObject outputObject) throws Exception {
+		Object object=getBaseDao().queryForObject("RegTicketMapper.getOne", inputObject.getParams());
+		outputObject.setObject(object);
+		outputObject.setReturnCode("0");
+
+	}
+	@Override
 	public void getByTicket(InputObject inputObject,
 			OutputObject outputObject) throws Exception {
 		Object object=getBaseDao().queryForObject("RegTicketMapper.getByTicket", inputObject.getParams());
