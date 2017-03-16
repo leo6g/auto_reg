@@ -12,7 +12,7 @@ public class ConfigHelper {
 
 	static {
 		try {
-			InputStream is = ConfigHelper.class.getResourceAsStream("/config/system.properties");
+			InputStream is = ConfigHelper.class.getResourceAsStream("/config/reply.properties");
 			BufferedReader bf = new BufferedReader(new  InputStreamReader(is,"UTF-8"));
 			prop.load(bf);
 			is.close();

@@ -187,21 +187,20 @@ public class WeixinUserController extends BaseController{
 		return outputObject;
 	}
 	//微信命令充值
-	public OutputObject userCharge2(String id,int chargeMoney) {
+	public OutputObject userCharge2(String openid,int chargeMoney) {
 		OutputObject outputObject = null;
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
-		paramsMap.put("id", id);
-		outputObject = getOutputObject(paramsMap,"weixinUserService","getById");
+		paramsMap.put("openid", openid);
+		outputObject = getOutputObject(paramsMap,"weixinUserService","getByOpenId");
 		if("0".equals(outputObject.getReturnCode())){
 			//原有金额
 			int money = (int)((Map<String,Object>)outputObject.getObject()).get("wallet");
-			String openid = (String)((Map<String,Object>)outputObject.getObject()).get("openid");
-			chargeMoney = money+chargeMoney;
+			money = money+chargeMoney;
 			//修改金额
-			paramsMap.put("wallet", chargeMoney);
-			outputObject = getOutputObject(paramsMap, "weixinUserService", "updateWeixinUser");
-			outputObject.setReturnMessage("充值成功");
-			logger.info("充值成功--openid="+openid+"充值金额："+chargeMoney+"余额："+chargeMoney);
+			paramsMap.put("wallet", money);
+			outputObject = getOutputObject(paramsMap, "weixinUserService", "updateByOpenid");
+			outputObject.setReturnMessage(String.valueOf(money));
+			logger.info("充值成功--openid="+openid+"充值金额："+chargeMoney+"余额："+money);
 		}
 		return outputObject;
 	}

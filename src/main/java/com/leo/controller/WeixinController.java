@@ -24,6 +24,7 @@ import com.github.sd4324530.fastweixin.message.req.VoiceReqMsg;
 import com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;
 import com.leo.form.RegTicketForm;
 import com.leo.util.ConfigHelper;
+import com.leo.util.PropertiesUtil;
 import com.leo.util.StringUtil;
 import com.leo.util.UUIDGenerator;
 import com.lfc.core.bean.OutputObject;
@@ -48,6 +49,9 @@ public class WeixinController extends WeixinControllerSupport{
 	private String subscribe;
 	private int sign_charge;
 	private String not_enough_money;
+	private String charge_success;
+	private String charge_failed;
+	private String empty_chargeCode;
 	
 	@Autowired
 	private WeixinUserController weixinUserController;
@@ -55,9 +59,9 @@ public class WeixinController extends WeixinControllerSupport{
 	private RegTicketController regTicketController;
 	
 	public  WeixinController(){
-		this.appToken=ConfigHelper.getValue("appToken");
-		this.appId=ConfigHelper.getValue("appId");
-		this.appSecret=ConfigHelper.getValue("appSecret");
+		this.appToken=PropertiesUtil.getString("appToken");
+		this.appId=PropertiesUtil.getString("appId");
+		this.appSecret=PropertiesUtil.getString("appSecret");
 		this.sign_yet=ConfigHelper.getValue("sign_yet");
 		this.sign_success=ConfigHelper.getValue("sign_success");
 		this.voice_reply=ConfigHelper.getValue("voice_reply");
@@ -67,6 +71,9 @@ public class WeixinController extends WeixinControllerSupport{
 		this.not_enough_money=ConfigHelper.getValue("not_enough_money");
 		this.query_money_sucss=ConfigHelper.getValue("query_money_sucss");
 		this.query_moeny_fail=ConfigHelper.getValue("query_moeny_fail");
+		this.charge_success=ConfigHelper.getValue("charge_success");
+		this.charge_failed=ConfigHelper.getValue("charge_failed");
+		this.empty_chargeCode=ConfigHelper.getValue("empty_chargeCode");
 		this.cz_reply=ConfigHelper.getValue("cz_reply");
 		this.sign_charge=Integer.parseInt(ConfigHelper.getValue("sign_charge"));
 		this.subscribe=ConfigHelper.getValue("subscribe").replace("[sign_charge]", String.valueOf(this.sign_charge));;
@@ -129,7 +136,7 @@ public class WeixinController extends WeixinControllerSupport{
 			}else if(msgContent.endsWith("@充值")){
 				String chargeCode = msgContent.split("@")[0];
 				if(StringUtil.isEmpty(chargeCode)){
-					replyMes ="需要充值码请联系我QQ2388937779";
+					replyMes =this.empty_chargeCode;
 				}else{
 					Map<String, Object> map = new HashMap<String,Object>();
 					map.put("available", '1');
@@ -141,24 +148,28 @@ public class WeixinController extends WeixinControllerSupport{
 						//验证成功 开始充值
 						int chargeMoney = (int)((Map<String, Object>)obj).get("priceValue");
 						String id = (String)((Map<String, Object>)obj).get("id");
-						weixinUserController.userCharge2(id, chargeMoney);
+						OutputObject tempOut = weixinUserController.userCharge2(openid, chargeMoney);
 						//失效现金券
 						RegTicketForm  regTicketForm = new RegTicketForm();
 						regTicketForm.setId(id);
 						regTicketForm.setAvailable("0");
 						regTicketForm.setUsedTime(new Date());
 						regTicketController.updateRegTicket(regTicketForm);
+						this.charge_success = this.charge_success.replace("[chargeMoney]", String.valueOf(chargeMoney)).replace("[money]", tempOut.getReturnMessage());
+						replyMes=this.charge_success;
+					}else{
+						replyMes=this.charge_failed;
 					}
 				}
-			}else if(msgContent.endsWith("@supperBuy")){
+			}else if(msgContent.endsWith("@superBuy")){
 				//购买券码
 				String price = msgContent.split("@")[0];
 				if(!StringUtil.isEmpty(price)){
-					OutputObject out = regTicketController.getTicket(Integer.parseInt(price),"1");
+					OutputObject out = regTicketController.getTicket(Integer.parseInt(price),"2");
 					if("0".equals(out.getReturnCode())){
 						Map<String,Object> outMap = (Map<String,Object>)out.getObject();
 						String ticketCode =(String)(outMap.get("ticketCode"));
-						replyMes = "爸爸 现金卷是："+ticketCode;
+						replyMes = ticketCode+"@充值";
 					}else{
 						replyMes = "爸爸 对不起,获取现金卷时 失败了";
 					}

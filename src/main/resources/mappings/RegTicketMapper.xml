@@ -91,6 +91,15 @@
    	</if>
    	limit 0,1
   </select>
+   <select id="getCommonTicket" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_REG_TICKET
+    <if test="_parameter != null" >
+     	<include refid="Example_Where_Clause" />
+   	</if>
+   	limit 0,1
+  </select>
    <!-- 根据Id查询注册流水信息 -->
   
   <select id="getByTicket" resultMap="BaseResultMap" parameterType="java.lang.String" >

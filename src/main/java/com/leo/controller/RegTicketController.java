@@ -80,9 +80,6 @@ public class RegTicketController extends BaseController{
 	}
 	public OutputObject getOne(Map<String, Object> map) {
 		OutputObject outputObject = getOutputObject(map,"regTicketService","getOne");
-		if("0".equals(outputObject.getReturnCode())){
-			logger.info("现金券验证成功 code="+(String)map.get("ticketCode"));
-		}
 		return outputObject;
 	}
 	//获取一张有效的券码
