@@ -92,7 +92,7 @@ public class WeixinController extends WeixinControllerSupport{
 		//保存用户回复信息
 			if(msgContent.contains("签到")){
 				replyMes = sign(msg);
-			}else if(msgContent.endsWith("@购买")){
+			}else if(msgContent.contains("兑换")){
 				//购买券码
 				OutputObject out = regTicketController.getTicket(null,"1");
 				if("0".equals(out.getReturnCode())){
@@ -125,7 +125,7 @@ public class WeixinController extends WeixinControllerSupport{
 				}else{
 					replyMes=this.buy_failed;
 				}
-			}else if(msgContent.endsWith("@余额")){
+			}else if(msgContent.contains("余额")){
 				OutputObject out =weixinUserController.getByOpenId(openid);
 				if("0".equals(out.getReturnCode())){
 					int money = (int)((Map<String,Object>)out.getObject()).get("wallet");
