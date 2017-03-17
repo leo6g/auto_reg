@@ -33,13 +33,13 @@ public class ActionUtil {
 		String regCode = "";
 		try {
 			long start = System.currentTimeMillis();
-			MyRobot.click("image/win7/HardWareId.png",256,13);
+			MyRobot.click("image/win7/888.png",276,165);
 			MyRobot.selectAll(0);
 			MyRobot.del(1,0,0);
 			ClipboardUtil.setSysClipboardText(machineCode);
 			MyRobot.paste(0);
-			MyRobot.click("image/win7/Generate.png",108,182);
-			MyRobot.click("image/win7/copy.png");
+			MyRobot.click("image/win7/888.png",109,483);
+			MyRobot.click("image/win7/888.png",470,363);
 			MyRobot.move(0, 0);
 			regCode=ClipboardUtil.getSysClipboardText();
 			if(machineCode.equals(regCode)){

@@ -3,7 +3,7 @@ $(function(){
 		if(!validate()){
 			return;
 		};
-		var url = contextPath + "/reg_record/regMachine";
+		var url = contextPath + "/admin/reg_record/regMachine";
 		var ticketCode = $("#ticket_code").val();
 		var machineCode = $("#machine_code").val();
 		var regOrigin = $("#origin_type").val();

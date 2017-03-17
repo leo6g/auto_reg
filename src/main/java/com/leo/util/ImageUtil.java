@@ -118,12 +118,8 @@ public class ImageUtil {
 	                    this.Finded = isFinded;
 	                    //如果比较结果完全相同，则说明图片找到，填充查找到的位置坐标数据到查找结果数组。
 	                    if(isFinded) {
-	                        for(int h=0; h<keyImgHeight; h++) {
-	                            for(int w=0; w<keyImgWidth; w++) {
-	                                findImgData[h][w][0] = y+h; 
-	                                findImgData[h][w][1] = x+w;
-	                            }
-	                        }
+	                                findImgData[0][0][0] = y; 
+	                                findImgData[0][0][1] = x;
 	                        return;
 	                    }
 	                }
