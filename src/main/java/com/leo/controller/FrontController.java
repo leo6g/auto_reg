@@ -46,6 +46,7 @@ public class FrontController extends BaseController{
 		String machineCode = request.getParameter("machineCode");
 		String ticketCode = request.getParameter("ticketCode");
 		String regOrigin = request.getParameter("regOrigin");
+		String softType = request.getParameter("softType");
 		OutputObject outputObject = new OutputObject();
 		if(StringUtil.isEmpty(ticketCode)||StringUtil.isEmpty(machineCode)){
 			return null;
@@ -61,10 +62,16 @@ public class FrontController extends BaseController{
 					Date currentDate = new Date();
 					outputObject.setObject(null);
 					//控制注册
-					String regCode = ActionUtil.do2(machineCode);
-					outputObject.setReturnCode("1");
+					String regCode = "";
+					if("1".equals(softType)){
+						regCode = ActionUtil.do1(machineCode);
+						outputObject.setOption("机器码填写：888");
+					}else{
+						regCode = ActionUtil.do2(machineCode);
+						outputObject.setOption("机器码填写：777");
+					}
 					outputObject.setReturnMessage(regCode);
-					outputObject.setOption("机器码填写：888");
+					outputObject.setReturnCode("1");
 					//失效券码
 					map.clear();
 					map.put("available", '0');

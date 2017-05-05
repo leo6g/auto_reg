@@ -5,17 +5,17 @@ import org.slf4j.LoggerFactory;
 
 public class ActionUtil {
 	protected static Logger logger = LoggerFactory.getLogger("ActionUtil");
-	public static synchronized String do1(String machineCode){
+	public static synchronized String do2(String machineCode){
 		String regCode = "";
 		try {
 			long start = System.currentTimeMillis();
-			MyRobot.click("image/xp/HardWareId.png",256,13);
-			MyRobot.selectAll(1000);
-			MyRobot.del(1,1000,0);
+			MyRobot.click("image/win7/777.png",276,165);
+			MyRobot.selectAll(0);
+			MyRobot.del(1,0,0);
 			ClipboardUtil.setSysClipboardText(machineCode);
 			MyRobot.paste(0);
-			MyRobot.click("image/xp/Generate.png",108,182);
-			MyRobot.click("image/xp/copy.png");
+			MyRobot.click("image/win7/777.png",109,483);
+			MyRobot.click("image/win7/777.png",470,363);
 			MyRobot.move(0, 0);
 			regCode=ClipboardUtil.getSysClipboardText();
 			if(machineCode.equals(regCode)){
@@ -29,7 +29,7 @@ public class ActionUtil {
 		return regCode;
 		
 	}
-	public static synchronized String do2(String machineCode){
+	public static synchronized String do1(String machineCode){
 		String regCode = "";
 		try {
 			long start = System.currentTimeMillis();

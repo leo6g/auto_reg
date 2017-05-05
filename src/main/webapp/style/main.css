@@ -2,13 +2,19 @@
 	position: absolute;
 	top: 40%;
 	left: 50%;
-	margin-left: -;
 	display: block;
-	margin-left: -360px;
+	margin-left: -188px;
 	margin-top: -11px;
+	border: outset;
+	padding: 20px;
 }
 .plain_form span{
 	margin: 5px;
+	font: 12px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif
+}
+.plain_form div{
+	text-align: left;
+	margin: 10px;
 }
 .plain_form input{
 	width: 255px;
