@@ -1,0 +1,226 @@
+@charset "utf-8";
+/**
+  **************************************************************************************************
+  ********  ORPHP在线订单系统2016官方正式版 WEB版  *****  官方正版 *** 版权所有 *** 盗版必究  ******
+  **********------------------------------------------------------------------------------**********
+  ***********   官方网站：wwww.orphp.com   *****   官方店铺旺旺:睡颜凝嫣  请认准再 购买    *********
+  **************************************************************************************************
+*/
+* {
+	padding: 0;
+	margin: 0;
+}
+body {
+	font: 14px Microsoft YaHei, \5FAE\8F6F\96C5\9ED1, SimSun, \5B8B\4F53, Arial, Verdana;
+	color: #000;
+	text-align: left;
+}
+a:link, a:visited {
+	color: #66C2FF;
+	text-decoration: none;
+}
+a:hover {
+	color: #F00;
+	text-decoration: underline;
+}
+input, select, textarea {
+	font: 100% Microsoft YaHei, \5FAE\8F6F\96C5\9ED1, SimSun, \5B8B\4F53, Arial, Verdana;
+}
+em {
+	font-style: normal;
+	color: #F00;
+	margin-right: 5px;
+}
+img {
+	border: 0 none;
+	vertical-align: middle;
+}
+.red {
+	color: #F00;
+}
+.blue {
+	color: #09F;
+}
+.green {
+	color: #090;
+}
+.pt {
+	padding-top: 3px;
+}
+#orphporder {
+	margin: 0 auto;
+}
+.orwarp {
+	width: auto;
+	height: 100%;
+}
+.orphporderl {
+	float: left;
+	display: inline;
+	overflow: hidden;
+	width: 65%;
+	height: 100%;
+}
+.orphporderr {
+	float: left;
+	display: inline;
+	overflow: hidden;
+	width: 35%;
+	height: 100%;
+}
+.orforml, .orformr {
+	width: 100%;
+}
+.orrxian {
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	_height: 100%;
+}
+.ortitlea, .ortitleb {
+	height: 60px;
+	margin-bottom: 15px;
+	background: url(../images/titab.gif) no-repeat;
+}
+.ortitlea {
+	background-position: 0 0;
+}
+.ortitleb {
+	background-position: 0 -60px;
+}
+.orwarp label.orbdxx {
+	float: left;
+	display: inline;
+	overflow: hidden;
+	width: 19%;
+	_width: 18%;
+	text-align: right;
+/*	padding-top: 3px;*/
+	padding-right: 3%;
+}
+.ordxbox, .orxlbox, .ortextbox, .ortext2box, .ortext3box, .orpayps {
+	float: left;
+	display: inline;
+	overflow: hidden;
+	width: 78%;
+	_width: 77%;
+}
+.ordxbox, .ortext2box, .ortext3box {
+	line-height: 1.5em;
+}
+.ortextbox input, .orxlbox select.orcpxl, .orxlbox select.ordqxl, .ortext2box textarea, .ortext3box input {
+	border: 1px solid #E0E0E0;
+	background: #FCFCFC;
+}
+.ordxbox p {
+	width: 92%;
+	line-height: 1.6em;
+	margin-bottom: 3px;
+}
+.ordxbox p img {
+	margin-left: 6px;
+	margin-top: -5px;
+}
+.orbdbox {
+	float: left;
+	width: 100%;
+	margin-bottom: 15px;
+*margin-bottom:7px;
+}
+.ordxbox label {
+	margin-left: 6px;
+	cursor: pointer;
+}
+.ordxbox input {
+	width: 15px;
+	height: 15px;
+	vertical-align: middle;
+	margin-top: -2px;
+	margin-bottom: 1px;
+}
+.ortextbox input, .ortext3box input {
+	width: 92%;
+	font-size: 14px;
+	color: #666;
+	padding: 3px 5px;
+	_padding: 2px 5px;
+}
+.ortext3box #showmun, .ortext3box #showprice {
+	clear: both;
+	display: inline;
+	font-family: Arial, Verdana;
+	font-size: 14px;
+	font-weight: bold;
+	color: #F60;
+	margin: 0 5px;
+}
+.orxlbox select.orcpxl {
+	padding: 3px;
+}
+.orxlbox select.ordqxl {
+	width: 30.70%;
+	padding: 2px;
+	margin-right: 6px;
+}
+.orpayps {
+	font-size: 12px;
+	color: #666;
+	padding-left: 22%;
+	line-height: 1.6em;
+}
+.orpayps p {
+	display: block;
+	float: left;
+	width: 92%;
+	padding: 2px 5px;
+	_margin-left: -3px;
+	text-align: center;
+	border: 1px dotted #E0E0E0;
+	background: #FFFFE6;
+}
+.ortext2box textarea {
+	width: 92%;
+	height: 40px;
+	color: #666;
+	padding: 5px;
+}
+.ortext3box input {
+	width: 50px;
+	text-align: center;
+	margin-right: 8px;
+}
+.ortext3box img#orcode {
+	margin-top: -3px;
+	cursor: pointer;
+}
+.ortext3box a {
+	font-size: 12px;
+	margin-left: 6px;
+}
+.orsubbox {
+	width: 100%;
+	float: left;
+	text-align: center;
+	padding-bottom: 10px;
+}
+.orsubbox input {
+	width: 50%;
+	height: 35px;
+	line-height: 35px;
+	color: #FFF;
+	font-size: 15px;
+	cursor: pointer;
+	border: 0;
+}
+#orfahuo {
+	width: 90%;
+	font-size: 12px;
+	line-height: 1.8em;
+	color: #666;
+	padding: 0 5%;
+}
+#orfahuo p {
+	padding-bottom: 15px;
+	border-bottom: 1px dotted #CCC;
+}
+/*///////////////////////////////////////// ORPHPWEB2016 ////////////////////////////////////////*/

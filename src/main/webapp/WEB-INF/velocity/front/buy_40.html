@@ -1,0 +1,117 @@
+
+<!-- saved from url=(0035)http://www.haodisoft.com/index.html -->
+<html><head>
+	#parse("common.html")
+	<script type="text/javascript" src="${contextPath}/js/idangerous.swiper.min.js"></script>
+	<link rel="shortcut icon" href="${contextPath}/images/favicon.ico" type="images/x-icon">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>自助注册</title>
+<meta name="keywords" content="豪迪,豪迪群发器,8222,豪迪QQ群发器,豪迪软件,豪迪网络">
+<meta name="description" content="豪迪软件 - 豪迪QQ群发器 2017,豪迪群发器|豪迪QQ登陆器2017,QQ2016登陆器,QQ登录器2017|营销QQ群发器|企业QQ群发器|营销QQ好友添加器,营销QQ批量加好友,8222">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/base.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/style/lanrenzhijia.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/style/orstyle.css">
+<style type="text/css">
+<!--
+.STYLE1 {font-family: "宋体"}
+body,td,th {
+	font-size: 12px;
+	font-family: 宋体;
+	line-height:22px;
+}
+.STYLE2 {font-size: 14px}
+.STYLE3 {
+	color: #6f6f6f;
+	font-size: 12px;
+}
+.STYLE5 {color: #4c4b4b; line-height:30px;}
+.STYLE6 {
+	font-weight: bold;
+	color: #FF0000;
+	font-size: 14px;
+}
+-->
+</style>
+</head><style type="text/css" id="21867820736"></style>
+<body>
+<!--Top-->
+<div class="Top" style="width: 925px; height: 131px">
+	<ul>
+		<li class="Logo"><a href="http://www.haodisoft.com/index.html"><img src="${contextPath}/images/logo.png" alt="Logo" border="0" style="
+    height: 82px;
+"></a> </li>
+		<li style=" text-align:right" class="Top_R">
+			<table width="99%" border="0" cellspacing="0" cellpadding="0" height="65">
+				<tbody><tr>
+
+				</tr>
+				</tbody></table>
+		</li>
+	</ul>
+	<div class="Menu">
+		<ul>
+			<li class="Menu_L"></li>
+			<li class="mnuItem"><a href="/auto_reg/front/business?page=index#">营销软件</a></li>
+			<li class="mnuSplit"></li>
+			<li class="mnuSel"><a href="/auto_reg/front/business?page=auto_reg#">自助注册</a></li>
+			<li class="mnuSplit"></li>
+			<li class="mnuItem"><a href="http://www.haodisoft.com/yanshi/">使用教程</a></li>
+			<li class="mnuSplit"></li>
+			<li class="mnuItem"><a href="http://www.haodisoft.com/faq/index.htm">常见问题</a></li>
+			<li class="mnuSplit"></li>
+
+			<li class="mnuItem"><a href="http://www.haodisoft.com/contactus.html">关于我们</a></li>
+		</ul>
+	</div>
+</div>
+
+<li style="margin-left: -365px;left: 50%;float:right;position: absolute;" class="SRight">
+<div class="wrap">
+
+    <div class="tabs" align="center">
+        <a href="#" hidefocus="true" class="active">微信扫码支付</a>
+        <a href="#" hidefocus="true" class="">支付宝在线支付</a>
+    </div>    
+    <div class="swiper-container">
+        <div class="swiper-wrapper" style="width: 1460px; height: 520px; transition-duration: 0.5s; transform: translate3d(0px, 0px, 0px);">
+        <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="width: 730px; height: 520px;">
+           <div class="content-slide">
+            <center><img src="${contextPath}/images/weixin_40.jpg"></center>
+		</div>
+          </div>
+        <div class="swiper-slide" style="width: 730px; height: 520px;">
+            <div class="content-slide">
+             <center><img src="${contextPath}/images/alipay_40.jpg"></center>
+            </div>
+          </div>
+        
+      </div>
+   </div>
+</div>
+
+<script>
+var tabsSwiper = new Swiper('.swiper-container',{
+	speed:500,
+	onSlideChangeStart: function(){
+		$(".tabs .active").removeClass('active');
+		$(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+	}
+});
+
+$(".tabs a").on('touchstart mousedown',function(e){
+	e.preventDefault()
+	$(".tabs .active").removeClass('active');
+	$(this).addClass('active');
+	tabsSwiper.swipeTo($(this).index());
+});
+
+$(".tabs a").click(function(e){
+	e.preventDefault();
+});
+</script>
+<!-- 代码部分end -->
+		      
+				  
+		   
+		   </li>
+</body></html>

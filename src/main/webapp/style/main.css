@@ -40,10 +40,4 @@
 #resultDiv div{
 	margin: 10px;
 }
-.logo img{
-	position:absolute;
-	top: 10%;
-	left:50%;
-	margin-left:-135px;
-	display: block;
-}
+
