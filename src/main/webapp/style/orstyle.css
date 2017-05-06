@@ -80,7 +80,7 @@ img {
 .ortitlea, .ortitleb {
 	height: 60px;
 	margin-bottom: 15px;
-	background: url(../images/titab.gif) no-repeat;
+	background: url(${contextPath}/images/titab.gif) no-repeat;
 }
 .ortitlea {
 	background-position: 0 0;

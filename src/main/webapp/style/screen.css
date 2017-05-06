@@ -10,7 +10,7 @@ Don't panic.
 
 /***** Global Styles *****/
 html, body { border:0; margin:0; padding:0; }
-body { font:12px Arial, Helvetica, sans-serif; background: url(../images/page-background.png) repeat!important; color: #444}
+body { font:12px Arial, Helvetica, sans-serif; background: url(${contextPath}/images/page-background.png) repeat!important; color: #444}
 
 a, a:link, a:visited { text-decoration:underline;}
 a:hover {text-decoration: none;}
