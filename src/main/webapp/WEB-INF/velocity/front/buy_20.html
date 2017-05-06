@@ -72,18 +72,18 @@ body, td, th {
 				<li class="mnuItem"><a
 					href="http://www.haodisoft.com/faq/index.htm">常见问题</a></li>
 				<li class="mnuSplit"></li>
-
-				<li class="mnuItem"><a
-					href="http://www.haodisoft.com/contactus.html">关于我们</a></li>
 			</ul>
 		</div>
 	</div>
-
+	<div style="width: 925px; margin: auto; margin-top: 25px">
+		<font id="buyMsg"
+			style="font-size: 17px; font-family: cursive; color: green;"></font><br> <font id="buyMsg1" style="color: red; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;付款时，请备注留言自己的邮箱
+			。付款几分钟后会把 券码 发送至 您的邮箱，券码可用来自助注册软件。其间遇到任何问题，请联系我</font>
+	</div>
 	<li
 		style="margin-left: -365px; left: 50%; float: right; position: absolute;"
 		class="SRight">
 		<div class="wrap">
-
 			<div class="tabs" align="center">
 				<a href="#" hidefocus="true" class="active">微信扫码支付</a> <a href="#"
 					hidefocus="true" class="">支付宝扫码支付</a>
@@ -112,6 +112,33 @@ body, td, th {
 				</div>
 			</div>
 		</div> <script>
+		$(function(){
+			var proudectId = getQueryString("proudectId");
+			switch(proudectId)
+			{
+			case "hdqqgr":
+				$("#buyMsg").html("&nbsp;&nbsp;您要购买的是>>豪迪QQ群发个人版 价格:20元");
+			  break;
+			case "hdweixin":
+				$("#buyMsg").html("&nbsp;&nbsp;您要购买的是>>豪迪微信群发电脑版 价格:20元");
+			  break;
+			case "hdqqqy":
+				$("#buyMsg").html("&nbsp;&nbsp;您要购买的是>>豪迪QQ企业版 价格:40元");
+				$("#buyMsg1").html("&nbsp;&nbsp;&nbsp;&nbsp;企业版不支持自助注册，付款后请即时与客服联系注册。联系时请提供付款截图 或 转帐人帐户名");
+				  break;
+			default:
+				
+			}
+		})
+		function getQueryString(name) {
+		    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+		    var r = window.location.search.substr(1).match(reg);
+		    if (r != null) {
+		        return unescape(r[2]);
+		    }
+		    return null;
+		}
+		
 			var tabsSwiper = new Swiper('.swiper-container', {
 				speed : 500,
 				onSlideChangeStart : function() {
