@@ -139,21 +139,7 @@ width: 850;
 <body>
 	<!--Top-->
 	<div class="Top" style="width: 925px; height: 131px">
-		<ul>
-			<li class="Logo"><a href="http://www.haodisoft.com/index.html"><img
-					src="${contextPath}/images/logo.png" alt="Logo" border="0"
-					style="height: 82px;"></a></li>
-			<li style="text-align: right" class="Top_R">
-				<table width="99%" border="0" cellspacing="0" cellpadding="0"
-					height="65">
-					<tbody>
-						<tr>
-
-						</tr>
-					</tbody>
-				</table>
-			</li>
-		</ul>
+		#parse("top.html")
 		<div class="Menu">
 			<ul>
 				<li class="Menu_L"></li>
@@ -169,9 +155,6 @@ width: 850;
 				<li class="mnuSel"><a
 					href="${contextPath}/front/business?page=faq#">常见问题</a></li>
 				<li class="mnuSplit"></li>
-
-				<li class="mnuItem"><a
-					href="http://www.haodisoft.com/contactus.html">关于我们</a></li>
 			</ul>
 		</div>
 	</div>
@@ -218,7 +201,7 @@ width: 850;
 		</li>
 		<li>
 				<div class="main" id="main4" style="height: 18px;">
-					<h6 onclick="fn(4)" style="cursor: hand;color:grey">发送的内容看不到是什么原因？</h6>
+					<h6 onclick="fn(4,140)" style="cursor: hand;color:grey">发送的内容看不到是什么原因？</h6>
 					&nbsp;&nbsp;1、最常见的原因是设置问题，选项里面“后台发送”前面不要打勾，设置发送后延时1秒<br>
 					&nbsp;&nbsp;2、如果按上面的设置后还是不行，把选项里面“发送方式”改成“3.按Enter键”。<br>
 &nbsp;&nbsp;3、必须用最新的群发软件。<br>
@@ -236,12 +219,6 @@ width: 850;
 					<h6 onclick="fn(6,80)" style="cursor: hand;color:grey">有些人不想发给他怎么办？</h6>
 					&nbsp;&nbsp;方法1：添加到禁止发送名单（只能添加昵称，不要添加号码）。<br>
 					&nbsp;&nbsp;方法2：可以把不发送的好友或者群 专门放在一个分组里面，发送时不要展开这个分组。
-				</div>
-		</li>
-		<li>
-				<div class="main" id="main7" style="height: 18px;">
-					<h6 onclick="fn(7)" style="cursor: hand;color:grey">购买后可以几台电脑用？</h6>
-					&nbsp;&nbsp;软件绑定电脑，一机一码，购买后在一台电脑上使用。
 				</div>
 		</li>
 	</ul>

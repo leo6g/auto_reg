@@ -56,21 +56,7 @@ body, td, th {
 <body>
 	<!--Top-->
 	<div class="Top" style="width: 925px; height: 131px">
-		<ul>
-			<li class="Logo"><a href="http://www.haodisoft.com/index.html"><img
-					src="${contextPath}/images/logo.png" alt="Logo" border="0"
-					style="height: 82px;"></a></li>
-			<li style="text-align: right" class="Top_R">
-				<table width="99%" border="0" cellspacing="0" cellpadding="0"
-					height="65">
-					<tbody>
-						<tr>
-
-						</tr>
-					</tbody>
-				</table>
-			</li>
-		</ul>
+		#parse("top.html")
 		<div class="Menu">
 			<ul>
 				<li class="Menu_L"></li>
@@ -100,7 +86,7 @@ body, td, th {
 
 			<div class="tabs" align="center">
 				<a href="#" hidefocus="true" class="active">微信扫码支付</a> <a href="#"
-					hidefocus="true" class="">支付宝在线支付</a>
+					hidefocus="true" class="">支付宝扫码支付</a>
 			</div>
 			<div class="swiper-container">
 				<div class="swiper-wrapper"
