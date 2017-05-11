@@ -9,11 +9,27 @@ import com.leo.util.UUIDGenerator;
 public class RobotTest {
 
 	public static void main(String[] args) {
-		for(int i =0;i<100;i++){
+		String ss = new String("我");
+		System.out.println(ss.toString());
+//		System.out.println(Integer.toBinaryString(2));
+		/*String s = (String)null;
+//		Integer  ss = null;
+//		int i = (Integer)null; 
+		char c = (Character)null;*/
+		/*int t = 1;
+		Boolean b =null;
+		Character c = null;
+		String ss = null;
+		Boolean*/
+//		int x = i+1;
+//		int i = (Integer)(new Student());
+//		Object o = new Object();
+		System.out.println("ds");
+		/*for(int i =0;i<100;i++){
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.substring(uuid.lastIndexOf("-")+1);
 			System.out.println(uuid);
-		}
+		}*/
 	/*	int i = 1;
 		int s = 3;
 		i += s;

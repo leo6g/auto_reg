@@ -25,6 +25,7 @@ import com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;
 import com.leo.form.RegTicketForm;
 import com.leo.util.ConfigHelper;
 import com.leo.util.PropertiesUtil;
+import com.leo.util.SendMailUtil;
 import com.leo.util.StringUtil;
 import com.leo.util.UUIDGenerator;
 import com.lfc.core.bean.OutputObject;
@@ -52,6 +53,7 @@ public class WeixinController extends WeixinControllerSupport{
 	private String charge_success;
 	private String charge_failed;
 	private String empty_chargeCode;
+	private String emailContent;
 	
 	@Autowired
 	private WeixinUserController weixinUserController;
@@ -78,6 +80,7 @@ public class WeixinController extends WeixinControllerSupport{
 		this.sign_charge=Integer.parseInt(ConfigHelper.getValue("sign_charge"));
 		this.subscribe=ConfigHelper.getValue("subscribe").replace("[sign_charge]", String.valueOf(this.sign_charge));;
 		this.menu=ConfigHelper.getValue("menu").replace("[sign_charge]", String.valueOf(this.sign_charge));
+		this.emailContent=ConfigHelper.getValue("emailContent");
 	}
 	/**
 	 * 处理接收到的文本消息
@@ -160,9 +163,9 @@ public class WeixinController extends WeixinControllerSupport{
 						replyMes=this.charge_failed;
 					}
 				}
-			}else if(msgContent.endsWith("@superBuy")){
+			}else if(msgContent.endsWith("#Buy")){
 				//购买券码
-				String price = msgContent.split("@")[0];
+				String price = msgContent.split("#")[0];
 				if(!StringUtil.isEmpty(price)){
 					OutputObject out = regTicketController.getTicket(Integer.parseInt(price),"2");
 					if("0".equals(out.getReturnCode())){
@@ -171,6 +174,26 @@ public class WeixinController extends WeixinControllerSupport{
 						replyMes = ticketCode+"@充值";
 					}else{
 						replyMes = "爸爸 对不起,获取现金卷时 失败了";
+					}
+				}else{
+					replyMes = "爸爸,说下价格";
+				}
+			}else if(msgContent.endsWith("#Send")){
+				//购买券码
+				String mailAddr = msgContent.split("#")[0];
+				if(!StringUtil.isEmpty(mailAddr)){
+					//购买券码
+					OutputObject out = regTicketController.getTicket(null,"1");
+					if("0".equals(out.getReturnCode())){
+						Map<String,Object> outMap = (Map<String,Object>)out.getObject();
+						String ticketCode =(String)(outMap.get("ticketCode"));
+						emailContent=emailContent.replace("[ticketCode]", ticketCode);
+						if(SendMailUtil.sendMail(emailContent, "您的券码", mailAddr)){
+							replyMes = "券码已发送";
+						}else{
+							replyMes = "券码发送失败";
+						}
+						
 					}
 				}else{
 					replyMes = "爸爸,说下价格";
