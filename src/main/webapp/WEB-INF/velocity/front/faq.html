@@ -167,21 +167,40 @@ width: 850;
 	</div>
 			<hr style="border-style: inset;border-width: 1px;display: block;">
 		<li>
-				<div class="main" id="main0" style="height: 18px;">
-					<h6 onclick="fn(0)" style="cursor: hand;color:grey">软件能试用吗？</h6>
-					&nbsp;&nbsp;可以，下载软件可直接打开 点击试用就可以试用，试用次数有限。<a href="${contextPath}/front/business?page=index#" target="_blank"><font color=blue>去下载</font></a>
+			<div class="main" id="main0" style="height: 18px;">
+				<h6 onclick="fn(0,80)" style="cursor: hand;color:grey">什么是券码？</h6>
+				&nbsp;&nbsp;券码是自助注册时的凭证，一条券码只可注册一次软件，不限类型。购买软件付款后，会把券码发送至您的邮箱，你可用它来注册软件
+				<br>&nbsp;&nbsp;右上角扫扫关注官方微信公众号 签到也可获取券码<a href="${contextPath}/front/business?page=auto_reg#" target="_blank"><font color=blue>&nbsp;>>去购买<<</font></a>
+			</div>
+		</li>
+		<li>
+			<div class="main" id="main1" style="height: 18px;">
+				<h6 onclick="fn(1)" style="cursor: hand;color:grey">什么是机器码？</h6>
+				&nbsp;&nbsp;机器码是您电脑的机器码，下载软件后 运行 可看到机器码&nbsp;<a href="${contextPath}/front/business?page=auto_reg#" target="_blank"><font color=blue>>>去下载<<</font></a>
+			</div>
+		</li>
+		<li>
+			<div class="main" id="main2" style="height: 18px;">
+				<h6 onclick="fn(2)" style="cursor: hand;color:grey">如何自助注册？</h6>
+				&nbsp;&nbsp;自助注册是为了方便客户而开启的在线注册业务&nbsp;<a href="${contextPath}/front/business?page=auto_reg#" target="_blank"><font color=blue>>>去注册<<<</font></a>
+			</div>
+		</li>
+		<li>
+				<div class="main" id="main3" style="height: 18px;">
+					<h6 onclick="fn(3)" style="cursor: hand;color:grey">软件能试用吗？</h6>
+					&nbsp;&nbsp;可以，下载软件可直接打开 点击试用就可以试用，试用次数有限。&nbsp;<a href="${contextPath}/front/business?page=index#" target="_blank"><font color=blue>去下载</font></a>
 				</div>
 		</li>
 		<li>
-				<div class="main" id="main1" style="height: 18px;">
-					<h6 onclick="fn(1,70)" style="cursor: hand;color:grey">购买后重装系统、换电脑怎么办？</h6>
+				<div class="main" id="main4" style="height: 18px;">
+					<h6 onclick="fn(4,70)" style="cursor: hand;color:grey">购买后重装系统、换电脑怎么办？</h6>
 					&nbsp;&nbsp;重装系统、换电脑 会导致电脑机器码变化，从而导致软件注册失效。
-					<br>&nbsp;&nbsp;对此抱歉，并提供弥补方式--关注微信公众号每天签到可充值余额，余额可直接用来注册软件。<span id="weihao" style="color: blue;cursor: hand">扫一扫关注</span><br><img id="weihao_img" alt="微信扫扫关注" src="${contextPath}/images/weihao.png">
+					<br>&nbsp;&nbsp;对此抱歉，并提供弥补方式--关注微信公众号每天签到可充值余额，余额可直接用来注册软件。&nbsp;<span id="weihao" style="color: blue;cursor: hand">扫一扫关注</span><br><img id="weihao_img" alt="微信扫扫关注" src="${contextPath}/images/weihao.png">
 				</div>
 		</li>
 		<li>
-				<div class="main" id="main2" style="height: 18px;">
-					<h6 onclick="fn(2)" style="cursor: hand;color:grey">购买后可以几台电脑用？</h6>
+				<div class="main" id="main5" style="height: 18px;">
+					<h6 onclick="fn(5)" style="cursor: hand;color:grey">购买后可以几台电脑用？</h6>
 					&nbsp;&nbsp;软件绑定电脑，一机一码，购买后在一台电脑上使用。
 				</div>
 		</li>
@@ -190,8 +209,8 @@ width: 850;
 		</div>
 		<hr style="border-style: inset;border-width: 1px;display: block;">
 		<li>
-				<div class="main" id="main3" style="height: 18px;">
-					<h6 onclick="fn(3,140)" style="cursor: hand;color:grey">发送多了QQ会掉线吗？</h6>
+				<div class="main" id="main6" style="height: 18px;">
+					<h6 onclick="fn(6,140)" style="cursor: hand;color:grey">发送多了QQ会掉线吗？</h6>
 					&nbsp;&nbsp;请不要问发多少个掉线，没有规律，差别很大，没办法知道。<br>
 &nbsp;&nbsp;掉线没有办法避免，只能经常修改发送的内容可以好点。<br>
 &nbsp;&nbsp;由于QQ的限制，发送的好友数量多了，QQ会出现强制掉线、冻结等情况，有时候需要修改密码。<br>
@@ -200,8 +219,8 @@ width: 850;
 				</div>
 		</li>
 		<li>
-				<div class="main" id="main4" style="height: 18px;">
-					<h6 onclick="fn(4,140)" style="cursor: hand;color:grey">发送的内容看不到是什么原因？</h6>
+				<div class="main" id="main7" style="height: 18px;">
+					<h6 onclick="fn(7,140)" style="cursor: hand;color:grey">发送的内容看不到是什么原因？</h6>
 					&nbsp;&nbsp;1、最常见的原因是设置问题，选项里面“后台发送”前面不要打勾，设置发送后延时1秒<br>
 					&nbsp;&nbsp;2、如果按上面的设置后还是不行，把选项里面“发送方式”改成“3.按Enter键”。<br>
 &nbsp;&nbsp;3、必须用最新的群发软件。<br>
@@ -209,14 +228,14 @@ width: 850;
 				</div>
 		</li>
 		<li>
-				<div class="main" id="main5" style="height: 18px;">
-					<h6 onclick="fn(5)" style="cursor: hand;color:grey">内容粘贴到聊天窗口后没有发送？</h6>
+				<div class="main" id="main8" style="height: 18px;">
+					<h6 onclick="fn(8)" style="cursor: hand;color:grey">内容粘贴到聊天窗口后没有发送？</h6>
 					&nbsp;&nbsp;没有发送就直接关闭聊天窗口了，出现这个情况请设置群发软件选项，换一种发送方式试试。把其他的方式都试试肯定有一个正常。
 				</div>
 		</li>
 		<li>
-				<div class="main" id="main6" style="height: 18px;">
-					<h6 onclick="fn(6,80)" style="cursor: hand;color:grey">有些人不想发给他怎么办？</h6>
+				<div class="main" id="main9" style="height: 18px;">
+					<h6 onclick="fn(9,80)" style="cursor: hand;color:grey">有些人不想发给他怎么办？</h6>
 					&nbsp;&nbsp;方法1：添加到禁止发送名单（只能添加昵称，不要添加号码）。<br>
 					&nbsp;&nbsp;方法2：可以把不发送的好友或者群 专门放在一个分组里面，发送时不要展开这个分组。
 				</div>

@@ -78,7 +78,7 @@ body, td, th {
 	<div style="width: 925px; margin: auto; margin-top: 25px">
 		<font id="buyMsg"
 			style="font-size: 17px; font-family: cursive; color: green;"></font><br> <font id="buyMsg1" style="color: red; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;付款时，请备注留言自己的邮箱
-			。付款几分钟后会把 券码 发送至 您的邮箱，券码可用来自助注册软件。其间遇到任何问题，请联系我</font>
+			或把邮箱和付款截图一并发给客服。审核成功后会把 券码 发送至 您的邮箱，券码可用来自助注册软件。其间遇到任何问题，请联系我</font>
 	</div>
 	<li
 		style="margin-left: -365px; left: 50%; float: right; position: absolute;"
@@ -95,7 +95,7 @@ body, td, th {
 						style="width: 730px; height: 520px;">
 						<div class="content-slide">
 							<center>
-								<img src="${contextPath}/images/weixin_20.png"
+								<img id="weixinPayQR" src="${contextPath}/images/weixin_20.png"
 									style="height: 478px;">
 							</center>
 						</div>
@@ -103,7 +103,7 @@ body, td, th {
 					<div class="swiper-slide" style="width: 730px; height: 520px;">
 						<div class="content-slide">
 							<center>
-								<img src="${contextPath}/images/alipay_20.png"
+								<img id="aliPayQR" src="${contextPath}/images/alipay_20.png"
 									style="height: 478px;">
 							</center>
 						</div>
@@ -124,8 +124,10 @@ body, td, th {
 			  break;
 			case "hdqqqy":
 				$("#buyMsg").html("&nbsp;&nbsp;您要购买的是>>豪迪QQ企业版 价格:40元");
-				$("#buyMsg1").html("&nbsp;&nbsp;&nbsp;&nbsp;企业版不支持自助注册，付款后请即时与客服联系注册。联系时请提供付款截图 或 转帐人帐户名");
-				  break;
+				$("#buyMsg1").html("&nbsp;&nbsp;&nbsp;&nbsp;企业版不支持自助注册，付款后请即时与客服联系注册。联系请提供付款截图 或 转帐人帐户名");
+				$("#weixinPayQR").attr("src","${contextPath}/images/weixin_40.png");
+				$("#aliPayQR").attr("src","${contextPath}/images/alipay_40.png");
+				break;
 			default:
 				
 			}

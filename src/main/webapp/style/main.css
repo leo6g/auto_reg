@@ -5,8 +5,8 @@
 	display: block;
 	margin-left: -188px;
 	margin-top: -11px;
-	border: outset;
 	padding: 20px;
+	background-color: whitesmoke;
 }
 .plain_form span{
 	margin: 5px;
@@ -27,6 +27,11 @@
 	left: 50%;
 	top: 49%;
 	margin-left: -123px;
+}
+#msgContent span{
+	color: grey;
+	font-size: 16px;
+	font-family: cursive;
 }
 #resultDiv1{
 	position: absolute;

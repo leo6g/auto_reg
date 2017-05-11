@@ -56,28 +56,51 @@ body,td,th {
 		</ul>
 	</div>
 </div>
-<div class="plain_form" align="center">
-<div>
-<span>券&nbsp;&nbsp;&nbsp;码:</span><input type="text" id="ticket_code" /><br>
-</div>
-<input type="hidden" id="origin_type" value="1"/>
-<div>
-<span>机器码:</span><input type="text" id="machine_code"/><br>
-</div>
-<div>
-<span>软件类型:</span>
-<select id="softType" name="softType">
-	<option value="1" >普通豪迪群发</option>
-	<option value="2" >企业豪迪群发</option>
-</select>
-    <button id="regBut" title="注册" style="width: 80px;height:22px;float: right"><span style="color: blue">注册</span> </button>
-<div><span style="color:red">企业版请选择'企业豪迪群发'</span></div>
-<div id="tips"></div>
-<div id="resultDiv" align="center" style="display: none">
-	<div><span style="color:green;">恭喜，注册成功,请不要刷新页面，以免注册码丢失</span></div>
-	<div><span id="machine" ></span></div>
-	<div><span style="font-size: 12px;position: relative;bottom: 39px;right: 6px;">注册码:</span><textarea rows="3" cols="32" id="reg"></textarea></div>
-</div>
-<div id="resultDiv1" align="center" style="display: none">
-	<div><span style="color:red;">注册失败-原因：</span><span id="mess" ></span></div>
+	<div id="msgContent"
+		style="width: 350px; margin-left: auto; margin-right: auto; margin-top: 5px; text-align: left;">
+		<span><br>1.填写券码、软件机器码&nbsp;&nbsp;&nbsp;&nbsp;</span><a
+			href="${contextPath}/front/business?page=faq#" style="color: green;">券码是什么？</a></span><br>
+		<span>2.选择正确的软件</span><br> <span>3.点注册，注册码会在下方显示出来</span>
+	</div>
+	<div class="plain_form" align="center">
+		<div>
+			<span>券&nbsp;&nbsp;&nbsp;码:</span><input type="text" id="ticket_code" /><br>
+		</div>
+		<input type="hidden" id="origin_type" value="1" />
+		<div>
+			<span>机器码:</span><input type="text" id="machine_code" /><br>
+		</div>
+		<div>
+			<span>软件类型:</span> <select id="softType" name="softType">
+				<option value="1">豪迪QQ群发个人版</option>
+				<option value="2">豪迪微信群发</option>
+			</select>
+			<button id="regBut" title="注册"
+				style="width: 80px; height: 22px; float: right">
+				<span style="color: blue">注册</span>
+			</button>
+			<div>
+				<span style="color: red">注意：只支持豪迪QQ个人版和豪迪微信,其它注册请联系客服'</span>
+			</div>
+			<div id="tips"></div>
+			<div id="resultDiv" align="center" style="display: none">
+				<div>
+					<span style="color: green;">恭喜，注册成功,请不要刷新页面，以免注册码丢失</span>
+				</div>
+				<div>
+					<span id="machine"></span>
+				</div>
+				<div>
+					<span
+						style="font-size: 12px; position: relative; bottom: 39px; right: 6px;">注册码:</span>
+					<textarea rows="3" cols="32" id="reg"></textarea>
+				</div>
+			</div>
+			<div id="resultDiv1" align="center" style="display: none">
+				<div>
+					<span style="color: red;">注册失败-原因：</span><span id="mess"></span>
+				</div>
+				</div>
+				</div>
+				</div>
 </body></html>
