@@ -163,7 +163,7 @@ public class WeixinController extends WeixinControllerSupport{
 						replyMes=this.charge_failed;
 					}
 				}
-			}else if(msgContent.endsWith("#Buy")){
+			}else if(msgContent.endsWith("#buy")){
 				//购买券码
 				String price = msgContent.split("#")[0];
 				if(!StringUtil.isEmpty(price)){
@@ -178,7 +178,7 @@ public class WeixinController extends WeixinControllerSupport{
 				}else{
 					replyMes = "爸爸,说下价格";
 				}
-			}else if(msgContent.endsWith("#Send")){
+			}else if(msgContent.endsWith("#send")){
 				//购买券码
 				String mailAddr = msgContent.split("#")[0];
 				if(!StringUtil.isEmpty(mailAddr)){
@@ -188,7 +188,7 @@ public class WeixinController extends WeixinControllerSupport{
 						Map<String,Object> outMap = (Map<String,Object>)out.getObject();
 						String ticketCode =(String)(outMap.get("ticketCode"));
 						emailContent=emailContent.replace("[ticketCode]", ticketCode);
-						if(SendMailUtil.sendMail(emailContent, "您的券码", mailAddr)){
+						if(SendMailUtil.sendMail(emailContent, "您的券码，请查收", mailAddr)){
 							replyMes = "券码已发送";
 						}else{
 							replyMes = "券码发送失败";

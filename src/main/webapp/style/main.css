@@ -1,11 +1,10 @@
 .plain_form{
-	position: absolute;
-	top: 40%;
-	left: 50%;
+	width: 390px;
+	margin-top: 10px;
 	display: block;
-	margin-left: -188px;
-	margin-top: -11px;
 	padding: 20px;
+	margin-left: auto;
+	margin-right: auto;
 	background-color: whitesmoke;
 }
 .plain_form span{
