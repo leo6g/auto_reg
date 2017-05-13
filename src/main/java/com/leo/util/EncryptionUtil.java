@@ -85,7 +85,7 @@ public class EncryptionUtil {
 //		String decryPassword = new String(EncryptionUtil.decode(				
 //				EncryptionUtil.hex2byte("720EAAF0D4F3624E"), "lfc".getBytes()));
 //		System.out.println(decryPassword);
-		System.out.println(byte2hex(encode("root".getBytes(),"abcdefgh".getBytes())));
+		System.out.println(byte2hex(encode("sbwk320".getBytes(),"abcdefgh".getBytes())));
 		
 		
 	}

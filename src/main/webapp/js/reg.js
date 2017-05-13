@@ -5,6 +5,7 @@ $(function(){
 		if(!validate()){
 			return;
 		};
+		$("#regBut").attr("disabled","disabled");
 		var url = contextPath + "/front/regMachine";
 		var ticketCode = $("#ticket_code").val();
 		var machineCode = $("#machine_code").val();
@@ -21,6 +22,7 @@ $(function(){
 				$("#mess").html(data.returnMessage);
 				$("#resultDiv1").removeAttr("style");
 			}
+			$("#regBut").removeAttr("disabled");
 		});
 	})
 })

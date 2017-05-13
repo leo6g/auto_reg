@@ -22,10 +22,9 @@
 	margin: 10px;
 }
 #resultDiv{
-	position: absolute;
-	left: 50%;
-	top: 49%;
-	margin-left: -123px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
 }
 #msgContent span{
 	color: grey;
@@ -33,10 +32,9 @@
 	font-family: cursive;
 }
 #resultDiv1{
-	position: absolute;
-	left: 50%;
-	top: 73%;
-	margin-left: -100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
 }
 #resultDiv1 div{
 	margin: 10px;
