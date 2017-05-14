@@ -16,6 +16,7 @@ $(function(){
 			if(data.returnCode=="1"){
 				$("#machine").html(data.option);
 				$("#reg").html(data.returnMessage);
+				$("resultDiv1")
 				$("resultDiv1").attr({style:"display:none"});
 				$("#resultDiv").removeAttr("style");
 			}else{
