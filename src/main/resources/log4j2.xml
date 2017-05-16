@@ -15,7 +15,7 @@
 		</RollingRandomAccessFile>
 	</appenders>
 	<loggers>
- 		<Root level="debug">
+ 		<Root level="info">
 			<appender-ref ref="Console" />
 			<appender-ref ref="wxadminweb" />
 		</Root>       
