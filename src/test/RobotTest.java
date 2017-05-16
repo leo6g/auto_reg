@@ -9,8 +9,8 @@ import com.leo.util.UUIDGenerator;
 public class RobotTest {
 
 	public static void main(String[] args) {
-		String ss = new String("我");
-		System.out.println(ss.toString());
+		String ss = new String("NHJ5PP6QZ2RYZE2QDUWYN2SALXKEEHKF462XDPJVEN5V6HWSG7A2VVW8RFULH9BHH2RLV");
+		System.out.println(ss.length());
 //		System.out.println(Integer.toBinaryString(2));
 		/*String s = (String)null;
 //		Integer  ss = null;

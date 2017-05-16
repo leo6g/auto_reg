@@ -113,6 +113,9 @@
   <select id="countAll" resultType="java.lang.Integer" >
 	    select count(1)
 	    from T_REG_TICKET
+	    <if test="_parameter != null" >
+     		<include refid="Example_Where_Clause" />
+   		</if>
 	    <!-- 有DELETE_FLAG放开-->
 	   <!-- where DELETE_FLAG = 0 -->
   </select>

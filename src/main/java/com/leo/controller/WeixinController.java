@@ -2,6 +2,7 @@ package com.leo.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import com.github.sd4324530.fastweixin.message.req.MenuEvent;
 import com.github.sd4324530.fastweixin.message.req.TextReqMsg;
 import com.github.sd4324530.fastweixin.message.req.VoiceReqMsg;
 import com.github.sd4324530.fastweixin.servlet.WeixinControllerSupport;
+import com.leo.form.RegRcordForm;
 import com.leo.form.RegTicketForm;
 import com.leo.util.ConfigHelper;
 import com.leo.util.PropertiesUtil;
@@ -59,6 +61,8 @@ public class WeixinController extends WeixinControllerSupport{
 	private WeixinUserController weixinUserController;
 	@Autowired
 	private RegTicketController regTicketController;
+	@Autowired
+	private RegRcordController regRcordController;
 	
 	public  WeixinController(){
 		this.appToken=PropertiesUtil.getString("appToken");
@@ -196,7 +200,29 @@ public class WeixinController extends WeixinControllerSupport{
 						
 					}
 				}else{
-					replyMes = "爸爸,说下价格";
+					replyMes = "邮箱不能为空";
+				}
+			}else if(msgContent.endsWith("@zhzcm")){
+				String ticketCode = msgContent.split("@")[0];
+				if(StringUtil.isNotEmpty(ticketCode)){
+					RegRcordForm regRcordForm = new RegRcordForm();
+					regRcordForm.setTicketCode(ticketCode);
+					regRcordForm.setLimit(1);
+					regRcordForm.setStart(0);
+					Map<String, Object> resultMap = (Map<String, Object>)regRcordController.getList(regRcordForm);
+					List<Map<String, Object>> rows = (List<Map<String, Object>>)resultMap.get("rows");
+					if(rows.size()>0){
+						String regCode = (String)(rows.get(0).get("regCode"));
+						if(StringUtil.isNotEmpty(regCode)&&regCode.length()>60){
+							replyMes = "该券码注册过的注册码为:"+regCode;
+						}else{
+							replyMes="该券码注册时遇到问题，请联系客服QQ2388937779解决";
+						}
+					}else{
+						replyMes="该券码貌似还没有被使用呐，请检查";
+					}
+				}else{
+					replyMes = "券码不能为空";
 				}
 			}else{
 				replyMes = this.menu;
