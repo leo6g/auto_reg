@@ -56,7 +56,7 @@ public class WeixinController extends WeixinControllerSupport{
 	private String charge_failed;
 	private String empty_chargeCode;
 	private String emailContent;
-	
+	private int softPrice;
 	@Autowired
 	private WeixinUserController weixinUserController;
 	@Autowired
@@ -82,6 +82,7 @@ public class WeixinController extends WeixinControllerSupport{
 		this.empty_chargeCode=ConfigHelper.getValue("empty_chargeCode");
 		this.cz_reply=ConfigHelper.getValue("cz_reply");
 		this.sign_charge=Integer.parseInt(ConfigHelper.getValue("sign_charge"));
+		this.softPrice=Integer.parseInt(ConfigHelper.getValue("softPrice"));
 		this.subscribe=ConfigHelper.getValue("subscribe").replace("[sign_charge]", String.valueOf(this.sign_charge));;
 		this.menu=ConfigHelper.getValue("menu").replace("[sign_charge]", String.valueOf(this.sign_charge));
 		this.emailContent=ConfigHelper.getValue("emailContent");
@@ -95,148 +96,207 @@ public class WeixinController extends WeixinControllerSupport{
 		// 微信用户openId
 		String openid = msg.getFromUserName();
 		String replyMes = "";
-		
-		//保存用户回复信息
-			if(msgContent.contains("签到")){
-				replyMes = sign(msg);
-			}else if(msgContent.contains("兑换")){
-				//购买券码
-				OutputObject out = regTicketController.getTicket(null,"1");
-				if("0".equals(out.getReturnCode())){
-					Map<String,Object> outMap = (Map<String,Object>)out.getObject();
-					String ticketCode =(String)(outMap.get("ticketCode"));
-					//扣除费用
-					outMap.clear();
-					OutputObject tempOut =weixinUserController.getByOpenId(openid);
-					if("0".equals(tempOut.getReturnCode())){
-						int money = (int)((Map<String,Object>)tempOut.getObject()).get("wallet");
-						//这里将软件价格先写死为 20
-						int softPrice = 20;
-						if(money>=softPrice){
-							money = money-20;
-							outMap.put("openid", openid);
-							outMap.put("wallet", money);
-							tempOut = weixinUserController.updateByOpenid(outMap);
-							if("0".equals(tempOut.getReturnCode())){
-								replyMes = this.buy_success.replace("[ticketCode]", ticketCode);
-								logger.info("用户购买成功，消费：20元 openid="+openid+"券码="+ticketCode);
-							}else{
-								logger.info("用户购买失败， openid="+openid+"券码="+ticketCode);
-							}
-						}else{
-							replyMes = this.not_enough_money.replace("[money]", String.valueOf(softPrice-money)).replace("[softPrice]", String.valueOf(softPrice));
-						}
-					}else{
-						replyMes=this.buy_failed;
-					}
-				}else{
-					replyMes=this.buy_failed;
-				}
-			}else if(msgContent.contains("余额")){
-				OutputObject out =weixinUserController.getByOpenId(openid);
-				if("0".equals(out.getReturnCode())){
-					int money = (int)((Map<String,Object>)out.getObject()).get("wallet");
-					replyMes=this.query_money_sucss.replace("[money]", String.valueOf(money));
-				}else{
-					replyMes=this.query_moeny_fail;
-				}
-			}else if(msgContent.endsWith("@充值")){
-				String chargeCode = msgContent.split("@")[0];
-				if(StringUtil.isEmpty(chargeCode)){
-					replyMes =this.empty_chargeCode;
-				}else{
-					Map<String, Object> map = new HashMap<String,Object>();
-					map.put("available", '1');
-					map.put("ticketCode", chargeCode);
-					map.put("ticketType", "2");
-					OutputObject out = regTicketController.getOne(map);
-					Object obj = out.getObject();
-					if(obj!=null){
-						//验证成功 开始充值
-						int chargeMoney = (int)((Map<String, Object>)obj).get("priceValue");
-						String id = (String)((Map<String, Object>)obj).get("id");
-						OutputObject tempOut = weixinUserController.userCharge2(openid, chargeMoney);
-						//失效现金券
-						RegTicketForm  regTicketForm = new RegTicketForm();
-						regTicketForm.setId(id);
-						regTicketForm.setAvailable("0");
-						regTicketForm.setUsedTime(new Date());
-						regTicketController.updateRegTicket(regTicketForm);
-						replyMes = this.charge_success.replace("[chargeMoney]", String.valueOf(chargeMoney)).replace("[money]", tempOut.getReturnMessage());
-					}else{
-						replyMes=this.charge_failed;
-					}
-				}
-			}else if(msgContent.endsWith("#buy")){
-				//购买券码
-				String price = msgContent.split("#")[0];
-				if(!StringUtil.isEmpty(price)){
-					OutputObject out = regTicketController.getTicket(Integer.parseInt(price),"2");
-					if("0".equals(out.getReturnCode())){
-						Map<String,Object> outMap = (Map<String,Object>)out.getObject();
-						String ticketCode =(String)(outMap.get("ticketCode"));
-						replyMes = ticketCode+"@充值";
-					}else{
-						replyMes = "爸爸 对不起,获取现金卷时 失败了";
-					}
-				}else{
-					replyMes = "爸爸,说下价格";
-				}
-			}else if(msgContent.endsWith("#send")){
-				//购买券码
-				String mailAddr = msgContent.split("#")[0];
-				if(!StringUtil.isEmpty(mailAddr)){
-					//购买券码
-					OutputObject out = regTicketController.getTicket(null,"1");
-					if("0".equals(out.getReturnCode())){
-						Map<String,Object> outMap = (Map<String,Object>)out.getObject();
-						String ticketCode =(String)(outMap.get("ticketCode"));
-						emailContent=emailContent.replace("[ticketCode]", ticketCode);
-						if(SendMailUtil.sendMail(emailContent, "您的券码，请查收", mailAddr)){
-							replyMes = "券码已发送";
-						}else{
-							replyMes = "券码发送失败";
-						}
-						
-					}
-				}else{
-					replyMes = "邮箱不能为空";
-				}
-			}else if(msgContent.endsWith("@zhzcm")){
-				String ticketCode = msgContent.split("@")[0];
-				if(StringUtil.isNotEmpty(ticketCode)){
-					RegRcordForm regRcordForm = new RegRcordForm();
-					regRcordForm.setTicketCode(ticketCode);
-					regRcordForm.setLimit(1);
-					regRcordForm.setStart(0);
-					Map<String, Object> resultMap = (Map<String, Object>)regRcordController.getList(regRcordForm);
-					List<Map<String, Object>> rows = (List<Map<String, Object>>)resultMap.get("rows");
-					if(rows.size()>0){
-						String regCode = (String)(rows.get(0).get("regCode"));
-						if(StringUtil.isNotEmpty(regCode)&&regCode.length()>60){
-							replyMes = "该券码注册过的注册码为:"+regCode;
-						}else{
-							replyMes="该券码注册时遇到问题，请联系客服QQ2388937779解决";
-						}
-					}else{
-						replyMes="该券码貌似还没有被使用呐，请检查";
-					}
-				}else{
-					replyMes = "券码不能为空";
-				}
-			}else{
-				replyMes = this.menu;
-			}
+		if(msgContent.contains("签到")){
+			replyMes = sign(msg);
+		}else if(msgContent.contains("兑换")){
+			replyMes = exchangeCode(openid);
+		}else if(msgContent.contains("余额")){
+			replyMes = queryBalance(openid);
+		}else if(msgContent.endsWith("@充值")){
+			replyMes = chargeBalance(msgContent, openid);
+		}else if(msgContent.endsWith("#buy")){
+			replyMes = superBuy(msgContent);
+		}else if(msgContent.endsWith("#send")){
+			replyMes = superSend(msgContent);
+		}else if(msgContent.endsWith("@zhzcm")){
+			replyMes = regCodeFindBack(msgContent);
+		}else{
+			replyMes = this.menu;
+		}
 		return new TextMsg(replyMes);
 	}
-
 	 @Override
 	protected BaseMsg handleMenuClickEvent(MenuEvent event) {
 		String fromUserName = event.getFromUserName();
 		String eventKey = event.getEventKey();
 		return null;
-		
-
+	}
+	 /**
+	  * 注册码找回
+	  * @param msgContent
+	  * @return
+	  */
+	 private String regCodeFindBack(String msgContent){
+		String replyMes = "";
+		String ticketCode = msgContent.split("@")[0];
+		if(StringUtil.isNotEmpty(ticketCode)){
+			RegRcordForm regRcordForm = new RegRcordForm();
+			regRcordForm.setTicketCode(ticketCode);
+			regRcordForm.setLimit(1);
+			regRcordForm.setStart(0);
+			Map<String, Object> resultMap = (Map<String, Object>)regRcordController.getList(regRcordForm);
+			List<Map<String, Object>> rows = (List<Map<String, Object>>)resultMap.get("rows");
+			if(rows.size()>0){
+				String regCode = (String)(rows.get(0).get("regCode"));
+				if(StringUtil.isNotEmpty(regCode)&&regCode.length()>60){
+					replyMes = "该券码注册过的注册码为:"+regCode;
+				}else{
+					replyMes="该券码注册时遇到问题，请联系客服QQ2388937779解决";
+				}
+			}else{
+				replyMes="该券码貌似还没有被使用呐，请检查";
+			}
+		}else{
+			replyMes = "券码不能为空";
+		}
+		return replyMes;
+	 }
+	 /**
+	  * 超级发送
+	  * @param msgContent
+	  * @return
+	  */
+	 private String superSend(String msgContent){
+		String replyMes = "";
+		//购买券码
+		String mailAddr = msgContent.split("#")[0];
+		if(!StringUtil.isEmpty(mailAddr)){
+			//购买券码
+			OutputObject out = regTicketController.getTicket(null,"1");
+			if("0".equals(out.getReturnCode())){
+				Map<String,Object> outMap = (Map<String,Object>)out.getObject();
+				String ticketCode =(String)(outMap.get("ticketCode"));
+				emailContent=emailContent.replace("[ticketCode]", ticketCode);
+				if(SendMailUtil.sendMail(emailContent, "您的券码，请查收", mailAddr)){
+					replyMes = "券码已发送";
+				}else{
+					replyMes = "券码发送失败";
+				}
+				
+			}
+		}else{
+			replyMes = "邮箱不能为空";
+		}
+		return replyMes;
+	 }
+	 /**
+	  * 超级购买
+	  * @param msgContent
+	  * @return
+	  */
+	 private String superBuy(String msgContent){
+		 String replyMes = "";
+			//购买券码
+			String price = msgContent.split("#")[0];
+			if(!StringUtil.isEmpty(price)){
+				OutputObject out = regTicketController.getTicket(Integer.parseInt(price),"2");
+				if("0".equals(out.getReturnCode())){
+					Map<String,Object> outMap = (Map<String,Object>)out.getObject();
+					String ticketCode =(String)(outMap.get("ticketCode"));
+					replyMes = ticketCode+"@充值";
+				}else{
+					replyMes = "爸爸 对不起,获取现金卷时 失败了";
+				}
+			}else{
+				replyMes = "爸爸,说下价格";
+			}
+		return replyMes;
+	 }
+	/**
+	 * 充值
+	 * @param msgContent
+	 * @param openid
+	 * @return
+	 */
+	 private String chargeBalance(String msgContent,String openid){
+	 	String replyMes = "";
+		String chargeCode = msgContent.split("@")[0];
+		if(StringUtil.isEmpty(chargeCode)){
+			replyMes =this.empty_chargeCode;
+		}else{
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("available", '1');
+			map.put("ticketCode", chargeCode);
+			map.put("ticketType", "2");
+			OutputObject out = regTicketController.getOne(map);
+			Object obj = out.getObject();
+			if(obj!=null){
+				//验证成功 开始充值
+				int chargeMoney = (int)((Map<String, Object>)obj).get("priceValue");
+				String id = (String)((Map<String, Object>)obj).get("id");
+				OutputObject tempOut = weixinUserController.userCharge2(openid, chargeMoney);
+				//失效现金券
+				RegTicketForm  regTicketForm = new RegTicketForm();
+				regTicketForm.setId(id);
+				regTicketForm.setAvailable("0");
+				regTicketForm.setUsedTime(new Date());
+				regTicketController.updateRegTicket(regTicketForm);
+				replyMes = this.charge_success.replace("[chargeMoney]", String.valueOf(chargeMoney)).replace("[money]", tempOut.getReturnMessage());
+			}else{
+				replyMes=this.charge_failed;
+			}
+		}
+			return replyMes;
+	 }
+	 /**
+	  * 查询余额
+	  * @param openid
+	  * @return
+	  */
+	 private String queryBalance(String openid){
+		String replyMes = "";
+		OutputObject out =weixinUserController.getByOpenId(openid);
+		if("0".equals(out.getReturnCode())){
+			int money = (int)((Map<String,Object>)out.getObject()).get("wallet");
+			replyMes=this.query_money_sucss.replace("[money]", String.valueOf(money));
+		}else{
+			replyMes=this.query_moeny_fail;
+		}
+		return replyMes;
+	 }
+	/**
+	 * 兑换
+	 * @param openid
+	 * @return
+	 */
+	private String exchangeCode(String openid){
+		String replyMes ="";
+		OutputObject tempOut =weixinUserController.getByOpenId(openid);
+		if("0".equals(tempOut.getReturnCode())){
+			Map<String,Object> outMap = (Map<String,Object>)tempOut.getObject();
+			int money = 0;
+			if(outMap!=null&&outMap.get("wallet")!=null){
+				money = (int)outMap.get("wallet");
+			}
+			//扣除费用
+			if(money>=softPrice){
+				money = money-softPrice;
+				outMap.clear();
+				outMap.put("openid", openid);
+				outMap.put("wallet", money);
+				tempOut = weixinUserController.updateByOpenid(outMap);
+				if("0".equals(tempOut.getReturnCode())){
+					//获取券码
+					OutputObject out = regTicketController.getTicket(null,"1");
+					if("0".equals(out.getReturnCode())){
+						String ticketCode =(String)(((Map<String,Object>)out.getObject()).get("ticketCode"));
+						replyMes = this.buy_success.replace("[ticketCode]", ticketCode);
+						logger.info("用户兑换成功，消费：20元 openid="+openid+"券码="+ticketCode);
+					}else{
+						logger.info("用户兑换失败，费用已扣除："+softPrice+" openid="+openid+"请检查");
+						replyMes="兑换出错，费用已扣除，请及时联系客服qq2388937779";
+					}
+				}else{
+					logger.info("用户兑换失败， openid="+openid+"原因：扣除费用时失败");
+					replyMes=this.buy_failed;
+				}
+			}else{
+				replyMes = this.not_enough_money.replace("[money]", String.valueOf(softPrice-money)).replace("[softPrice]", String.valueOf(softPrice));
+			}
+		}else{
+			replyMes=this.buy_failed;
+		}
+		return replyMes;
 	}
 	private String sign(BaseReqMsg msg){
 		String replyMes ="";
