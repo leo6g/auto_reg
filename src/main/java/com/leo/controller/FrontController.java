@@ -70,14 +70,25 @@ public class FrontController extends BaseController{
 						regCode = ActionUtil.do2(machineCode);
 						outputObject.setOption("机器码填写：777");
 					}
-					outputObject.setReturnMessage(regCode);
-					outputObject.setReturnCode("1");
-					//失效券码
-					map.clear();
-					map.put("available", '0');
-					map.put("consumeTime", currentDate);
-					map.put("id", resultMap.get("id"));
-					getOutputObject(map, "regTicketService", "updateRegTicket");
+					//判断是否注册成功
+					if(StringUtil.isNotEmpty(regCode)&&regCode.length()>60){
+						outputObject.setReturnMessage(regCode);
+						outputObject.setReturnCode("1");
+						//失效券码
+						map.clear();
+						map.put("available", '0');
+						map.put("consumeTime", currentDate);
+						map.put("id", resultMap.get("id"));
+						getOutputObject(map, "regTicketService", "updateRegTicket");
+					}else{
+						outputObject.setReturnCode("0");
+						if(regCode.contains("invalid")){
+							outputObject.setReturnMessage("无效的机器码，请检查软件类型是否正确");
+						}else{
+							outputObject.setReturnMessage("请稍后再试.....");
+						}
+					}
+					//插入注册记录
 					RegRcordForm regRcordForm = new RegRcordForm();
 					regRcordForm.setId(UUIDGenerator.getJavaUUID());
 					regRcordForm.setMachineCode(machineCode);
