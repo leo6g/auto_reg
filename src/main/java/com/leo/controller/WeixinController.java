@@ -166,8 +166,8 @@ public class WeixinController extends WeixinControllerSupport{
 			if("0".equals(out.getReturnCode())){
 				Map<String,Object> outMap = (Map<String,Object>)out.getObject();
 				String ticketCode =(String)(outMap.get("ticketCode"));
-				emailContent=emailContent.replace("[ticketCode]", ticketCode);
-				if(SendMailUtil.sendMail(emailContent, "您的券码，请查收", mailAddr)){
+				String sendContent=emailContent.replace("[ticketCode]", ticketCode);
+				if(SendMailUtil.sendMail(sendContent, "您的券码，请查收", mailAddr)){
 					replyMes = "券码已发送";
 				}else{
 					replyMes = "券码发送失败";

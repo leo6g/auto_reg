@@ -79,8 +79,11 @@ body,td,th {
 				style="width: 80px; height: 22px; float: right">
 				<span style="color: blue">注册</span>
 			</button>
-			<div>
-				<span style="color: red">注意：只支持豪迪QQ个人版和豪迪微信,其它注册请联系客服'</span>
+			<div style="margin-left: 0px;">
+				<span style="color: red">注意：只支持豪迪QQ个人版和豪迪微信,其它注册请联系客服</span>
+			</div>
+			<div onmouseover="showTip(event)" onmouseout="hideTip(event)" style="margin-right: 0px; text-align: right;">
+				<span style="color: #e4b3b3;">找回注册码</span>
 			</div>
 		</div>
 	</div>
@@ -102,4 +105,20 @@ body,td,th {
 			<span style="color: red;">注册失败-原因：</span><span id="mess"></span>
 		</div>
 	</div>
-</body></html>
+	<div id="divTip1"
+		style="background-color: #97f997; width: 250px; text-align: left; position: absolute; visibility: hidden; padding: 5px">
+		扫一扫右上角二维码关注微信公众号，发送"券码@zhzcm" 券码为你之前注册时使用的券码</div>
+</body>
+  <script type="text/JavaScript">
+			function showTip(oEvent) {
+				var oDiv = document.getElementById("divTip1");
+				oDiv.style.visibility = "visible";
+				oDiv.style.left = oEvent.clientX + 5;
+				oDiv.style.top = oEvent.clientY + 5;
+			}
+			function hideTip(oEvent) {
+				var oDiv = document.getElementById("divTip1");
+				oDiv.style.visibility = "hidden";
+			}
+		</script>
+ </html>

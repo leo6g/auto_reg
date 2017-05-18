@@ -52,6 +52,7 @@ public class RegTicketController extends BaseController{
 	public Object getList(@ModelAttribute("regTicketForm") RegTicketForm regTicketForm,HttpServletRequest request) {
 		OutputObject outputObject = null;
 		Map<String, Object> map = BeanUtil.convertBean2Map(regTicketForm);
+		map.put("orderByClause", "CREATE_TIME DESC");
 		outputObject = getOutputObject(map, "regTicketService", "getList");
 		map.clear();
 		map.put("total", outputObject.getObject());

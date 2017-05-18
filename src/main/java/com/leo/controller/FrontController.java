@@ -70,6 +70,14 @@ public class FrontController extends BaseController{
 						regCode = ActionUtil.do2(machineCode);
 						outputObject.setOption("机器码填写：777");
 					}
+					RegRcordForm regRcordForm = new RegRcordForm();
+					regRcordForm.setId(UUIDGenerator.getJavaUUID());
+					regRcordForm.setMachineCode(machineCode);
+					regRcordForm.setRegOrigin(regOrigin);
+					regRcordForm.setRegTime(currentDate);
+					regRcordForm.setTicketCode(ticketCode);
+					regRcordForm.setTicketType((String)resultMap.get("ticketType"));
+					regRcordForm.setRegCode(regCode);
 					//判断是否注册成功
 					if(StringUtil.isNotEmpty(regCode)&&regCode.length()>60){
 						outputObject.setReturnMessage(regCode);
@@ -80,6 +88,7 @@ public class FrontController extends BaseController{
 						map.put("consumeTime", currentDate);
 						map.put("id", resultMap.get("id"));
 						getOutputObject(map, "regTicketService", "updateRegTicket");
+						regRcordForm.setRegStatus("1");
 					}else{
 						outputObject.setReturnCode("0");
 						if(regCode.contains("invalid")){
@@ -87,17 +96,9 @@ public class FrontController extends BaseController{
 						}else{
 							outputObject.setReturnMessage("请稍后再试.....");
 						}
+						regRcordForm.setRegStatus("0");
 					}
 					//插入注册记录
-					RegRcordForm regRcordForm = new RegRcordForm();
-					regRcordForm.setId(UUIDGenerator.getJavaUUID());
-					regRcordForm.setMachineCode(machineCode);
-					regRcordForm.setRegOrigin(regOrigin);
-					regRcordForm.setRegStatus("1");
-					regRcordForm.setRegTime(currentDate);
-					regRcordForm.setTicketCode(ticketCode);
-					regRcordForm.setTicketType((String)resultMap.get("ticketType"));
-					regRcordForm.setRegCode(regCode);
 					regRcordController.insertRegRcord(regRcordForm);
 				} catch (Exception e) {
 					outputObject.setReturnCode("0");

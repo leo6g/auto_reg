@@ -1,8 +1,9 @@
 .plain_form{
-	width: 390px;
-	margin-top: 10px;
-	display: block;
-	padding: 20px;
+	width: 427px;
+    margin-top: 10px;
+    display: block;
+    padding: 30px;
+    padding-bottom: 3px;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: whitesmoke;
@@ -22,9 +23,11 @@
 	margin: 10px;
 }
 #resultDiv{
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10px;
+	width: 418px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: left;
 }
 #msgContent span{
 	color: grey;
@@ -32,9 +35,11 @@
 	font-family: cursive;
 }
 #resultDiv1{
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10px;
+	width: 418px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: left;
 }
 #resultDiv1 div{
 	margin: 10px;
