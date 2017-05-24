@@ -1,5 +1,6 @@
 package com.leo.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.leo.form.RegRcordForm;
 import com.leo.util.ActionUtil;
+import com.leo.util.SendMailUtil;
 import com.leo.util.StringUtil;
 import com.leo.util.UUIDGenerator;
 import com.lfc.core.bean.OutputObject;
@@ -26,6 +28,10 @@ import com.lfc.core.bean.OutputObject;
 public class FrontController extends BaseController{
 	@Autowired
 	private RegRcordController regRcordController;
+	@Autowired
+	private WeixinUserController weixinUserController;
+	@Autowired
+	private WeixinController weixinController;
 	protected static Logger logger = LoggerFactory.getLogger("FrontController");
 	@RequestMapping("/business")
 	public ModelAndView go_reg_code(HttpServletRequest request,ModelAndView mv){
@@ -116,6 +122,35 @@ public class FrontController extends BaseController{
 		return outputObject;
 	}
 	
-	
+	@RequestMapping("/auth")
+	public void auth(HttpServletRequest request,HttpServletResponse response){
+		response.setContentType("text/html; charset=UTF-8");
+		String outHtml = "<div style=\"text-align: center\"><span style=\"color: red;font-size: 12px;\" >绑定失败,可能您已绑定过邮箱</span><br><br><br><span><a href=\"http://120.92.149.186/front/business?page=index\">咨询官网</a></span> </div>";
+		String openId = request.getParameter("openId");
+		String emailAddr = request.getParameter("emailAddr");
+		OutputObject outputObject = weixinUserController.getByOpenId(openId);
+		Map<String,Object> map = (Map<String,Object>)outputObject.getObject();
+		if(StringUtil.isNotEmpty(emailAddr)&&emailAddr.equalsIgnoreCase((String)map.get("emailAddr"))){
+			if(map.get("isParticipate")==null||"0".equals((String)map.get("isParticipate"))){
+				//修改参加活动的状态
+				map.clear();
+				map.put("openid", openId);
+				map.put("isParticipate", '1');
+				outputObject = weixinUserController.updateByOpenid(map);
+				if("0".equals(outputObject.getReturnCode())){
+					//修改成功 发送卷码
+					String result = weixinController.superSend(emailAddr+"#send","45天 ");
+					if("券码已发送".equals(result)){
+						outHtml = "<div style=\"text-align: center\"><img src=\"../images/rightMark.png\"><span style=\"color: green;font-size: 12px;\" >恭喜，绑定成功 你免费获得一张券码 已发送您的邮箱，请及时查收</span><br><br><br><span><a href=\"http://120.92.149.186/front/business?page=index\">咨询官网</a></span> </div>";
+					}
+				}
+			}
+		}
+		try {
+			response.getWriter().println(outHtml);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

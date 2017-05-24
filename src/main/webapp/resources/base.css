@@ -49,9 +49,6 @@ Body{ text-align:center}
 .rLMTitle{ background-image:url(BG_CTitle.jpg); background-repeat:repeat-x; background-position:top left; height:30px;
     padding-top:24px; padding-left:18px; font-size:14px; font-weight:bold; text-align:left; border-left:1px #CBD7DB solid;
     border-right:1px #CBD7DB solid; width:710px; color:#006495}
-.rLMContent{ background-image:url(BG_CC.jpg); background-repeat:repeat-x; background-position:top left; text-align:left;
-    width:692px; padding-left:18px; padding-right:18px;border-left:1px #CBD7DB solid;border-right:1px #CBD7DB solid;
-    line-height:23px; color:#555555; font-size:12px;}
 .rLMContent b{color:#FF6600}
 .rLMContent strong{color:#000000}
 .rLMContent hr{height:1px; width:683px; color:#DDDDDD;}
@@ -69,9 +66,6 @@ Body{ text-align:center}
 .rLMTitle2{ background-image:url(BG_CTitle.jpg); background-repeat:repeat-x; background-position:top left; height:30px;
     padding-top:24px; padding-left:18px; font-size:14px; font-weight:bold; text-align:left; border-left:1px #CBD7DB solid;
     border-right:1px #CBD7DB solid; width:904px; color:#006495}
-.rLMContent2{ background-image:url(BG_CC.jpg); background-repeat:repeat-x; background-position:top left; text-align:left;
-    width:886px; padding-left:18px; padding-right:18px;border-left:1px #CBD7DB solid;border-right:1px #CBD7DB solid;
-    line-height:23px; color:#555555; font-size:12px;}
 .rLMContent2 b{color:#FF6600}
 .rLMContent2 strong{color:#000000}
 .rLMContent2 hr{height:1px; width:683px; color:#DDDDDD;}

@@ -1,5 +1,7 @@
 package com.leo.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +58,7 @@ public class WeixinController extends WeixinControllerSupport{
 	private String charge_failed;
 	private String empty_chargeCode;
 	private String emailContent;
+	private String validateContent;
 	private int softPrice;
 	@Autowired
 	private WeixinUserController weixinUserController;
@@ -86,6 +89,8 @@ public class WeixinController extends WeixinControllerSupport{
 		this.subscribe=ConfigHelper.getValue("subscribe").replace("[sign_charge]", String.valueOf(this.sign_charge));;
 		this.menu=ConfigHelper.getValue("menu").replace("[sign_charge]", String.valueOf(this.sign_charge));
 		this.emailContent=ConfigHelper.getValue("emailContent");
+		this.validateContent=ConfigHelper.getValue("validateContent");
+		
 	}
 	/**
 	 * 处理接收到的文本消息
@@ -107,15 +112,50 @@ public class WeixinController extends WeixinControllerSupport{
 		}else if(msgContent.endsWith("#buy")){
 			replyMes = superBuy(msgContent);
 		}else if(msgContent.endsWith("#send")){
-			replyMes = superSend(msgContent);
+			replyMes = superSend(msgContent,"无");
 		}else if(msgContent.endsWith("@zhzcm")){
 			replyMes = regCodeFindBack(msgContent);
+		}else if(msgContent.endsWith("#绑定")){
+			replyMes = bindEmail(msgContent,openid);
 		}else{
 			replyMes = this.menu;
 		}
 		return new TextMsg(replyMes);
 	}
-	 @Override
+	/**
+	 * 绑定邮箱
+	 * @param msgContent
+	 * @return
+	 */
+	 private String bindEmail(String msgContent,String openId) {
+		 String replyMes = "";
+		String mailAddr = msgContent.split("#")[0].trim();
+		if(StringUtil.isNotEmpty(mailAddr)){
+			//读信息，判断是否已经绑定邮箱，是-更换 ，否-绑定 都需要邮箱验证
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("openid", openId);
+			map.put("emailAddr", mailAddr);
+			OutputObject outputObject = weixinUserController.updateByOpenid(map);
+			if("0".equals(outputObject.getReturnCode())){
+				try {
+					String openIdEncode = URLEncoder.encode(openId,"utf-8");
+					String mailAddrEncode = URLEncoder.encode(mailAddr,"utf-8");
+					String content = validateContent.replace("[openId]",openIdEncode).replace("[emailAddr]", mailAddrEncode);
+					if(SendMailUtil.sendMail(content, "验证邮箱", mailAddr)){
+						replyMes = "验证信息已发送至您的邮箱，请登陆邮箱验证";
+					}else{
+						replyMes = "绑定木成功，请稍后再试 或 更改邮箱再试吧";
+					}
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+			}
+		}else{
+			replyMes = "邮箱不能空哦";
+		}
+		return replyMes;
+	 }
+	@Override
 	protected BaseMsg handleMenuClickEvent(MenuEvent event) {
 		String fromUserName = event.getFromUserName();
 		String eventKey = event.getEventKey();
@@ -156,7 +196,7 @@ public class WeixinController extends WeixinControllerSupport{
 	  * @param msgContent
 	  * @return
 	  */
-	 private String superSend(String msgContent){
+	 public String superSend(String msgContent,String expireTime){
 		String replyMes = "";
 		//购买券码
 		String mailAddr = msgContent.split("#")[0];
@@ -166,7 +206,7 @@ public class WeixinController extends WeixinControllerSupport{
 			if("0".equals(out.getReturnCode())){
 				Map<String,Object> outMap = (Map<String,Object>)out.getObject();
 				String ticketCode =(String)(outMap.get("ticketCode"));
-				String sendContent=emailContent.replace("[ticketCode]", ticketCode);
+				String sendContent=emailContent.replace("[ticketCode]", ticketCode).replace("[expireTime]", expireTime);
 				if(SendMailUtil.sendMail(sendContent, "您的券码，请查收", mailAddr)){
 					replyMes = "券码已发送";
 				}else{

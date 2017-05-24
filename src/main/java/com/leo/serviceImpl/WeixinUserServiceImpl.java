@@ -54,7 +54,7 @@ public class WeixinUserServiceImpl extends BaseServiceImpl implements IWeixinUse
 			getBaseDao().insert("WeixinUserMapper.updateByOpenid", inputObject.getParams());
 			outputObject.setReturnCode("0");
 		}else{
-			outputObject.setReturnCode("0");
+			outputObject.setReturnCode("1");
 		}
 	}
 	@Override
