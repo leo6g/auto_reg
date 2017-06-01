@@ -33,6 +33,11 @@ public class LoginFilter implements Filter {
 			return;
 		}
 		chain.doFilter(request, response);
+		System.out.println("ds");
+		System.out.println("ds");
+		if(response.getWriter()!=null){
+			System.out.println("ds");
+		}
 	}
 
 	@Override

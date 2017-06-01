@@ -23,6 +23,7 @@ Body{ text-align:center}
 .Top_R{padding-right:15px; line-height:14px;}
 
 .Logo{width:233px;height: 93px;overflow:hidden;}
+.top_publish{width: 426px;font-size: 12px;color: gray;}
 
 .Menu{height:40px; width:922px; background-image:url(mnuItem.jpg); background-repeat:repeat-x; clear:both}
 .Menu ul{background-color: green;/* background-image:url(mnuRight.jpg); *//* background-color: green; */background-repeat:no-repeat;background-position:right;width:922px;height:40px;}
