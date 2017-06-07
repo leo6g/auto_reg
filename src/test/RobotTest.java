@@ -1,14 +1,10 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import com.leo.util.Base64Utils;
-import com.leo.util.UUIDGenerator;
+import org.springframework.util.StopWatch;
 
 
 public class RobotTest {
 
 	public static void main(String[] args) {
+		StopWatch sw = new StopWatch();
 		String ss = new String("NHJ5PP6QZ2RYZE2QDUWYN2SALXKEEHKF462XDPJVEN5V6HWSG7A2VVW8RFULH9BHH2RLV");
 		System.out.println(ss.length());
 //		System.out.println(Integer.toBinaryString(2));
