@@ -1,0 +1,45 @@
+<div class="Menu">
+	<ul>
+		<li class="Menu_L"></li>
+		<li class="mnuItem" id="index"><a
+			href="${contextPath}/front/business?page=index#">营销软件</a></li>
+		<li class="mnuSplit"></li>
+		<li class="mnuItem" id="auto_reg"><a
+			href="${contextPath}/front/business?page=auto_reg#">自助注册</a></li>
+		<li class="mnuSplit" ></li>
+		<li class="mnuItem" id="how_to_use"><a
+			href="${contextPath}/front/business?page=how_to_use/index#">使用教程</a></li>
+		<li class="mnuSplit"></li>
+		<li class="mnuItem" id="faq"><a
+			href="${contextPath}/front/business?page=faq#">常见问题</a></li>
+		<li class="mnuSplit"></li>
+	<!-- 	<li class="mnuItem" id="share"><a
+			href="${contextPath}/front/business?page=share#">分享有礼</a></li>
+		<li class="mnuSplit"></li> -->
+	</ul>
+</div>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+var jiathis_config={
+	siteNum:5,
+	sm:"qzone,weixin,tsina,tqq,fav",
+	url:"http://120.92.149.186/front/business?page=index#",
+	summary:"群发软件  加人软件  微信群发  微信加人",
+	title:"正版群发软件 0元 注册 ##",
+	boldNum:2,
+	pic:"http://120.92.149.186/images/logo.png",
+	showClose:true,
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jiathis_r.js?btn=r1.gif&move=0" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<script>
+	var pageMark = Util.browser.getParameter("page");
+	if(pageMark.indexOf("how_to_use") != -1){
+		$("#how_to_use").addClass("mnuSel");
+	}else{
+		$("#"+pageMark).addClass("mnuSel");
+	}
+</script>
