@@ -1,0 +1,168 @@
+
+<!-- saved from url=(0035)http://www.haodisoft.com/index.html -->
+<html>
+<head>
+#parse("common.html")
+<script type="text/javascript"
+	src="${contextPath}/js/idangerous.swiper.min.js"></script>
+<link rel="shortcut icon" href="${contextPath}/images/favicon.ico"
+	type="images/x-icon">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>自助注册</title>
+<meta name="keywords" content="豪迪,豪迪群发器,8222,豪迪QQ群发器,豪迪软件,豪迪网络">
+<meta name="description"
+	content="豪迪软件 - 豪迪QQ群发器 2017,豪迪群发器|豪迪QQ登陆器2017,QQ2016登陆器,QQ登录器2017|营销QQ群发器|企业QQ群发器|营销QQ好友添加器,营销QQ批量加好友,8222">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/resources/base.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/style/lanrenzhijia.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/style/orstyle.css">
+<style type="text/css">
+<!--
+.STYLE1 {
+	font-family: "宋体"
+}
+
+body, td, th {
+	font-size: 12px;
+	font-family: 宋体;
+	line-height: 22px;
+}
+
+.STYLE2 {
+	font-size: 14px
+}
+
+.STYLE3 {
+	color: #6f6f6f;
+	font-size: 12px;
+}
+
+.STYLE5 {
+	color: #4c4b4b;
+	line-height: 30px;
+}
+
+.STYLE6 {
+	font-weight: bold;
+	color: #FF0000;
+	font-size: 14px;
+}
+-->
+</style>
+</head>
+<style type="text/css" id="21867820736"></style>
+<body>
+	<!--Top-->
+	<div class="Top" style="width: 925px; height: 131px">
+		#parse("top.html")
+		<div class="Menu">
+			<ul>
+				<li class="Menu_L"></li>
+				<li class="mnuItem"><a
+					href="${contextPath}/front/business?page=index#">营销软件</a></li>
+				<li class="mnuSplit"></li>
+				<li class="mnuSel"><a
+					href="${contextPath}/front/business?page=auto_reg#">自助注册</a></li>
+				<li class="mnuSplit"></li>
+				<li class="mnuItem"><a
+					href="${contextPath}/front/business?page=how_to_use/index#">使用教程</a></li>
+				<li class="mnuSplit"></li>
+				<li class="mnuItem"><a
+					href="http://www.haodisoft.com/faq/index.htm">常见问题</a></li>
+				<li class="mnuSplit"></li>
+			</ul>
+		</div>
+	</div>
+	<div style="width: 925px; margin: auto; margin-top: 25px">
+		<font id="buyMsg"
+			style="font-size: 17px; font-family: cursive; color: green;"></font><br> <font id="buyMsg1" style="color: red; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;付款时，请备注留言自己的邮箱
+			或把邮箱和付款截图一并发给客服。审核成功后会把 券码 发送至 您的邮箱，券码可用来自助注册软件。其间遇到任何问题，请联系我</font>
+	</div>
+	<li
+		style="margin-left: -365px; left: 50%; float: right; position: absolute;"
+		class="SRight">
+		<div class="wrap">
+			<div class="tabs" align="center">
+				<a href="#" hidefocus="true" class="active">微信扫码支付</a> <a href="#"
+					hidefocus="true" class="">支付宝扫码支付</a>
+			</div>
+			<div class="swiper-container">
+				<div class="swiper-wrapper"
+					style="width: 1460px; height: 520px; transition-duration: 0.5s; transform: translate3d(0px, 0px, 0px);">
+					<div class="swiper-slide swiper-slide-visible swiper-slide-active"
+						style="width: 730px; height: 520px;">
+						<div class="content-slide">
+							<center>
+								<img id="weixinPayQR" src="${contextPath}/images/weixin_10.png"
+									style="height: 478px;">
+							</center>
+						</div>
+					</div>
+					<div class="swiper-slide" style="width: 730px; height: 520px;">
+						<div class="content-slide">
+							<center>
+								<img id="aliPayQR" src="${contextPath}/images/alipay_10.png"
+									style="height: 478px;">
+							</center>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div> <script>
+		$(function(){
+			var proudectId = getQueryString("proudectId");
+			switch(proudectId)
+			{
+			case "hdqqgr":
+				$("#buyMsg").html("&nbsp;&nbsp;您要购买的是>>豪迪QQ群发个人版 价格:10元");
+			  break;
+			case "hdweixin":
+				$("#buyMsg").html("&nbsp;&nbsp;您要购买的是>>豪迪微信群发电脑版 价格:10元");
+			  break;
+			case "hdqqqy":
+				$("#buyMsg").html("&nbsp;&nbsp;您要购买的是>>豪迪QQ企业版 价格:40元");
+				$("#buyMsg1").html("&nbsp;&nbsp;&nbsp;&nbsp;企业版不支持自助注册，付款后请即时与客服联系注册。联系请提供付款截图 或 转帐人帐户名");
+				$("#weixinPayQR").attr("src","${contextPath}/images/weixin_40.png");
+				$("#aliPayQR").attr("src","${contextPath}/images/alipay_40.png");
+				break;
+			default:
+				
+			}
+		})
+		function getQueryString(name) {
+		    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+		    var r = window.location.search.substr(1).match(reg);
+		    if (r != null) {
+		        return unescape(r[2]);
+		    }
+		    return null;
+		}
+		
+			var tabsSwiper = new Swiper('.swiper-container', {
+				speed : 500,
+				onSlideChangeStart : function() {
+					$(".tabs .active").removeClass('active');
+					$(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+				}
+			});
+
+			$(".tabs a").on('touchstart mousedown', function(e) {
+				e.preventDefault()
+				$(".tabs .active").removeClass('active');
+				$(this).addClass('active');
+				tabsSwiper.swipeTo($(this).index());
+			});
+
+			$(".tabs a").click(function(e) {
+				e.preventDefault();
+			});
+		</script> <!-- 代码部分end -->
+
+
+
+	</li>
+</body>
+</html>
