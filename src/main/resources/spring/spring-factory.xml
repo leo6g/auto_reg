@@ -31,7 +31,7 @@
 
 	<!-- SqlSession的工厂类 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mappings/mybatis-config.xml"></property>
+		<property name="configLocation" value="classpath*:mappings/mybatis-config.xml"></property>
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
