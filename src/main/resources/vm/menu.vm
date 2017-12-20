@@ -1,0 +1,13 @@
+<div class="Menu">
+	<ul>
+		<li class="Menu_L"></li>
+	#foreach ($menu in $!{menuList})  
+        <li class="mnuItem" id="index"><a
+			href="${contextPath}/$!{menu.url}#">$!{menu.title}</a></li>
+		<li class="mnuSplit"></li>
+    #end  
+	</ul>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jiathis_r.js?btn=r1.gif&move=0" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<script type="text/javascript" src="${contextPath}/js/menu.js"></script>   
