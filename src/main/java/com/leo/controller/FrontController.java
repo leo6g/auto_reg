@@ -12,13 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.leo.form.RegRcordForm;
 import com.leo.util.ActionUtil;
-import com.leo.util.SendMailUtil;
 import com.leo.util.StringUtil;
 import com.leo.util.UUIDGenerator;
 import com.lfc.core.bean.OutputObject;
@@ -33,19 +33,27 @@ public class FrontController extends BaseController{
 	@Autowired
 	private WeixinController weixinController;
 	protected static Logger logger = LoggerFactory.getLogger("FrontController");
-	@RequestMapping("/business")
-	public ModelAndView go_reg_code(HttpServletRequest request,ModelAndView mv){
-		String page = request.getParameter("page");
+	@RequestMapping("/{page}")
+	public ModelAndView goPage(@PathVariable("page") String page,ModelAndView mv){
 		mv.setViewName("front/"+page);
 		return mv;
 	}
-	
-	@RequestMapping("/mobile/business")
-	public ModelAndView gm_reg_code(HttpServletRequest request,ModelAndView mv){
-		String page = request.getParameter("page");
+	@RequestMapping("/{path}/{page}")
+	public ModelAndView goPage(@PathVariable("path") String path,@PathVariable("page") String page,ModelAndView mv){
+		mv.setViewName("front/"+path+"/"+page);
+		return mv;
+	}
+	@RequestMapping("/mobile/{page}")
+	public ModelAndView goMobilePage(@PathVariable("page") String page,ModelAndView mv){
 		mv.setViewName("front/mobile/"+page);
 		return mv;
 	}
+	@RequestMapping("/mobile/{path}/{page}")
+	public ModelAndView goMobilePage(@PathVariable("path") String path,@PathVariable("page") String page,ModelAndView mv){
+		mv.setViewName("front/mobile/"+path+"/"+page);
+		return mv;
+	}
+
 	@ResponseBody
 	@RequestMapping("/regMachine")
 	public OutputObject regMachine(HttpServletRequest request,HttpServletResponse response){
