@@ -12,12 +12,15 @@ import java.util.Properties;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.leo.bean.Menu;
 
 public class VelocityTemplateUtil {
 	private static final String DEF_ENCODING = "UTF-8";
 	private static Properties p;
+	protected static Logger logger = LoggerFactory.getLogger("VelocityTemplateUtil");
 
 	public static void main(String[] args) {
 		Map<String, Object> contextMap = new HashMap<String, Object>();
@@ -27,12 +30,13 @@ public class VelocityTemplateUtil {
 		menuList.add(new Menu("ersf/ewfsfd/sdf", 2, "menu3"));
 		contextMap.put("blog_addr", "http://blog.csdn.net/wanghjbuf");
 		contextMap.put("menuList", menuList);
+		Properties p = System.getProperties();
+		System.out.println(System.getProperties());
 		VelocityTemplateUtil.renderHtml(contextMap, "vm/menu.vm", "E://1.html");
 	}
 
 	/**
 	 * vm生成文件
-	 * 
 	 * @param contextMap
 	 * @param templatePath
 	 * @param outPutPath
@@ -50,6 +54,7 @@ public class VelocityTemplateUtil {
 			writer.close();
 			flag = true;
 		} catch (Exception e) {
+			logger.error("velocity生成文件时 出错 信息{}", e.getMessage());
 			e.printStackTrace();
 		}
 		return flag;
@@ -62,32 +67,24 @@ public class VelocityTemplateUtil {
 	public static void initVelocityProperties() throws Exception {
 		if (p == null) {
 			p = new Properties();
-			try {
-				p.put("file.resource.loader.class",
-						"org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-				p.setProperty(Velocity.ENCODING_DEFAULT, DEF_ENCODING);
-				p.setProperty(Velocity.INPUT_ENCODING, DEF_ENCODING);
-				p.setProperty(Velocity.OUTPUT_ENCODING, DEF_ENCODING);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			p.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+			p.setProperty(Velocity.ENCODING_DEFAULT, DEF_ENCODING);
+			p.setProperty(Velocity.INPUT_ENCODING, DEF_ENCODING);
+			p.setProperty(Velocity.OUTPUT_ENCODING, DEF_ENCODING);
 		}
 	}
 
 	/**
-	 * 初始化VelocityContext
+	 * 初始化velocity context
 	 * 
-	 * @param String
-	 *            author_name List<String> blog_list
+	 * @param map
+	 * @return
+	 * @throws Exception
 	 */
 	private static VelocityContext initVelocityContext(Map<String, Object> map) throws Exception {
 		VelocityContext context = new VelocityContext();
-		try {
-			for (String key : map.keySet()) {
-				context.put(key, map.get(key));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (String key : map.keySet()) {
+			context.put(key, map.get(key));
 		}
 		return context;
 	}
@@ -95,31 +92,26 @@ public class VelocityTemplateUtil {
 	/**
 	 * 获取Velocity模板
 	 * 
+	 * @param templateClassPath
+	 * @return
+	 * @throws Exception
 	 */
 	private static Template getVelocityTemplate(String templateClassPath) throws Exception {
 		Template template = new Template();
-		try {
-			template = Velocity.getTemplate(templateClassPath);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		template = Velocity.getTemplate(templateClassPath);
 		return template;
 	}
 
 	/**
 	 * 获取Velocity写入流
 	 * 
-	 * @param String
-	 *            writerStreamSource
+	 * @param outPutPath
+	 * @return
+	 * @throws Exception
 	 */
 	private static BufferedWriter getWriterStream(String outPutPath) throws Exception {
-		try {
-			FileOutputStream fos = new FileOutputStream(outPutPath);
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos, DEF_ENCODING));
-			return writer;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		FileOutputStream fos = new FileOutputStream(outPutPath);
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos, DEF_ENCODING));
+		return writer;
 	}
 }
