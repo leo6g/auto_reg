@@ -113,6 +113,9 @@
   <select id="countAll" resultType="java.lang.Integer" >
 	    select count(1)
 	    from T_REG_TICKET
+	    <if test="_parameter != null" >
+     		<include refid="Example_Where_Clause" />
+   		</if>
 	    <!-- 有DELETE_FLAG放开-->
 	   <!-- where DELETE_FLAG = 0 -->
   </select>
@@ -182,7 +185,6 @@
      <set >
       <if test="ticketCode != null">TICKET_CODE = #{ticketCode}, </if>
 	<if test="ticketType != null">TICKET_TYPE = #{ticketType}, </if>
-	<if test="id != null">ID = #{id}, </if>
 	<if test="priceValue != null">PRICE_VALUE = #{priceValue}, </if>
 	<if test="consumeTime != null">CONSUME_TIME = #{consumeTime}, </if>
 	<if test="usedTime != null">USED_TIME = #{usedTime}, </if>

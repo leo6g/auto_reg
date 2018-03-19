@@ -1,0 +1,110 @@
+
+<!-- saved from url=(0035)http://www.haodisoft.com/index.html -->
+<html><head>
+	#parse("common.html")
+	<!-- <!-- <script type="text/javascript" src="${contextPath}/js/common/url_jump.js"></script> -->
+	<link rel="shortcut icon" href="${contextPath}/images/favicon.ico" type="images/x-icon">
+	<script type="text/javascript" src="${contextPath}/js/reg.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>微信/QQ群发软件分享</title>
+<meta name="keywords" content="QQ群发软件 ,批量加人软件 ,微信群发 软件,微信加人软件,豪迪,豪迪群发器,豪迪QQ群发器,豪迪软件,豪迪网络">
+<meta name="description" content="分享有礼，分享此页面可0元注册一款群发加人软件，QQ/微信任您选">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/base.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/style/bdsstyle.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/style/buttons.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/style/bdsstyle.css">
+	<link rel="stylesheet" type="text/css" href="${contextPath}/style/main.css">
+<style type="text/css">
+<!--
+.STYLE1 {font-family: "宋体"}
+body,td,th {
+	font-size: 12px;
+	font-family: 宋体;
+	line-height:22px;
+}
+.STYLE2 {font-size: 14px}
+.STYLE3 {
+	color: #6f6f6f;
+	font-size: 12px;
+}
+.STYLE5 {color: #4c4b4b; line-height:30px;}
+.STYLE6 {
+	font-weight: bold;
+	color: #FF0000;
+	font-size: 14px;
+}
+-->
+</style>
+</head><style type="text/css" id="21867820736"></style>
+<body>
+<!--Top-->
+<div class="Top" style="width: 925px; height: 131px">
+	#parse("top.html")
+	#parse("menu.html")
+</div>
+	<div id="msgContent"
+		style="width: 464px; margin-left: auto; margin-right: auto; margin-top: 5px; text-align: left;">
+		<span><br>1.填写券码、软件机器码&nbsp;&nbsp;&nbsp;&nbsp;</span><a
+			href="${contextPath}/front/guide/reg_guide#" style="color: green;" target="_blank">不会注册点这里</a><br>
+		<span>2.选择正确的软件</span><br> <span>3.点注册，注册码会在下方显示出来</span><br> <span>4.把机器码、注册码填写到软件注册框对应位置，点击注册正式版</span>
+	</div>
+	<div class="plain_form" align="center">
+		<div>
+			<span>券&nbsp;&nbsp;&nbsp;码:</span><input type="text" id="ticket_code" /><br>
+		</div>
+		<input type="hidden" id="origin_type" value="1" />
+		<div>
+			<span>机器码:</span><input type="text" id="machine_code" /><br>
+		</div>
+		<div>
+			<span>软件类型:</span> <select id="softType" name="softType">
+				<option value="1">豪迪QQ群发个人版</option>
+				<option value="2">豪迪微信群发</option>
+			</select>
+			<button id="regBut" title="注册"
+				style="width: 80px; height: 22px; float: right">
+				<span style="color: blue">注册</span>
+			</button>
+			<div style="margin-left: 0px;">
+				<span style="color: red">注意：只支持豪迪QQ个人版和豪迪微信,其它注册请联系客服</span>
+			</div>
+			<div onmouseover="showTip(event)" onmouseout="hideTip(event)" style="margin-right: 0px; text-align: right;">
+				<span style="color: #e4b3b3;">找回注册码</span>
+			</div>
+		</div>
+	</div>
+	<div id="resultDiv" align="center" style="display: none;text-align: left">
+		<div>
+			<span style="color: green;">恭喜，注册成功,请不要刷新页面，以免注册码丢失</span>
+		</div>
+		<div>
+			<span id="machine"></span>
+		</div>
+		<div>
+			<span
+				style="font-size: 12px; position: relative; bottom: 39px;">注册码:</span>
+			<textarea rows="3" cols="32" id="reg"></textarea>
+		</div>
+	</div>
+	<div id="resultDiv1" align="center" style="display: none">
+		<div>
+			<span style="color: red;">注册失败-原因：</span><span id="mess"></span>
+		</div>
+	</div>
+	<div id="divTip1"
+		style="background-color: #97f997; width: 250px; text-align: left; position: absolute; visibility: hidden; padding: 5px">
+		扫一扫右上角二维码关注微信公众号，发送"券码@zhzcm" 券码为你之前注册时使用的券码</div>
+</body>
+  <script type="text/JavaScript">
+			function showTip(oEvent) {
+				var oDiv = document.getElementById("divTip1");
+				oDiv.style.visibility = "visible";
+				oDiv.style.left = oEvent.clientX + 5;
+				oDiv.style.top = oEvent.clientY + 5;
+			}
+			function hideTip(oEvent) {
+				var oDiv = document.getElementById("divTip1");
+				oDiv.style.visibility = "hidden";
+			}
+		</script>
+ </html>

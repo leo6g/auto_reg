@@ -20,5 +20,4 @@ public class PropertyConfigurer extends
 			logger.error("decode password in properties error!", e);
 		}
 	}
-
 }

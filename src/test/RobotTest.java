@@ -1,19 +1,32 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import com.leo.util.Base64Utils;
-import com.leo.util.UUIDGenerator;
+import org.springframework.util.StopWatch;
 
 
 public class RobotTest {
 
 	public static void main(String[] args) {
-		for(int i =0;i<100;i++){
+		
+//		StopWatch sw = new StopWatch();
+//		String ss = new String("NHJ5PP6QZ2RYZE2QDUWYN2SALXKEEHKF462XDPJVEN5V6HWSG7A2VVW8RFULH9BHH2RLV");
+//		System.out.println(ss.length());
+//		System.out.println(Integer.toBinaryString(2));
+		/*String s = (String)null;
+//		Integer  ss = null;
+//		int i = (Integer)null; 
+		char c = (Character)null;*/
+		/*int t = 1;
+		Boolean b =null;
+		Character c = null;
+		String ss = null;
+		Boolean*/
+//		int x = i+1;
+//		int i = (Integer)(new Student());
+//		Object o = new Object();
+//		System.out.println("ds");
+		/*for(int i =0;i<100;i++){
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.substring(uuid.lastIndexOf("-")+1);
 			System.out.println(uuid);
-		}
+		}*/
 	/*	int i = 1;
 		int s = 3;
 		i += s;

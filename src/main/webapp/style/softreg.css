@@ -1,0 +1,6 @@
+/* CSS Document */
+
+#NetBank span{ color:red;}
+#SumMoney{color:red; font-size:16px; font-weight:bold}
+input.Submit{ background-image:url(${contextPath}/images/Btn_Orange.gif);border:0px; width:77px; height:32px; color:#ffffff; cursor:pointer}
+input.Submit_Over{ background-image:url(${contextPath}/images/Btn_Orange_Over.gif);border:0px; width:77px; height:32px; color:#ffffff; cursor:pointer}

@@ -64,6 +64,7 @@ public class WeixinUserController extends BaseController{
 	public Object getList(@ModelAttribute("weixinUserForm") WeixinUserForm weixinUserForm) {
 		OutputObject outputObject = null;
 		Map<String, Object> map = BeanUtil.convertBean2Map(weixinUserForm);
+		map.put("orderByClause", "FOLLOW_DATE DESC");
 		outputObject = getOutputObject(map, "weixinUserService", "getList");
 		map.clear();
 		map.put("total", outputObject.getObject());

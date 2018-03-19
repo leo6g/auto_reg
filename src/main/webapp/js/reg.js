@@ -5,21 +5,25 @@ $(function(){
 		if(!validate()){
 			return;
 		};
+		$("#regBut").attr("disabled","disabled");
 		var url = contextPath + "/front/regMachine";
 		var ticketCode = $("#ticket_code").val();
 		var machineCode = $("#machine_code").val();
+		var softType = $("#softType").val();
 		var regOrigin = $("#origin_type").val();
-		var params = {"machineCode":machineCode,"ticketCode":ticketCode,"regOrigin":regOrigin};
+		var params = {"machineCode":machineCode,"ticketCode":ticketCode,"regOrigin":regOrigin,"softType":softType};
 		Util.ajax.postJson(url, params, function(data,flag){
 			if(data.returnCode=="1"){
 				$("#machine").html(data.option);
 				$("#reg").html(data.returnMessage);
+				$("resultDiv1")
 				$("resultDiv1").attr({style:"display:none"});
 				$("#resultDiv").removeAttr("style");
 			}else{
 				$("#mess").html(data.returnMessage);
 				$("#resultDiv1").removeAttr("style");
 			}
+			$("#regBut").removeAttr("disabled");
 		});
 	})
 })

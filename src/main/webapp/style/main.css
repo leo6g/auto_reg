@@ -1,14 +1,20 @@
 .plain_form{
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	margin-left: -;
-	display: block;
-	margin-left: -360px;
-	margin-top: -11px;
+	width: 427px;
+    margin-top: 10px;
+    display: block;
+    padding: 30px;
+    padding-bottom: 3px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: whitesmoke;
 }
 .plain_form span{
 	margin: 5px;
+	font: 12px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif
+}
+.plain_form div{
+	text-align: left;
+	margin: 10px;
 }
 .plain_form input{
 	width: 255px;
@@ -17,16 +23,23 @@
 	margin: 10px;
 }
 #resultDiv{
-	position: absolute;
-	left: 50%;
-	top: 49%;
-	margin-left: -123px;
+	width: 418px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: left;
+}
+#msgContent span{
+	color: grey;
+	font-size: 16px;
+	font-family: cursive;
 }
 #resultDiv1{
-	position: absolute;
-	left: 50%;
-	top: 73%;
-	margin-left: -100px;
+	width: 418px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    text-align: left;
 }
 #resultDiv1 div{
 	margin: 10px;
@@ -34,10 +47,4 @@
 #resultDiv div{
 	margin: 10px;
 }
-.logo img{
-	position:absolute;
-	top: 10%;
-	left:50%;
-	margin-left:-135px;
-	display: block;
-}
+

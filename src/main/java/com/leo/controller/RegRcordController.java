@@ -62,9 +62,10 @@ public class RegRcordController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getList")
-	public Object getList(@ModelAttribute("regRcordForm") RegRcordForm regRcordForm,HttpServletRequest request) {
+	public Object getList(@ModelAttribute("regRcordForm") RegRcordForm regRcordForm) {
 		OutputObject outputObject = null;
 		Map<String, Object> map = BeanUtil.convertBean2Map(regRcordForm);
+		map.put("orderByClause", "REG_TIME DESC");
 		outputObject = getOutputObject(map, "regRcordService", "getList");
 		map.clear();
 		map.put("total", outputObject.getObject());

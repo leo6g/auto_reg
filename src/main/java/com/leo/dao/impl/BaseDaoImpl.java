@@ -6,7 +6,6 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.leo.dao.IBaseDao;
-import com.leo.util.ConvertUtil;
 public class BaseDaoImpl implements IBaseDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
@@ -175,5 +174,4 @@ public class BaseDaoImpl implements IBaseDao {
 	public int delete(String sqlId, Map<String, Object> map) {
 		return getSqlSession().delete(sqlId, map);
 	}
-	
 }
